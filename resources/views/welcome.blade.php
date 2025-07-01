@@ -139,7 +139,7 @@
             <!-- Image section -->
             <div class="mt-32 sm:mt-40 xl:mx-auto xl:max-w-7xl xl:px-8">
                 <img src="{{ URL::asset('storage/images/lightning_crashes_wide.jpeg') }}" alt="" class="aspect-9/4 w-full object-cover xl:rounded-3xl" />
-                <p class="pl-10 text-base/7 text-gray-200">(yes, I took this)</p>
+                <div class="pl-20 text-gray-200 text-xs italic">(yes, I took this)</div>
             </div>
 
             <!-- Values section -->
@@ -268,7 +268,7 @@
                                     <svg class="h-7 w-5 flex-none" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
                                         <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clip-rule="evenodd" />
                                     </svg>
-                                    The money ain't great, but come to thing of it, neither is the work
+                                    The money ain't great, but come to think of it, neither is the work
                                 </li>
                             </ul>
                             <div class="mt-10 flex">
