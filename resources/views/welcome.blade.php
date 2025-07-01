@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>douglascockerham.com</title>
 
         <link rel="icon" href="/favicon.ico" sizes="any">
         <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -43,7 +43,7 @@
                         </svg>
                     </button>
                 </div>
-                <div class="hidden lg:flex lg:gap-x-12">
+                <div class="hidden lg:flex lg:gap-x-10">
                     <a href="#" class="text-sm/6 font-semibold text-white">Developer</a>
                     <a href="#" class="text-sm/6 font-semibold text-white">Technomancer</a>
                     <a href="#" class="text-sm/6 font-semibold text-white">Overqualified</a>
