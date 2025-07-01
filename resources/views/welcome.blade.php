@@ -137,9 +137,11 @@
             </div>
 
             <!-- Image section -->
-            <div class="mt-32 sm:mt-40 xl:mx-auto xl:max-w-7xl xl:px-8">
+            <div class="mt-32 sm:mt-40 xl:mx-auto xl:max-w-7xl xl:px-8 perspective-distant">
+                <div class="rotate-x-60 rotate-z-10 transform-3d">
                 <img src="{{ URL::asset('storage/images/lightning_crashes_wide.jpeg') }}" alt="" class="aspect-9/4 w-full object-cover xl:rounded-3xl" />
                 <div class="pl-20 text-gray-200 text-xs italic">(yes, I took this)</div>
+                </div>
             </div>
 
             <!-- Values section -->
