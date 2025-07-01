@@ -122,5 +122,25 @@ return [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
+	
+	/*
+|--------------------------------------------------------------------------
+| Social Media Links
+|--------------------------------------------------------------------------
+|
+| These are used to provide links to the social media accounts.
+|
+*/
+	
+	'social_media' => [
+		'facebook'  => env('SOCIAL_FACEBOOK', 'https://www.facebook.com/'),
+		'x'         => env('SOCIAL_X', 'https://x.com/'),
+		'youtube'   => env('SOCIAL_YOUTUBE', 'https://www.youtube.com/'),
+		'instagram' => env('SOCIAL_INSTAGRAM', 'https://www.instagram.com/'),
+		'linkedin'  => env('SOCIAL_LINKEDIN', 'https://www.linkedin.com/'),
+		'github'    => env('SOCIAL_GITHUB', 'https://github.com'),
+	],
+	
+	'google' => env('GOOGLE_API', ''),
 
 ];
