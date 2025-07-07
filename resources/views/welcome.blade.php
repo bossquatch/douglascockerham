@@ -16,7 +16,7 @@
         <link href="https://fonts.googleapis.com/css2?family=B612:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=Figtree:400,400i|Adamina:400|spline-sans-mono:300|aldrich:400|audiowide:400|engagement:400|alumni-sans-inline-one:400" rel="stylesheet"/>
-
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
         <!-- Styles -->
 {{--        <link rel="stylesheet" href="/build/assets/app-D2VEQ5sV.css"/>--}}
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -26,8 +26,8 @@
 
     <body>
     <div class="bg-gray-900">
-        <!-- Header -->
-        <header class="absolute inset-x-0 top-0 z-50">
+
+        <header x-data="{ open: false }" class="absolute inset-x-0 top-0 z-50">
             <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
                 <div class="flex lg:flex-1">
                     <a href="#" class="-m-1.5 p-1.5">
@@ -36,10 +36,15 @@
                     </a>
                 </div>
                 <div class="flex lg:hidden">
-                    <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-400">
+                    <button
+                            type="button"
+                            @click="open = true"
+                            class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-400"
+                    >
                         <span class="sr-only">Open main menu</span>
-                        <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        <svg class="size-6 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                         </svg>
                     </button>
                 </div>
@@ -53,8 +58,78 @@
                     <a href="{{ route('login') }}" class="text-sm/6 font-semibold text-white">Log in <span aria-hidden="true">&rarr;</span></a>
                 </div>
             </nav>
-            <!-- Mobile menu, show/hide based on menu open state. -->
-{{--            <div class="lg:hidden" role="dialog" aria-modal="true">--}}
+
+            <!-- Mobile menu -->
+            <div
+                    x-show="open"
+                    x-transition
+                    class="lg:hidden fixed inset-0 z-50 bg-black/50"
+                    role="dialog"
+                    aria-modal="true"
+            >
+                <div class="fixed inset-y-0 right-0 w-full max-w-sm bg-gray-900 p-6 overflow-y-auto sm:ring-1 sm:ring-white/10">
+                    <div class="flex items-center justify-between">
+                        <a href="#" class="-m-1.5 p-1.5">
+                            <span class="sr-only">You found me</span>
+                            <img class="h-8 w-auto" src="{{ URL::asset('storage/images/IMG_4371.jpeg') }}" alt="" />
+                        </a>
+                        <button
+                                type="button"
+                                @click="open = false"
+                                class="-m-2.5 rounded-md p-2.5 text-gray-400"
+                        >
+                            <span class="sr-only">Close menu</span>
+                            <svg class="size-6 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="mt-6 flow-root">
+                        <div class="-my-6 divide-y divide-gray-500/25">
+                            <div class="space-y-2 py-6">
+                                <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-gray-800">Developer</a>
+                                <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-gray-800">Technomancer</a>
+                                <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-gray-800">Overqualified</a>
+                                <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-gray-800">Resilientish</a>
+                            </div>
+                            <div class="py-6">
+                                <a href="#" class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-gray-800">Log in</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Header -->
+{{--        <header class="absolute inset-x-0 top-0 z-50">--}}
+{{--            <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">--}}
+{{--                <div class="flex lg:flex-1">--}}
+{{--                    <a href="#" class="-m-1.5 p-1.5">--}}
+{{--                        <span class="sr-only">Your Company</span>--}}
+{{--                        <img class="h-10 w-auto" src="{{ URL::asset('storage/images/1.png') }}" alt="" />--}}
+{{--                    </a>--}}
+{{--                </div>--}}
+{{--                <div class="flex lg:hidden">--}}
+{{--                    <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-400">--}}
+{{--                        <span class="sr-only">Open main menu</span>--}}
+{{--                        <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">--}}
+{{--                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />--}}
+{{--                        </svg>--}}
+{{--                    </button>--}}
+{{--                </div>--}}
+{{--                <div class="hidden lg:flex lg:gap-x-10">--}}
+{{--                    <a href="#" class="text-sm/6 font-semibold text-white">Developer</a>--}}
+{{--                    <a href="#" class="text-sm/6 font-semibold text-white">Technomancer</a>--}}
+{{--                    <a href="#" class="text-sm/6 font-semibold text-white">Overqualified</a>--}}
+{{--                    <a href="#" class="text-sm/6 font-semibold text-white">Resilientish</a>--}}
+{{--                </div>--}}
+{{--                <div class="hidden lg:flex lg:flex-1 lg:justify-end">--}}
+{{--                    <a href="{{ route('login') }}" class="text-sm/6 font-semibold text-white">Log in <span aria-hidden="true">&rarr;</span></a>--}}
+{{--                </div>--}}
+{{--            </nav>--}}
+{{--            <!-- Mobile menu, show/hide based on menu open state. -->--}}
+{{--            <div x-show="open" class="lg:hidden" role="dialog" aria-modal="true">--}}
 {{--                <!-- Background backdrop, show/hide based on slide-over state. -->--}}
 {{--                <div class="fixed inset-0 z-50"></div>--}}
 {{--                <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gray-900 p-6 sm:max-w-sm sm:ring-1 sm:ring-white/10">--}}
@@ -63,9 +138,13 @@
 {{--                            <span class="sr-only">You found me</span>--}}
 {{--                            <img class="h-8 w-auto" src="{{ URL::asset('storage/images/IMG_4371.jpeg') }}" alt="" />--}}
 {{--                        </a>--}}
-{{--                        <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-400">--}}
+{{--                        <button--}}
+{{--                                type="button" class="-m-2.5 rounded-md p-2.5 text-gray-400"--}}
+{{--                        >--}}
 {{--                            <span class="sr-only">Close menu</span>--}}
-{{--                            <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">--}}
+{{--                            <svg--}}
+{{--                                class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon"--}}
+{{--                            >--}}
 {{--                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />--}}
 {{--                            </svg>--}}
 {{--                        </button>--}}
@@ -85,7 +164,7 @@
 {{--                    </div>--}}
 {{--                </div>--}}
 {{--            </div>--}}
-        </header>
+{{--        </header>--}}
 
         <main class="relative isolate">
             <!-- Background -->
@@ -104,6 +183,7 @@
 
             <!-- Content section -->
             <div class="mx-auto mt-20 max-w-7xl px-6 lg:px-8">
+
                 <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
                     <div class="grid max-w-xl grid-cols-1 gap-8 text-base/7 text-gray-300 lg:max-w-none lg:grid-cols-2">
                         <div>
@@ -208,24 +288,6 @@
                     </div>
                 </dl>
             </div>
-
-            <!-- Team section -->
-{{--            <div class="mx-auto mt-32 max-w-7xl px-6 sm:mt-40 lg:px-8">--}}
-{{--                <div class="mx-auto max-w-2xl lg:mx-0">--}}
-{{--                    <h2 class="text-4xl font-semibold tracking-tight text-pretty text-white sm:text-5xl">Our team</h2>--}}
-{{--                    <p class="mt-6 text-lg/8 text-gray-300">We’re a dynamic group of individuals who are passionate about what we do and dedicated to delivering the best results for our clients.</p>--}}
-{{--                </div>--}}
-{{--                <ul role="list" class="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 xl:grid-cols-4">--}}
-{{--                    <li>--}}
-{{--                        <img class="aspect-14/13 w-full rounded-2xl object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80" alt="" />--}}
-{{--                        <h3 class="mt-6 text-lg/8 font-semibold tracking-tight text-white">Leslie Alexander</h3>--}}
-{{--                        <p class="text-base/7 text-gray-300">Co-Founder / CEO</p>--}}
-{{--                        <p class="text-sm/6 text-gray-500">Toronto, Canada</p>--}}
-{{--                    </li>--}}
-
-{{--                    <!-- More people... -->--}}
-{{--                </ul>--}}
-{{--            </div>--}}
 
             <!-- CTA section -->
             <div class="relative isolate -z-10 mt-32 sm:mt-40">
