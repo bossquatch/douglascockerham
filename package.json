@@ -6,6 +6,7 @@
         "dev": "vite"
     },
     "dependencies": {
+        "@tailwindcss/cli": "^4.1.11",
         "@tailwindcss/vite": "^4.0.7",
         "axios": "^1.7.4",
         "concurrently": "^9.0.1",
@@ -22,5 +23,4 @@
         "postcss": "^8.5.6",
         "tailwindcss": "^4.1.11"
     }
-
 }
