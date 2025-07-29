@@ -10,6 +10,8 @@
         <link rel="icon" href="/favicon.svg" type="image/svg+xml">
         <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
+
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
@@ -30,7 +32,7 @@
         <header x-data="{ open: false }" class="absolute inset-x-0 top-0 z-50">
             <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
                 <div class="flex lg:flex-1">
-                    <a href="#" class="-m-1.5 p-1.5">
+                    <a href="{{ route('board') }}" class="-m-1.5 p-1.5">
                         <span class="sr-only">Your Company</span>
                         <img class="h-10 w-auto" src="{{ URL::asset('storage/images/1.png') }}" alt="" />
                     </a>
@@ -49,7 +51,7 @@
                     </button>
                 </div>
                 <div class="hidden lg:flex lg:gap-x-10">
-                    <a href="#" class="text-sm/6 font-semibold text-white">Developer</a>
+                    <a href="#" class="text-sm/6 font-semibold text-white hover:cursor-pointer">Developer</a>
                     <a href="#" class="text-sm/6 font-semibold text-white">Technomancer</a>
                     <a href="#" class="text-sm/6 font-semibold text-white">Overqualified</a>
                     <a href="#" class="text-sm/6 font-semibold text-white">Resilientish</a>
