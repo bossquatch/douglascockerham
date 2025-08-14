@@ -455,5 +455,19 @@
 {{--            <div class="h-14.5 hidden lg:block"></div>--}}
 {{--        @endif--}}
 {{--    </div>--}}
+    <div class="overflow-hidden bg-gray-900 shadow-sm sm:rounded-md dark:bg-gray-800/50 dark:shadow-none dark:outline dark:-outline-offset-1 dark:outline-white/10">
+        <ul role="list" class="divide-y divide-gray-700 dark:divide-white/10">
+            <li class="px-4 py-4 sm:px-6">
+                <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/6qNdczl8qJG0MnjcZ6YCF0?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            </li>
+            <li class="px-4 py-4 sm:px-6">
+                <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/3wdvFJv9nXCmnBNzP2pMTo?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            </li>
+            <li class="px-4 py-4 sm:px-6">
+                <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/1HXy5I3HTWq8OvxCn0z7G7?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            </li>
+        </ul>
+    </div>
+
     </body>
 </html>
