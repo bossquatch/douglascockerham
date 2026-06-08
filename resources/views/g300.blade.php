@@ -27,44 +27,20 @@
 <div class="bg-gray-900 relative min-h-screen w-full">
 
     <header x-data="{ open: false }" class="absolute inset-x-0 top-0 z-50">
-        <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
-            <div class="flex lg:flex-1">
 
-            </div>
-            <div class="flex lg:hidden">
-                <button
-                        type="button"
-                        @click="open = true"
-                        class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-400"
-                >
-                    <span class="sr-only">Open main menu</span>
-                    <svg class="size-6 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                    </svg>
-                </button>
-            </div>
-            <div class="hidden lg:flex lg:gap-x-10">
-{{--                <img class="h-30 w-30" src="https://assets.douglascockerham.com/EM/EMLogo.png" alt="" />--}}
-            </div>
-            <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-
-            </div>
-        </nav>
     </header>
 
-    <main class="relative isolate py-20">
+    <main class="relative isolate">
         <!-- Background -->
         <div class="absolute inset-x-0 top-4 -z-10 flex transform-gpu justify-center overflow-hidden blur-3xl" aria-hidden="true">
             <div class="aspect-1108/632 w-277 flex-none bg-linear-to-r from-[#80caff] to-[#4f46e5] opacity-25" style="clip-path: polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)"></div>
         </div>
 
         <!-- Header section -->
-        <div class="px-6 pt-14 lg:px-8">
+        <div class="px-6 lg:px-8">
             <div class="mx-auto max-w-2xl pt-24 text-center sm:pt-40">
                 <h1 class="text-5xl font-semibold tracking-tight text-white sm:text-7xl">G-300</h1>
                 <p class="mt-8 text-lg font-medium text-pretty text-gray-400 sm:text-xl/8">Intermediate Incident Command System for Expanding Incidents</p>
-{{--                <p class="mt-8 text-lg font-medium text-pretty text-gray-400 sm:text-xl/8">It’s quiet here. That is on purpose.</p>--}}
             </div>
         </div>
 
