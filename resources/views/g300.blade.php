@@ -69,7 +69,7 @@
         </div>
 
         <!-- Content section -->
-        <div class="mx-auto mt-20 max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto my-20 max-w-7xl px-6 lg:px-8">
             <div class="mx-auto max-w-2xl lg:mx-0">
                 <h2 class="text-4xl font-semibold tracking-tight text-pretty text-white sm:text-5xl">Class materials and downloads</h2>
             </div>
