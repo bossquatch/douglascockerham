@@ -129,7 +129,26 @@
                         <a href="https://assets.douglascockerham.com/EM/g300/G-300%20ICS%20Forms.pdf" class="text-gray-400 hover:text-gray-300">ICS Forms</a>
                     </dt>
                 </div>
+
+
+
             </div>
+            <div class="mx-auto max-w-2xl lg:mx-0 pt-5">
+                <h2 class="text-2xl font-semibold tracking-tight text-pretty text-white sm:text-2xl">Link to ICS-400 Training</h2>
+            </div>
+
+            <div class="py-5">
+                <div class="relative pl-9">
+                    <dt class="inline font-semibold text-white">
+                        <svg class="absolute top-1 left-1 size-5 text-indigo-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                            <path fill-rule="evenodd" d="M4.606 12.97a.75.75 0 0 1-.134 1.051 2.494 2.494 0 0 0-.93 2.437 2.494 2.494 0 0 0 2.437-.93.75.75 0 1 1 1.186.918 3.995 3.995 0 0 1-4.482 1.332.75.75 0 0 1-.461-.461 3.994 3.994 0 0 1 1.332-4.482.75.75 0 0 1 1.052.134Z" clip-rule="evenodd" />
+                            <path fill-rule="evenodd" d="M5.752 12A13.07 13.07 0 0 0 8 14.248v4.002c0 .414.336.75.75.75a5 5 0 0 0 4.797-6.414 12.984 12.984 0 0 0 5.45-10.848.75.75 0 0 0-.735-.735 12.984 12.984 0 0 0-10.849 5.45A5 5 0 0 0 1 11.25c.001.414.337.75.751.75h4.002ZM13 9a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" clip-rule="evenodd" />
+                        </svg>
+                        <a href="https://forms.cloud.microsoft/g/EE161xizuA" class="text-gray-400 hover:text-gray-300">Registration for ICS-400 June 15 & 16, 2026</a>
+                    </dt>
+                </div>
+            </div>
+
         </div>
 
 
