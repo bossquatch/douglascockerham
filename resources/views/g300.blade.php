@@ -45,7 +45,7 @@
                 </button>
             </div>
             <div class="hidden lg:flex lg:gap-x-10">
-                <img class="h-30 w-30" src="https://assets.douglascockerham.com/EM/EMLogo.png" alt="" />
+{{--                <img class="h-30 w-30" src="https://assets.douglascockerham.com/EM/EMLogo.png" alt="" />--}}
             </div>
             <div class="hidden lg:flex lg:flex-1 lg:justify-end">
 
