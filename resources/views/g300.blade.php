@@ -69,11 +69,11 @@
         </div>
 
         <!-- Content section -->
-        <div class="mx-auto my-20 max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto py-20 max-w-7xl px-6 lg:px-8">
             <div class="mx-auto max-w-2xl lg:mx-0">
                 <h2 class="text-4xl font-semibold tracking-tight text-pretty text-white sm:text-5xl">Class materials and downloads</h2>
             </div>
-            <div class="py-10 space-y-3">
+            <div class="py-20 space-y-3">
                 <div class="relative pl-9">
                     <dt class="inline font-semibold text-white">
                         <svg class="absolute top-1 left-1 size-5 text-indigo-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
