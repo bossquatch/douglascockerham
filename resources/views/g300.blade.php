@@ -137,7 +137,7 @@
                 <h2 class="text-2xl font-semibold tracking-tight text-pretty text-white sm:text-2xl">Link to ICS-400 Training</h2>
             </div>
 
-            <div class="py-5">
+            <div class="py-8">
                 <div class="relative pl-9">
                     <dt class="inline font-semibold text-white">
                         <svg class="absolute top-1 left-1 size-5 text-indigo-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
