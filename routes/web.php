@@ -9,6 +9,10 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::get('/g300', function () {
+	return view('g300');
+})->name('g300');
+
 Route::view('inventory', 'dashboard')
 	->middleware(['auth', 'verified'])
 	->name('inventory');
