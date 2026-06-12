@@ -13,6 +13,10 @@ Route::get('/g300', function () {
 	return view('g300');
 })->name('g300');
 
+Route::get('/g400', function () {
+	return view('g400');
+})->name('g400');
+
 Route::view('inventory', 'dashboard')
 	->middleware(['auth', 'verified'])
 	->name('inventory');
