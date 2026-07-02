@@ -9,11 +9,11 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('/g300', function () {
+Route::get('/em/classes/g300', function () {
 	return view('g300');
 })->name('g300');
 
-Route::get('/g400', function () {
+Route::get('/em/classes/g400', function () {
 	return view('g400');
 })->name('g400');
 
