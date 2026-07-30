@@ -1,0 +1,484 @@
+{
+  "schema": "gabby.elections-local",
+  "version": 1,
+  "generated_at": "2026-07-30T18:06:20Z",
+  "scope": "Polk County local offices and countywide races first; state and federal records are added only when the contest includes Polk County.",
+  "display_order": "race_then_candidate_name_alphabetical",
+  "policy": {
+    "purpose": "Neutral, side-by-side access to sourced public election records.",
+    "provenance_labels": [
+      "Official election record",
+      "Filed financial disclosure",
+      "Candidate statement",
+      "Reported coverage",
+      "Community claim"
+    ],
+    "candidate_statements": "Attributed campaign claims, not independently verified facts.",
+    "finance": "Candidate-level aggregates from filed reports only; no donor targeting or personal contact data.",
+    "prohibited": "No candidate scoring, ranking, endorsement, motive inference, demographic or political profiling."
+  },
+  "deadlines": [
+    {
+      "event": "2026 Primary Election",
+      "election_date": "2026-08-18",
+      "registration_and_party_change_deadline": "2026-07-20",
+      "vote_by_mail_request_deadline": "2026-08-06T17:00:00-04:00",
+      "early_voting": "2026-08-08 through 2026-08-15, 9:00 a.m. to 6:00 p.m.",
+      "label": "Official election record",
+      "source_name": "Polk County Supervisor of Elections",
+      "source_url": "https://www.polkelections.gov/240/2026-Primary-Election",
+      "source_date": "audited 2026-07-30"
+    },
+    {
+      "event": "2026 General Election",
+      "election_date": "2026-11-03",
+      "registration_deadline": "2026-10-05",
+      "vote_by_mail_request_deadline": "2026-10-22T17:00:00-04:00",
+      "label": "Official election record",
+      "source_name": "Polk County Supervisor of Elections",
+      "source_url": "https://www.polkelections.gov/209/Upcoming-Elections",
+      "source_date": "audited 2026-07-30"
+    }
+  ],
+  "races": [
+    {
+      "race_id": "polk-county-commission-d2-2026-primary",
+      "office": "Polk County Commissioner",
+      "district": "2",
+      "election_date": "2026-08-18",
+      "race_status": "Official universal primary contest",
+      "source": {
+        "label": "Official election record",
+        "name": "Polk County Supervisor of Elections 2026 Primary Compilation Ballot",
+        "url": "https://www.polkelections.gov/DocumentCenter/View/729/Primary-Sample-Compilation-Ballot-Non---Final",
+        "source_date": "2026-07-01",
+        "audited_at": "2026-07-30T18:06:20Z"
+      },
+      "candidates": [
+        {
+          "name": "Kelly Quinn",
+          "party_ballot_label": "REP",
+          "candidate_record": {
+            "label": "Official election record",
+            "source_url": "https://www.polkelections.gov/DocumentCenter/View/729/Primary-Sample-Compilation-Ballot-Non---Final",
+            "source_date": "2026-07-01"
+          },
+          "platform": {
+            "status": "available",
+            "label": "Candidate statement",
+            "source_name": "Kelly Quinn official campaign website",
+            "source_url": "https://www.kellyforpolk.com/about",
+            "source_date": "audited 2026-07-30",
+            "summary": [
+              "Responsible growth and infrastructure accountability",
+              "Water, aquifer and natural-resource protection",
+              "Rural lands and communities",
+              "Transparent, citizen-centered decisions",
+              "Affordability and growth paying for growth"
+            ]
+          },
+          "finance": {
+            "status": "manual_official_snapshot",
+            "label": "Official election record",
+            "source_name": "Polk County Supervisor of Elections candidate campaign-finance report",
+            "source_url": "https://www.voterfocus.com/CampaignFinance/candidate_pr.php?c=polk&ca=341&committee=N&e=22&op=cv&rellevel=4",
+            "latest_report": "P3",
+            "filed_date": "2026-07-17",
+            "period_through": "2026-07-10",
+            "monetary_contributions": 9025.0,
+            "in_kind_contributions": 0.0,
+            "expenditures": 3858.76,
+            "note": "Sum of filed report-period totals through P3; aggregates only."
+          }
+        },
+        {
+          "name": "Rick Wilson",
+          "party_ballot_label": "REP",
+          "candidate_record": {
+            "label": "Official election record",
+            "source_url": "https://www.polkelections.gov/DocumentCenter/View/729/Primary-Sample-Compilation-Ballot-Non---Final",
+            "source_date": "2026-07-01"
+          },
+          "platform": {
+            "status": "coverage_gap",
+            "label": "Candidate statement",
+            "source_date": "audited 2026-07-30",
+            "note": "No official campaign website or clearly candidate-authored platform source was verified in this audit."
+          },
+          "finance": {
+            "status": "manual_official_snapshot",
+            "label": "Official election record",
+            "source_name": "Polk County Supervisor of Elections candidate campaign-finance report",
+            "source_url": "https://www.voterfocus.com/CampaignFinance/candidate_pr.php?c=polk&ca=329&committee=N&e=22&op=cv&rellevel=4",
+            "latest_report": "P2",
+            "filed_date": "2026-07-03",
+            "period_through": "2026-06-26",
+            "monetary_contributions": 50751.45,
+            "in_kind_contributions": 0.0,
+            "expenditures": 7744.92,
+            "note": "Sum of filed report-period totals through P2; aggregates only."
+          }
+        }
+      ]
+    },
+    {
+      "race_id": "polk-county-commission-d4-2026-general",
+      "office": "Polk County Commissioner",
+      "district": "4",
+      "election_date": "2026-11-03",
+      "race_status": "Candidate filings confirmed; official general-election ballot compilation pending",
+      "source": {
+        "label": "Official election record",
+        "name": "Polk County Supervisor of Elections candidate campaign-finance records",
+        "url": "https://www.polkelections.gov/171/Candidate-Campaign-Finance-Reports",
+        "source_date": "audited 2026-07-30",
+        "audited_at": "2026-07-30T18:06:20Z"
+      },
+      "candidates": [
+        {
+          "name": "Elisha Gresham",
+          "party_ballot_label": null,
+          "candidate_record": {
+            "label": "Official election record",
+            "source_url": "https://www.voterfocus.com/CampaignFinance/candidate_pr.php?c=polk&ca=332&committee=N&e=22&op=cv&rellevel=4",
+            "source_date": "audited 2026-07-30"
+          },
+          "platform": {
+            "status": "coverage_gap",
+            "label": "Candidate statement",
+            "source_date": "audited 2026-07-30",
+            "note": "No official campaign website or clearly candidate-authored platform source was verified in this audit."
+          },
+          "finance": {
+            "status": "manual_official_snapshot",
+            "label": "Official election record",
+            "source_name": "Polk County Supervisor of Elections candidate campaign-finance report",
+            "source_url": "https://www.voterfocus.com/CampaignFinance/candidate_pr.php?c=polk&ca=332&committee=N&e=22&op=cv&rellevel=4",
+            "latest_report": "P2",
+            "filed_date": "2026-07-03",
+            "period_through": "2026-06-26",
+            "monetary_contributions": 431.0,
+            "in_kind_contributions": 0.0,
+            "expenditures": 412.89,
+            "note": "Sum of filed report-period totals through P2; aggregates only."
+          }
+        },
+        {
+          "name": "Omar Arroyo",
+          "party_ballot_label": null,
+          "candidate_record": {
+            "label": "Official election record",
+            "source_url": "https://www.voterfocus.com/CampaignFinance/candidate_pr.php?c=polk&ca=325&committee=N&e=22&op=cv&rellevel=4",
+            "source_date": "audited 2026-07-30"
+          },
+          "platform": {
+            "status": "available",
+            "label": "Candidate statement",
+            "source_name": "Omar Arroyo official campaign website",
+            "source_url": "https://electomararroyo.com/",
+            "source_date": "audited 2026-07-30",
+            "summary": [
+              "Safer communities",
+              "Economic opportunity and community resources",
+              "Lower taxes",
+              "Healthcare and education",
+              "Support for law enforcement and veterans",
+              "Affordable housing, equal rights and infrastructure"
+            ]
+          },
+          "finance": {
+            "status": "manual_official_snapshot",
+            "label": "Official election record",
+            "source_name": "Polk County Supervisor of Elections candidate campaign-finance report",
+            "source_url": "https://www.voterfocus.com/CampaignFinance/candidate_pr.php?c=polk&ca=325&committee=N&e=22&op=cv&rellevel=4",
+            "latest_report": "P2",
+            "filed_date": "2026-07-03",
+            "period_through": "2026-06-26",
+            "monetary_contributions": 123620.0,
+            "in_kind_contributions": 660.0,
+            "expenditures": 22230.4,
+            "note": "Sum of filed report-period totals through P2; aggregates only."
+          }
+        }
+      ]
+    },
+    {
+      "race_id": "polk-school-board-d3-2026-primary",
+      "office": "Polk County School Board",
+      "district": "3",
+      "election_date": "2026-08-18",
+      "race_status": "Official primary ballot",
+      "source": {
+        "label": "Official election record",
+        "name": "Polk County Supervisor of Elections 2026 Primary Compilation Ballot",
+        "url": "https://www.polkelections.gov/DocumentCenter/View/729/Primary-Sample-Compilation-Ballot-Non---Final",
+        "source_date": "2026-07-01",
+        "audited_at": "2026-07-30T18:06:20Z"
+      },
+      "candidates": [
+        {
+          "name": "Kate Wallace",
+          "candidate_record": {
+            "label": "Official election record",
+            "source_url": "https://www.polkelections.gov/DocumentCenter/View/729/Primary-Sample-Compilation-Ballot-Non---Final",
+            "source_date": "2026-07-01"
+          },
+          "platform": {
+            "status": "not_yet_audited",
+            "label": "Candidate statement",
+            "source_date": "2026-07-30",
+            "note": "Official campaign material review remains manual."
+          }
+        },
+        {
+          "name": "Sarah Corona",
+          "candidate_record": {
+            "label": "Official election record",
+            "source_url": "https://www.polkelections.gov/DocumentCenter/View/729/Primary-Sample-Compilation-Ballot-Non---Final",
+            "source_date": "2026-07-01"
+          },
+          "platform": {
+            "status": "not_yet_audited",
+            "label": "Candidate statement",
+            "source_date": "2026-07-30",
+            "note": "Official campaign material review remains manual."
+          }
+        },
+        {
+          "name": "Victor Sims",
+          "candidate_record": {
+            "label": "Official election record",
+            "source_url": "https://www.polkelections.gov/DocumentCenter/View/729/Primary-Sample-Compilation-Ballot-Non---Final",
+            "source_date": "2026-07-01"
+          },
+          "platform": {
+            "status": "not_yet_audited",
+            "label": "Candidate statement",
+            "source_date": "2026-07-30",
+            "note": "Official campaign material review remains manual."
+          }
+        }
+      ]
+    },
+    {
+      "race_id": "polk-school-board-d5-2026-primary",
+      "office": "Polk County School Board",
+      "district": "5",
+      "election_date": "2026-08-18",
+      "race_status": "Official primary ballot",
+      "source": {
+        "label": "Official election record",
+        "name": "Polk County Supervisor of Elections 2026 Primary Compilation Ballot",
+        "url": "https://www.polkelections.gov/DocumentCenter/View/729/Primary-Sample-Compilation-Ballot-Non---Final",
+        "source_date": "2026-07-01",
+        "audited_at": "2026-07-30T18:06:20Z"
+      },
+      "candidates": [
+        {
+          "name": "Kay Fields",
+          "candidate_record": {
+            "label": "Official election record",
+            "source_url": "https://www.polkelections.gov/DocumentCenter/View/729/Primary-Sample-Compilation-Ballot-Non---Final",
+            "source_date": "2026-07-01"
+          },
+          "platform": {
+            "status": "not_yet_audited",
+            "label": "Candidate statement",
+            "source_date": "2026-07-30",
+            "note": "Official campaign material review remains manual."
+          }
+        },
+        {
+          "name": "Sam Neelam",
+          "candidate_record": {
+            "label": "Official election record",
+            "source_url": "https://www.polkelections.gov/DocumentCenter/View/729/Primary-Sample-Compilation-Ballot-Non---Final",
+            "source_date": "2026-07-01"
+          },
+          "platform": {
+            "status": "not_yet_audited",
+            "label": "Candidate statement",
+            "source_date": "2026-07-30",
+            "note": "Official campaign material review remains manual."
+          }
+        }
+      ]
+    },
+    {
+      "race_id": "polk-school-board-d6-2026-primary",
+      "office": "Polk County School Board",
+      "district": "6",
+      "election_date": "2026-08-18",
+      "race_status": "Official primary ballot",
+      "source": {
+        "label": "Official election record",
+        "name": "Polk County Supervisor of Elections 2026 Primary Compilation Ballot",
+        "url": "https://www.polkelections.gov/DocumentCenter/View/729/Primary-Sample-Compilation-Ballot-Non---Final",
+        "source_date": "2026-07-01",
+        "audited_at": "2026-07-30T18:06:20Z"
+      },
+      "candidates": [
+        {
+          "name": "Justin Sharpless",
+          "candidate_record": {
+            "label": "Official election record",
+            "source_url": "https://www.polkelections.gov/DocumentCenter/View/729/Primary-Sample-Compilation-Ballot-Non---Final",
+            "source_date": "2026-07-01"
+          },
+          "platform": {
+            "status": "not_yet_audited",
+            "label": "Candidate statement",
+            "source_date": "2026-07-30",
+            "note": "Official campaign material review remains manual."
+          }
+        },
+        {
+          "name": "Kasen Chase Hampton",
+          "candidate_record": {
+            "label": "Official election record",
+            "source_url": "https://www.polkelections.gov/DocumentCenter/View/729/Primary-Sample-Compilation-Ballot-Non---Final",
+            "source_date": "2026-07-01"
+          },
+          "platform": {
+            "status": "not_yet_audited",
+            "label": "Candidate statement",
+            "source_date": "2026-07-30",
+            "note": "Official campaign material review remains manual."
+          }
+        }
+      ]
+    },
+    {
+      "race_id": "tenth-circuit-judge-g23-2026-primary",
+      "office": "Circuit Judge, 10th Judicial Circuit",
+      "district": "Group 23",
+      "election_date": "2026-08-18",
+      "race_status": "Official primary ballot; countywide Polk contest",
+      "source": {
+        "label": "Official election record",
+        "name": "Polk County Supervisor of Elections 2026 Primary Compilation Ballot",
+        "url": "https://www.polkelections.gov/DocumentCenter/View/729/Primary-Sample-Compilation-Ballot-Non---Final",
+        "source_date": "2026-07-01",
+        "audited_at": "2026-07-30T18:06:20Z"
+      },
+      "candidates": [
+        {
+          "name": "Chris P. Spath",
+          "candidate_record": {
+            "label": "Official election record",
+            "source_url": "https://www.polkelections.gov/DocumentCenter/View/729/Primary-Sample-Compilation-Ballot-Non---Final",
+            "source_date": "2026-07-01"
+          },
+          "platform": {
+            "status": "not_yet_audited",
+            "label": "Candidate statement",
+            "source_date": "2026-07-30",
+            "note": "Official campaign material review remains manual."
+          }
+        },
+        {
+          "name": "Lakeisha Latoya Babers",
+          "candidate_record": {
+            "label": "Official election record",
+            "source_url": "https://www.polkelections.gov/DocumentCenter/View/729/Primary-Sample-Compilation-Ballot-Non---Final",
+            "source_date": "2026-07-01"
+          },
+          "platform": {
+            "status": "not_yet_audited",
+            "label": "Candidate statement",
+            "source_date": "2026-07-30",
+            "note": "Official campaign material review remains manual."
+          }
+        }
+      ]
+    },
+    {
+      "race_id": "tenth-circuit-judge-g24-2026-primary",
+      "office": "Circuit Judge, 10th Judicial Circuit",
+      "district": "Group 24",
+      "election_date": "2026-08-18",
+      "race_status": "Official primary ballot; countywide Polk contest",
+      "source": {
+        "label": "Official election record",
+        "name": "Polk County Supervisor of Elections 2026 Primary Compilation Ballot",
+        "url": "https://www.polkelections.gov/DocumentCenter/View/729/Primary-Sample-Compilation-Ballot-Non---Final",
+        "source_date": "2026-07-01",
+        "audited_at": "2026-07-30T18:06:20Z"
+      },
+      "candidates": [
+        {
+          "name": "Andrea DeMichael",
+          "candidate_record": {
+            "label": "Official election record",
+            "source_url": "https://www.polkelections.gov/DocumentCenter/View/729/Primary-Sample-Compilation-Ballot-Non---Final",
+            "source_date": "2026-07-01"
+          },
+          "platform": {
+            "status": "not_yet_audited",
+            "label": "Candidate statement",
+            "source_date": "2026-07-30",
+            "note": "Official campaign material review remains manual."
+          }
+        },
+        {
+          "name": "Candice Dixon",
+          "candidate_record": {
+            "label": "Official election record",
+            "source_url": "https://www.polkelections.gov/DocumentCenter/View/729/Primary-Sample-Compilation-Ballot-Non---Final",
+            "source_date": "2026-07-01"
+          },
+          "platform": {
+            "status": "not_yet_audited",
+            "label": "Candidate statement",
+            "source_date": "2026-07-30",
+            "note": "Official campaign material review remains manual."
+          }
+        }
+      ]
+    }
+  ],
+  "upstream_access": [
+    {
+      "source_id": "polk-elections-notices",
+      "status": "automated",
+      "method": "Official CivicPlus RSS",
+      "scope": "Election-administration public notices"
+    },
+    {
+      "source_id": "polk-elections-calendar-ballot",
+      "status": "manual",
+      "method": "Official pages and PDF compilation ballots; no documented structured feed confirmed",
+      "scope": "Candidate lists, races, deadlines and ballot information"
+    },
+    {
+      "source_id": "polk-elections-local-campaign-finance",
+      "status": "manual",
+      "method": "Official public searchable reports; no documented bulk API/feed confirmed",
+      "scope": "Candidate-level filed contribution/expenditure aggregates"
+    },
+    {
+      "source_id": "fl-doe-campaign-finance",
+      "status": "connector_required",
+      "method": "Documented official tab-delimited downloads require Polk-relevant race and candidate reconciliation",
+      "scope": "Applicable state and multicounty candidates/committees"
+    },
+    {
+      "source_id": "fec-polk-2026",
+      "status": "connector_required",
+      "method": "Official API requires an environment-provided key and reviewed candidate/committee IDs",
+      "scope": "Relevant federal races only"
+    },
+    {
+      "source_id": "fl-ethics-financial-disclosure",
+      "status": "manual",
+      "method": "Official public portal; no documented bulk public API/feed confirmed",
+      "scope": "Filed financial disclosures where applicable"
+    },
+    {
+      "source_id": "candidate-websites-polk-2026",
+      "status": "manual",
+      "method": "Official campaign website or clearly candidate-authored public material only",
+      "scope": "Attributed Candidate statements"
+    }
+  ]
+}

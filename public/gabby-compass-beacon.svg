@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Gabby Compass Beacon">
+  <circle cx="24" cy="24" r="23" fill="#E6F2FF"/>
+  <path d="M36.7 14.3A16.5 16.5 0 1 0 39.6 30.4V24H31.2" fill="none" stroke="#0D1B2A" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.6"/>
+  <path d="m24 13.5 2.7 7.8 7.8 2.7-7.8 2.7-2.7 7.8-2.7-7.8-7.8-2.7 7.8-2.7Z" fill="#009AA6"/>
+  <path d="m24 13.5 2.7 7.8L24 24Z" fill="#1E88E5"/>
+  <circle cx="24" cy="24" r="2.45" fill="#009AA6" stroke="#E6F2FF" stroke-width="1"/>
+</svg>
