@@ -46,3 +46,9 @@
     .region-header{grid-template-columns:1fr auto;align-items:start}
     .region-nav{grid-column:1/-1;grid-row:2;min-height:46px;justify-self:center}
 }
+
+/* Submitter reuse, FLEX help, and date controls. */
+.reuse-submitter{display:flex;align-items:center;gap:10px;margin:-4px 0 2px;font-size:14px;font-weight:750}.reuse-submitter input{width:18px;height:18px;margin:0;accent-color:var(--r7-blue)}
+.flex-help{margin:-5px 0 20px;padding:13px 15px;border-left:4px solid var(--r7-blue);background:#f2f7fd;color:var(--r7-muted);font-size:13px;line-height:1.55}.flex-help strong{color:var(--r7-ink)}.flex-help a,.field-hint a{color:var(--r7-blue);font-weight:800}.field-hint{color:var(--r7-muted);font-size:12px;font-weight:500}
+.segmented-date__calendar{display:grid;grid-template-columns:auto minmax(160px,1fr);align-items:center;gap:10px}.segmented-date__calendar>span{color:var(--r7-muted);font-size:12px}.instructor-page .segmented-date__calendar input{height:44px;min-height:44px;padding:8px 12px}
+

@@ -40,6 +40,11 @@ test('the public instructor intake can be rendered without signing in', function
         ->assertSeeText('Add another course')
         ->assertSee('role="combobox"', false)
         ->assertSee('data-date-month', false)
+        ->assertSee('type="date"', false)
+        ->assertSee('data-reuse-submitter', false)
+        ->assertSeeText('Use submitter name and email for the instructor')
+        ->assertSeeText('Florida’s Learning Exchange')
+        ->assertSee(config('region7.fdem_catalog_source'))
         ->assertSee('placeholder="Search and select a course"', false)
         ->assertSeeText('G-300 — Intermediate Incident Command System for Expanding Incidents')
         ->assertSeeText('Not currently listed in the FDEM catalog')
@@ -115,6 +120,8 @@ test('the submission confirmation includes a clear exit', function () {
     $this->get(route('instructors.success'))
         ->assertOk()
         ->assertSeeText('Exit to website')
+        ->assertSeeText('Florida’s Learning Exchange')
+        ->assertSee(config('region7.fdem_catalog_source'))
         ->assertSee(route('home'));
 });
 
@@ -124,3 +131,4 @@ test('the honeypot rejects automated submissions', function () {
 
     expect(InstructorProfile::count())->toBe(0);
 });
+

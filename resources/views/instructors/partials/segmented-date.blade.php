@@ -8,7 +8,10 @@
 @endphp
 <div @class(['field', 'segmented-date', $class ?? null]) data-segmented-date>
     <span id="{{ $id }}-label">{{ $label }}</span>
-    <input type="hidden" name="{{ $name }}" value="{{ $dateString }}" data-date-value>
+    <label class="segmented-date__calendar">
+        <span>Calendar</span>
+        <input type="date" name="{{ $name }}" value="{{ $dateString }}" min="{{ $lastYear }}-01-01" max="{{ $firstYear }}-12-31" data-date-value aria-label="{{ $label }} calendar">
+    </label>
     <div class="segmented-date__controls" role="group" aria-labelledby="{{ $id }}-label">
         <select data-date-month aria-label="{{ $label }} month">
             <option value="">Month</option>
@@ -30,3 +33,4 @@
         </select>
     </div>
 </div>
+

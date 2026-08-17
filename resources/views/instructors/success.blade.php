@@ -10,7 +10,7 @@
     <main class="success-card">
         <div class="success-mark" aria-hidden="true">✓</div>
         <h1>Instructor profile submitted</h1>
-        <p>Thank you. {{ session('submitted_course_count') }} course {{ Str::plural('capability', session('submitted_course_count')) }} will be reviewed against FLEX before being counted as regional delivery capacity.</p>
+        <p>Thank you. {{ session('submitted_course_count') }} course {{ Str::plural('capability', session('submitted_course_count')) }} will be reviewed against FLEX, Florida’s Learning Exchange and current training platform, before being counted as regional delivery capacity. <a href="{{ config('region7.fdem_catalog_source') }}" target="_blank" rel="noopener noreferrer">Open FLEX</a>.</p>
         <dl><dt>Submission reference</dt><dd>{{ session('submission_reference') }}</dd></dl>
         <div class="success-actions">
             <a class="button button--primary" href="{{ route('instructors.create') }}">Submit another instructor</a>
@@ -19,3 +19,4 @@
     </main>
 </body>
 </html>
+
