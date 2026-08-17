@@ -38,6 +38,7 @@
                     <div class="field-grid field-grid--two">
                         <label class="field"><span>Submitted by — full name <b>*</b></span><input name="submitted_by_name" value="{{ old('submitted_by_name') }}" required maxlength="120" autocomplete="name"></label>
                         <label class="field"><span>Submitter work email <b>*</b></span><input type="email" name="submitted_by_email" value="{{ old('submitted_by_email') }}" required maxlength="190" autocomplete="email" inputmode="email"></label>
+                        <label class="reuse-submitter field--wide"><input type="checkbox" data-reuse-submitter><span>Use submitter name and email for the instructor</span></label>
                         <label class="field"><span>Instructor full name <b>*</b></span><input name="instructor_name" value="{{ old('instructor_name') }}" required maxlength="120"></label>
                         <label class="field"><span>Agency or organization <b>*</b></span><input name="agency" value="{{ old('agency') }}" required maxlength="190"></label>
                         <label class="field"><span>Instructor work email</span><input type="email" name="instructor_email" value="{{ old('instructor_email') }}" maxlength="190" inputmode="email"></label>
@@ -49,6 +50,7 @@
 
                 <section class="form-section">
                     <div class="section-heading"><span>2</span><div><h2>Course capabilities</h2><p>Add a separate course entry for each capability. Course-specific FLEX and delivery details stay attached to the correct course.</p></div></div>
+                    @include('instructors.partials.flex-help')
                     <div data-course-list>
                         @foreach(old('courses', [[]]) as $index => $course)
                             @include('instructors.partials.course', ['index' => $index, 'course' => $course])
@@ -58,7 +60,7 @@
                 </section>
 
                 <section class="form-section form-section--submit">
-                    <div class="section-heading"><span>3</span><div><h2>Review and submit</h2><p>Information will be reviewed against FLEX before it is counted as regional delivery capacity.</p></div></div>
+                    <div class="section-heading"><span>3</span><div><h2>Review and submit</h2><p>Information will be reviewed against FLEX, Florida’s Learning Exchange and current training platform, before it is counted as regional delivery capacity.</p></div></div>
                     <label class="confirmation"><input type="checkbox" name="accuracy_confirmation" value="1" required @checked(old('accuracy_confirmation'))><span>I confirm this information is accurate to the best of my knowledge and may be used for Region 7 training coordination.</span></label>
                     <button class="button button--primary" type="submit">Submit instructor profile <span aria-hidden="true">→</span></button>
                 </section>
@@ -82,3 +84,4 @@
     </template>
 </body>
 </html>
+

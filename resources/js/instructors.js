@@ -23,7 +23,7 @@ const bindSegmentedDates = (root = document) => {
         if (field.dataset.dateBound) return;
         field.dataset.dateBound = 'true';
 
-        const hidden = field.querySelector('[data-date-value]');
+        const dateInput = field.querySelector('[data-date-value]');
         const month = field.querySelector('[data-date-month]');
         const day = field.querySelector('[data-date-day]');
         const year = field.querySelector('[data-date-year]');
@@ -41,15 +41,22 @@ const bindSegmentedDates = (root = document) => {
                 valid = parsed.getFullYear() === Number(year.value)
                     && parsed.getMonth() + 1 === Number(month.value)
                     && parsed.getDate() === Number(day.value);
-                hidden.value = valid ? candidate : '';
+                dateInput.value = valid ? candidate : '';
             } else {
-                hidden.value = '';
+                dateInput.value = '';
             }
 
             month.setCustomValidity(valid ? '' : 'Select a complete, valid calendar date.');
         };
 
         parts.forEach((part) => part.addEventListener('change', sync));
+        dateInput.addEventListener('change', () => {
+            const match = dateInput.value.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+            year.value = match?.[1] || '';
+            month.value = match?.[2] || '';
+            day.value = match?.[3] || '';
+            sync();
+        });
         sync();
     });
 };
@@ -60,7 +67,32 @@ if (intake) {
     const list = intake.querySelector('[data-course-list]');
     const template = document.querySelector('[data-course-template]');
     const addButton = intake.querySelector('[data-add-course]');
+    const reuseSubmitter = intake.querySelector('[data-reuse-submitter]');
+    const submittedByName = intake.querySelector('[name="submitted_by_name"]');
+    const submittedByEmail = intake.querySelector('[name="submitted_by_email"]');
+    const instructorName = intake.querySelector('[name="instructor_name"]');
+    const instructorEmail = intake.querySelector('[name="instructor_email"]');
     let nextIndex = list.querySelectorAll('[data-course-entry]').length;
+
+    let lastCopiedName = null;
+    let lastCopiedEmail = null;
+    const copySubmitter = (force = false) => {
+        if (!reuseSubmitter.checked) return;
+        if (force || instructorName.value === '' || instructorName.value === lastCopiedName) {
+            instructorName.value = submittedByName.value;
+            lastCopiedName = instructorName.value;
+            instructorName.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+        if (force || instructorEmail.value === '' || instructorEmail.value === lastCopiedEmail) {
+            instructorEmail.value = submittedByEmail.value;
+            lastCopiedEmail = instructorEmail.value;
+        }
+    };
+    reuseSubmitter.addEventListener('change', () => {
+        if (reuseSubmitter.checked) copySubmitter(true);
+    });
+    submittedByName.addEventListener('input', () => copySubmitter());
+    submittedByEmail.addEventListener('input', () => copySubmitter());
 
     const updateSummary = () => {
         const entries = [...list.querySelectorAll('[data-course-entry]')];
@@ -222,3 +254,4 @@ if (intake) {
 
 bindPhoneInputs();
 bindSegmentedDates();
+

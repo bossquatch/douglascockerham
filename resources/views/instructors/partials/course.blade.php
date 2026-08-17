@@ -29,7 +29,7 @@
         </div>
         <label class="field" data-other-course-field @if(($course['course_key'] ?? '') !== 'other') hidden @endif><span>Other course code <b>*</b></span><input name="{{ $prefix }}[other_course_code]" value="{{ $course['other_course_code'] ?? '' }}" maxlength="40" placeholder="Enter course code"></label>
         <label class="field field--wide" data-other-course-field @if(($course['course_key'] ?? '') !== 'other') hidden @endif><span>Other course title <b>*</b></span><input name="{{ $prefix }}[other_course_title]" value="{{ $course['other_course_title'] ?? '' }}" maxlength="190" placeholder="Enter course title"></label>
-        <label class="field"><span>Instructor’s FLEX approval status for this course <b>*</b></span><select name="{{ $prefix }}[flex_status]" required><option value="">Select status</option>@foreach($options['flex_statuses'] as $option)<option @selected(($course['flex_status'] ?? '') === $option)>{{ $option }}</option>@endforeach</select></label>
+        <label class="field"><span>Instructor’s FLEX approval status for this course <b>*</b></span><select name="{{ $prefix }}[flex_status]" required><option value="">Select status</option>@foreach($options['flex_statuses'] as $option)<option @selected(($course['flex_status'] ?? '') === $option)>{{ $option }}</option>@endforeach</select><small class="field-hint">Check current status in <a href="{{ config('region7.fdem_catalog_source') }}" target="_blank" rel="noopener noreferrer">FLEX</a>.</small></label>
         @include('instructors.partials.segmented-date', ['name' => "{$prefix}[flex_expiration_date]", 'label' => 'Approval expiration', 'value' => $course['flex_expiration_date'] ?? '', 'id' => "flex-expiration-{$index}", 'class' => 'field--wide'])
 
         <label class="field"><span>Delivery role <b>*</b></span><select name="{{ $prefix }}[delivery_role]" required><option value="">Select role</option>@foreach($options['delivery_roles'] as $option)<option @selected(($course['delivery_role'] ?? '') === $option)>{{ $option }}</option>@endforeach</select></label>
@@ -44,3 +44,4 @@
     </div>
     <label class="field field--notes"><span>Notes, limitations, or development needs</span><textarea name="{{ $prefix }}[notes]" maxlength="2000" rows="3">{{ $course['notes'] ?? '' }}</textarea></label>
 </section>
+
