@@ -9,9 +9,10 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/css/app.css',
-                'resources/css/gabby.css',
+                'resources/css/instructors.css',
+                'resources/css/instructors-admin.css',
                 'resources/js/app.js',
-                'resources/js/gabby.js',
+                'resources/js/instructors.js',
             ],
             refresh: true,
         }),
