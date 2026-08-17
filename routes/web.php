@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\GabbyDashboardController;
+use App\Http\Controllers\InstructorAdminController;
+use App\Http\Controllers\InstructorIntakeController;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -10,10 +11,15 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('/gabby', [GabbyDashboardController::class, 'overview'])->name('gabby');
-Route::get('/gabby/briefing', [GabbyDashboardController::class, 'briefing'])->name('gabby.briefing');
-Route::get('/gabby/map', [GabbyDashboardController::class, 'map'])->name('gabby.map');
-Route::get('/gabby/elections', [GabbyDashboardController::class, 'elections'])->name('gabby.elections');
+Route::get('/em/training', [InstructorIntakeController::class, 'create'])
+    ->name('instructors.create');
+Route::post('/em/training', [InstructorIntakeController::class, 'store'])
+    ->middleware('throttle:20,1')
+    ->name('instructors.store');
+Route::get('/em/training/thank-you', [InstructorIntakeController::class, 'success'])
+    ->name('instructors.success');
+Route::redirect('/region7/instructors', '/em/training');
+Route::redirect('/region7/instructors/admin', '/em/training/admin');
 
 Route::get('/em/classes/g300', function () {
 	return view('g300');
@@ -23,13 +29,14 @@ Route::get('/em/classes/g400', function () {
 	return view('g400');
 })->name('g400');
 
-Route::view('inventory', 'dashboard')
-	->middleware(['auth', 'verified'])
-	->name('inventory');
-	
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::redirect('dashboard', '/em/training/admin')->name('dashboard');
+Route::redirect('inventory', '/em/training/admin')->name('inventory');
+
+Route::prefix('em/training/admin')->name('instructors.admin.')->group(function () {
+    Route::get('/', [InstructorAdminController::class, 'index'])->name('index');
+    Route::get('/export', [InstructorAdminController::class, 'export'])->name('export');
+    Route::patch('/capabilities/{capability}', [InstructorAdminController::class, 'update'])->name('update');
+});
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
