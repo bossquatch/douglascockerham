@@ -26,12 +26,9 @@
 .course-combobox__menu [role=option][aria-selected=true]{background:#f1f6fd}
 .course-combobox__empty{margin:0;padding:16px 12px;color:var(--r7-muted);font-size:13px;text-align:center}
 
-/* Quick date entry with independent month, day, and year controls. */
-.segmented-date__controls{display:grid;grid-template-columns:minmax(112px,1.35fr) minmax(72px,.7fr) minmax(88px,.9fr);gap:8px}
-.segmented-date__controls select{min-width:0}
 .success-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
 
-@media(max-width:520px){.segmented-date__controls{grid-template-columns:1fr}.success-actions{display:grid}.success-actions .button{width:100%}}
+@media(max-width:520px){.success-actions{display:grid}.success-actions .button{width:100%}}
 
 /* Shared public navigation for the intake and administration pages. */
 .region-header{display:grid;grid-template-columns:minmax(220px,1fr) auto minmax(220px,1fr);justify-content:normal;gap:24px}
@@ -48,7 +45,10 @@
 }
 
 /* Submitter reuse, FLEX help, and date controls. */
-.reuse-submitter{display:flex;align-items:center;gap:10px;margin:-4px 0 2px;font-size:14px;font-weight:750}.reuse-submitter input{width:18px;height:18px;margin:0;accent-color:var(--r7-blue)}
-.flex-help{margin:-5px 0 20px;padding:13px 15px;border-left:4px solid var(--r7-blue);background:#f2f7fd;color:var(--r7-muted);font-size:13px;line-height:1.55}.flex-help strong{color:var(--r7-ink)}.flex-help a,.field-hint a{color:var(--r7-blue);font-weight:800}.field-hint{color:var(--r7-muted);font-size:12px;font-weight:500}
-.segmented-date__calendar{display:grid;grid-template-columns:auto minmax(160px,1fr);align-items:center;gap:10px}.segmented-date__calendar>span{color:var(--r7-muted);font-size:12px}.instructor-page .segmented-date__calendar input{height:44px;min-height:44px;padding:8px 12px}
+.reuse-submitter{display:flex;align-items:center;gap:10px;margin:-4px 0 2px;font:700 14px/1.45 Inter,"Instrument Sans",system-ui,sans-serif}.reuse-submitter input{width:18px;height:18px;margin:0;accent-color:var(--r7-blue)}
+.field.is-disabled>span{color:var(--r7-muted)}.field.is-disabled input{border-color:#cbd5df;background:#edf1f5;color:#4d6075;cursor:not-allowed}
+.flex-help{display:flex;align-items:center;justify-content:space-between;gap:24px;margin:0 0 24px;padding:16px 18px;border:1px solid #bfd2e8;border-left:4px solid var(--r7-blue);border-radius:4px;background:#f2f7fd;font-family:Inter,"Instrument Sans",system-ui,sans-serif}.flex-help div{min-width:0}.flex-help strong{display:block;margin:0 0 4px;color:var(--r7-ink);font-size:14px;line-height:1.35}.flex-help p{margin:0;color:var(--r7-muted);font-size:13px;font-weight:500;line-height:1.55}.flex-help>a{display:inline-flex;align-items:center;gap:7px;flex:none;color:var(--r7-blue);font-size:13px;font-weight:800;line-height:1.35;text-decoration:none}.flex-help>a:hover{text-decoration:underline}.flex-help>a svg{width:18px;height:18px;flex:none}.field-hint{color:var(--r7-muted);font:500 12px/1.4 Inter,"Instrument Sans",system-ui,sans-serif}.field-hint a{color:var(--r7-blue);font-weight:800}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.calendar-date input{font-family:Inter,"Instrument Sans",system-ui,sans-serif}
+@media(max-width:680px){.flex-help{align-items:flex-start;flex-direction:column;gap:12px}.flex-help>a{white-space:normal}}
+
 

@@ -39,8 +39,8 @@ test('the public instructor intake can be rendered without signing in', function
         ->assertSeeText('Administration')
         ->assertSeeText('Add another course')
         ->assertSee('role="combobox"', false)
-        ->assertSee('data-date-month', false)
         ->assertSee('type="date"', false)
+        ->assertDontSee('data-date-month', false)
         ->assertSee('data-reuse-submitter', false)
         ->assertSeeText('Use submitter name and email for the instructor')
         ->assertSeeText('Florida’s Learning Exchange')
@@ -131,4 +131,5 @@ test('the honeypot rejects automated submissions', function () {
 
     expect(InstructorProfile::count())->toBe(0);
 });
+
 

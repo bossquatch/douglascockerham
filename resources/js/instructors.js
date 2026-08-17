@@ -18,49 +18,6 @@ const bindPhoneInputs = (root = document) => {
     });
 };
 
-const bindSegmentedDates = (root = document) => {
-    root.querySelectorAll('[data-segmented-date]').forEach((field) => {
-        if (field.dataset.dateBound) return;
-        field.dataset.dateBound = 'true';
-
-        const dateInput = field.querySelector('[data-date-value]');
-        const month = field.querySelector('[data-date-month]');
-        const day = field.querySelector('[data-date-day]');
-        const year = field.querySelector('[data-date-year]');
-        const parts = [month, day, year];
-
-        const sync = () => {
-            const values = parts.map((part) => part.value);
-            const hasAnyValue = values.some(Boolean);
-            const hasEveryValue = values.every(Boolean);
-            let valid = !hasAnyValue;
-
-            if (hasEveryValue) {
-                const candidate = `${year.value}-${month.value}-${day.value}`;
-                const parsed = new Date(`${candidate}T00:00:00`);
-                valid = parsed.getFullYear() === Number(year.value)
-                    && parsed.getMonth() + 1 === Number(month.value)
-                    && parsed.getDate() === Number(day.value);
-                dateInput.value = valid ? candidate : '';
-            } else {
-                dateInput.value = '';
-            }
-
-            month.setCustomValidity(valid ? '' : 'Select a complete, valid calendar date.');
-        };
-
-        parts.forEach((part) => part.addEventListener('change', sync));
-        dateInput.addEventListener('change', () => {
-            const match = dateInput.value.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-            year.value = match?.[1] || '';
-            month.value = match?.[2] || '';
-            day.value = match?.[3] || '';
-            sync();
-        });
-        sync();
-    });
-};
-
 const intake = document.querySelector('[data-instructor-intake]');
 
 if (intake) {
@@ -74,25 +31,26 @@ if (intake) {
     const instructorEmail = intake.querySelector('[name="instructor_email"]');
     let nextIndex = list.querySelectorAll('[data-course-entry]').length;
 
-    let lastCopiedName = null;
-    let lastCopiedEmail = null;
-    const copySubmitter = (force = false) => {
+    const setInstructorIdentityDisabled = (disabled) => {
+        [instructorName, instructorEmail].forEach((field) => {
+            field.disabled = disabled;
+            field.closest('.field').classList.toggle('is-disabled', disabled);
+        });
+    };
+    const copySubmitter = () => {
         if (!reuseSubmitter.checked) return;
-        if (force || instructorName.value === '' || instructorName.value === lastCopiedName) {
-            instructorName.value = submittedByName.value;
-            lastCopiedName = instructorName.value;
-            instructorName.dispatchEvent(new Event('input', { bubbles: true }));
-        }
-        if (force || instructorEmail.value === '' || instructorEmail.value === lastCopiedEmail) {
-            instructorEmail.value = submittedByEmail.value;
-            lastCopiedEmail = instructorEmail.value;
-        }
+        instructorName.value = submittedByName.value;
+        instructorEmail.value = submittedByEmail.value;
+        instructorName.dispatchEvent(new Event('input', { bubbles: true }));
     };
     reuseSubmitter.addEventListener('change', () => {
-        if (reuseSubmitter.checked) copySubmitter(true);
+        if (reuseSubmitter.checked) copySubmitter();
+        setInstructorIdentityDisabled(reuseSubmitter.checked);
     });
     submittedByName.addEventListener('input', () => copySubmitter());
     submittedByEmail.addEventListener('input', () => copySubmitter());
+    if (reuseSubmitter.checked) copySubmitter();
+    setInstructorIdentityDisabled(reuseSubmitter.checked);
 
     const updateSummary = () => {
         const entries = [...list.querySelectorAll('[data-course-entry]')];
@@ -105,7 +63,6 @@ if (intake) {
     };
 
     const bindEntry = (entry) => {
-        bindSegmentedDates(entry);
         const courseCombobox = entry.querySelector('[data-course-combobox]');
         const coursePicker = entry.querySelector('[data-course-picker]');
         const courseSearch = entry.querySelector('[data-course-search]');
@@ -249,9 +206,12 @@ if (intake) {
         field.addEventListener('change', sync);
         sync();
     });
+    intake.querySelector('[data-intake-form]').addEventListener('submit', () => {
+        setInstructorIdentityDisabled(false);
+    });
     updateSummary();
 }
 
 bindPhoneInputs();
-bindSegmentedDates();
+
 
