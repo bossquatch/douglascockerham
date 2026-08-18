@@ -113,6 +113,14 @@ test('administrators can edit instructor and course records', function () {
         ->and($capability->fresh()->flex_expiration_date->format('Y-m-d'))->toBe('2029-12-31');
 });
 
+test('administrators cannot set date last taught in the future', function () {
+    $capability = createCapabilityRecord();
+
+    $this->patch(route('instructors.admin.update', $capability), validAdminUpdatePayload($capability, [
+        'last_taught_at' => now()->addDay()->toDateString(),
+    ]))->assertSessionHasErrors('last_taught_at');
+});
+
 test('public visitors can edit instructor and course records', function () {
     $capability = createCapabilityRecord();
 
@@ -151,3 +159,4 @@ test('public visitors can export a real xlsx workbook', function () {
     expect($response->headers->get('content-type'))
         ->toContain('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 });
+

@@ -47,7 +47,7 @@ class InstructorIntakeController extends Controller
             'courses.*.willing_to_travel' => ['required', Rule::in($options['travel_options'])],
             'courses.*.availability' => ['required', Rule::in($options['availability'])],
             'courses.*.prior_deliveries' => ['nullable', 'integer', 'min:0', 'max:9999'],
-            'courses.*.last_taught_at' => ['nullable', 'date'],
+            'courses.*.last_taught_at' => ['nullable', 'date', 'before_or_equal:today'],
             'courses.*.regional_priority' => ['required', Rule::in($options['priority_options'])],
             'courses.*.notes' => ['nullable', 'string', 'max:2000'],
             'accuracy_confirmation' => ['accepted'],
@@ -93,3 +93,4 @@ class InstructorIntakeController extends Controller
         return view('instructors.success');
     }
 }
+

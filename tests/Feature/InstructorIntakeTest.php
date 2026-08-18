@@ -40,6 +40,7 @@ test('the public instructor intake can be rendered without signing in', function
         ->assertSeeText('Add another course')
         ->assertSee('role="combobox"', false)
         ->assertSee('type="date"', false)
+        ->assertSee('max="'.now()->toDateString().'"', false)
         ->assertDontSee('data-date-month', false)
         ->assertSee('data-reuse-submitter', false)
         ->assertSeeText('Use submitter name and email for the instructor')
@@ -99,6 +100,16 @@ test('an instructor work email or work phone is required', function () {
     expect(InstructorProfile::count())->toBe(0);
 });
 
+test('date last taught cannot be in the future', function () {
+    $this->post(route('instructors.store'), validInstructorPayload([
+        'courses' => [[
+            'last_taught_at' => now()->addDay()->toDateString(),
+        ]],
+    ]))->assertSessionHasErrors('courses.0.last_taught_at');
+
+    expect(InstructorProfile::count())->toBe(0);
+});
+
 test('optional email is validated and phone numbers are normalized', function () {
     $this->post(route('instructors.store'), validInstructorPayload([
         'instructor_email' => 'not-an-email',
@@ -131,5 +142,6 @@ test('the honeypot rejects automated submissions', function () {
 
     expect(InstructorProfile::count())->toBe(0);
 });
+
 
 

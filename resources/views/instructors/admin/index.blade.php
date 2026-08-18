@@ -88,7 +88,7 @@
                                 <label><span>Availability <b>*</b></span><select name="availability" required>@foreach($options['availability'] as $option)<option value="{{ $option }}" @selected(old('availability', $selected->availability) === $option)>{{ $option }}</option>@endforeach</select></label>
                                 <label><span>Number of deliveries</span><input type="number" name="prior_deliveries" value="{{ old('prior_deliveries', $selected->prior_deliveries) }}" min="0" max="9999"></label>
                                 <label><span>Regional priority? <b>*</b></span><select name="regional_priority" required>@foreach($options['priority_options'] as $option)<option value="{{ $option }}" @selected(old('regional_priority', $selected->regional_priority) === $option)>{{ $option }}</option>@endforeach</select></label>
-                                <div class="drawer-field--wide">@include('instructors.partials.segmented-date', ['name' => 'last_taught_at', 'label' => 'Date last taught', 'value' => old('last_taught_at', $selected->last_taught_at), 'id' => 'admin-last-taught'])</div>
+                                <div class="drawer-field--wide">@include('instructors.partials.segmented-date', ['name' => 'last_taught_at', 'label' => 'Date last taught', 'value' => old('last_taught_at', $selected->last_taught_at), 'id' => 'admin-last-taught', 'max' => now()->toDateString()])</div>
                                 <label class="drawer-field--wide"><span>Capability notes</span><textarea name="notes" rows="4" maxlength="2000">{{ old('notes', $selected->notes) }}</textarea></label>
                             </div>
                         </fieldset>
@@ -110,3 +110,4 @@
     </div>
 </body>
 </html>
+
