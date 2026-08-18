@@ -60,7 +60,7 @@ class InstructorAdminController extends Controller
             'willing_to_travel' => ['required', Rule::in($options['travel_options'])],
             'availability' => ['required', Rule::in($options['availability'])],
             'prior_deliveries' => ['nullable', 'integer', 'min:0', 'max:9999'],
-            'last_taught_at' => ['nullable', 'date'],
+            'last_taught_at' => ['nullable', 'date', 'before_or_equal:today'],
             'regional_priority' => ['required', Rule::in($options['priority_options'])],
             'notes' => ['nullable', 'string', 'max:2000'],
             'review_status' => ['required', Rule::in($options['review_statuses'])],
@@ -132,3 +132,4 @@ class InstructorAdminController extends Controller
             ->latest('instructor_capabilities.updated_at');
     }
 }
+

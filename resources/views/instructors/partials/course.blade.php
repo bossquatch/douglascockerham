@@ -39,9 +39,10 @@
         <label class="field"><span>Current availability <b>*</b></span><select name="{{ $prefix }}[availability]" required><option value="">Select availability</option>@foreach($options['availability'] as $option)<option @selected(($course['availability'] ?? '') === $option)>{{ $option }}</option>@endforeach</select></label>
         <label class="field"><span>Number of times this course has been delivered</span><input type="number" min="0" max="9999" name="{{ $prefix }}[prior_deliveries]" value="{{ $course['prior_deliveries'] ?? '' }}"></label>
 
-        @include('instructors.partials.segmented-date', ['name' => "{$prefix}[last_taught_at]", 'label' => 'Date last taught', 'value' => $course['last_taught_at'] ?? '', 'id' => "last-taught-{$index}", 'class' => 'field--wide'])
+        @include('instructors.partials.segmented-date', ['name' => "{$prefix}[last_taught_at]", 'label' => 'Date last taught', 'value' => $course['last_taught_at'] ?? '', 'id' => "last-taught-{$index}", 'class' => 'field--wide', 'max' => now()->toDateString()])
         <label class="field"><span>Regional priority course? <b>*</b></span><select name="{{ $prefix }}[regional_priority]" required><option value="">Select</option>@foreach($options['priority_options'] as $option)<option @selected(($course['regional_priority'] ?? '') === $option)>{{ $option }}</option>@endforeach</select></label>
     </div>
     <label class="field field--notes"><span>Notes, limitations, or development needs</span><textarea name="{{ $prefix }}[notes]" maxlength="2000" rows="3">{{ $course['notes'] ?? '' }}</textarea></label>
 </section>
+
 
