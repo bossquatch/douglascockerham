@@ -44,7 +44,13 @@ if (intake) {
         instructorName.dispatchEvent(new Event('input', { bubbles: true }));
     };
     reuseSubmitter.addEventListener('change', () => {
-        if (reuseSubmitter.checked) copySubmitter();
+        if (reuseSubmitter.checked) {
+            copySubmitter();
+        } else {
+            instructorName.value = '';
+            instructorEmail.value = '';
+            instructorName.dispatchEvent(new Event('input', { bubbles: true }));
+        }
         setInstructorIdentityDisabled(reuseSubmitter.checked);
     });
     submittedByName.addEventListener('input', () => copySubmitter());
@@ -213,5 +219,6 @@ if (intake) {
 }
 
 bindPhoneInputs();
+
 
 
