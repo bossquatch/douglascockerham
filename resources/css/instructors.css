@@ -53,15 +53,19 @@
 
 /* Region 7 program mark: compact in the workflow chrome, prominent only on confirmation. */
 .region-brand{display:flex;align-items:center;gap:14px;min-width:0;line-height:1}
-.region-brand__mark{display:block;width:72px;height:72px;flex:0 0 72px;object-fit:contain}
-.region-brand__copy{display:grid;min-width:0;font:inherit;letter-spacing:normal}
+.region-brand__logo-link{display:block;flex:0 0 72px;border-radius:4px}
+.region-brand__mark{display:block;width:72px;height:72px;object-fit:contain}
+.region-brand__copy{display:grid;min-width:0;color:inherit;font:inherit;letter-spacing:normal;text-decoration:none}
 .region-brand__copy>span{font-family:B612,Inter,sans-serif;font-size:23px;font-weight:800;letter-spacing:.04em}
 .region-brand__copy>small{text-transform:uppercase;font-size:12px;letter-spacing:.14em;margin-top:8px}
-.success-card__brand{display:block;width:104px;height:104px;margin:0 auto 14px;object-fit:contain}
+.region-brand__logo-link:focus-visible,.region-brand__copy:focus-visible,.success-card__brand-link:focus-visible{outline:3px solid #f0a46f;outline-offset:3px}
+.success-card__brand-link{display:block;width:104px;margin:0 auto 14px;border-radius:4px}
+.success-card__brand{display:block;width:104px;height:104px;object-fit:contain}
 
 @media(max-width:820px){
     .region-brand{gap:11px}
-    .region-brand__mark{width:62px;height:62px;flex-basis:62px}
+    .region-brand__logo-link{flex-basis:62px}
+    .region-brand__mark{width:62px;height:62px}
 }
 
 @media(max-width:520px){
@@ -70,5 +74,6 @@
     .region-nav{grid-row:3;width:100%;justify-self:stretch;justify-content:space-between}
     .region-nav a{justify-content:center;flex:1;padding-inline:12px}
     .success-card{padding:36px 24px}
+    .success-card__brand-link{width:92px}
     .success-card__brand{width:92px;height:92px}
 }

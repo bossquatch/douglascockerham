@@ -8,7 +8,9 @@
 </head>
 <body class="instructor-page instructor-page--success">
     <main class="success-card">
-        <img class="success-card__brand" src="{{ asset('images/region-7-emergency-management-shield.webp') }}" alt="Florida Region 7 Emergency Management shield" width="384" height="384">
+        <a class="success-card__brand-link" href="{{ asset('images/region-7-emergency-management-shield-full.webp') }}" target="_blank" rel="noopener noreferrer" aria-label="View the full-size Florida Region 7 Emergency Management logo (opens in a new tab)">
+            <img class="success-card__brand" src="{{ asset('images/region-7-emergency-management-shield.webp') }}" alt="Florida Region 7 Emergency Management shield" width="384" height="384">
+        </a>
         <div class="success-mark" aria-hidden="true">✓</div>
         <h1>Instructor profile submitted</h1>
         <p>Thank you. {{ session('submitted_course_count') }} course {{ Str::plural('capability', session('submitted_course_count')) }} will be reviewed against FLEX, Florida’s Learning Exchange and current training platform, before being counted as regional delivery capacity. <a href="{{ config('region7.fdem_catalog_source') }}" target="_blank" rel="noopener noreferrer">Open FLEX</a>.</p>
