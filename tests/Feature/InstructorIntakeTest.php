@@ -38,6 +38,8 @@ test('the public instructor intake can be rendered without signing in', function
         ->assertSeeText('Region 7 Instructor Capability Intake')
         ->assertSee('alt="Florida Region 7 Emergency Management shield"', false)
         ->assertSee(asset('images/region-7-emergency-management-shield.webp'))
+        ->assertSee('href="'.asset('images/region-7-emergency-management-shield-full.webp').'"', false)
+        ->assertSee('href="'.route('instructors.create').'" class="region-brand__copy"', false)
         ->assertSeeText('Administration')
         ->assertSeeText('Add another course')
         ->assertSee('role="combobox"', false)
@@ -56,6 +58,7 @@ test('the public instructor intake can be rendered without signing in', function
         ->assertDontSeeText('No account or Microsoft sign-in is required.');
 
     $this->assertFileExists(public_path('images/region-7-emergency-management-shield.webp'));
+    $this->assertFileExists(public_path('images/region-7-emergency-management-shield-full.webp'));
 });
 
 test('legacy instructor URLs redirect to the training application', function () {
@@ -135,6 +138,7 @@ test('the submission confirmation includes a clear exit', function () {
     $this->get(route('instructors.success'))
         ->assertOk()
         ->assertSee('alt="Florida Region 7 Emergency Management shield"', false)
+        ->assertSee('href="'.asset('images/region-7-emergency-management-shield-full.webp').'"', false)
         ->assertSeeText('Exit to website')
         ->assertSeeText('Florida’s Learning Exchange')
         ->assertSee(config('region7.fdem_catalog_source'))
