@@ -19,7 +19,6 @@ Route::post('/em/training', [InstructorIntakeController::class, 'store'])
 Route::get('/em/training/thank-you', [InstructorIntakeController::class, 'success'])
     ->name('instructors.success');
 Route::redirect('/region7/instructors', '/em/training');
-Route::redirect('/region7/instructors/admin', '/em/training/admin');
 
 Route::get('/em/classes/g300', function () {
 	return view('g300');
@@ -29,16 +28,17 @@ Route::get('/em/classes/g400', function () {
 	return view('g400');
 })->name('g400');
 
-Route::redirect('dashboard', '/em/training/admin')->name('dashboard');
-Route::redirect('inventory', '/em/training/admin')->name('inventory');
-
-Route::prefix('em/training/admin')->name('instructors.admin.')->group(function () {
-    Route::get('/', [InstructorAdminController::class, 'index'])->name('index');
-    Route::get('/export', [InstructorAdminController::class, 'export'])->name('export');
-    Route::patch('/capabilities/{capability}', [InstructorAdminController::class, 'update'])->name('update');
-});
-
 Route::middleware(['auth'])->group(function () {
+    Route::redirect('/region7/instructors/admin', '/em/training/admin');
+    Route::redirect('dashboard', '/em/training/admin')->name('dashboard');
+    Route::redirect('inventory', '/em/training/admin')->name('inventory');
+
+    Route::prefix('em/training/admin')->name('instructors.admin.')->group(function () {
+        Route::get('/', [InstructorAdminController::class, 'index'])->name('index');
+        Route::get('/export', [InstructorAdminController::class, 'export'])->name('export');
+        Route::patch('/capabilities/{capability}', [InstructorAdminController::class, 'update'])->name('update');
+    });
+
     Route::redirect('settings', 'settings/profile');
 
     Route::get('settings/profile', Profile::class)->name('settings.profile');
