@@ -1,4 +1,4 @@
-NextGenEM | Region 7 Emergency Management
+NextGenEM
 
 Hello {{ $name }},
 

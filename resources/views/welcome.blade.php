@@ -4,10 +4,9 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>douglascockerham.com</title>
+        <title>NextGenEM</title>
 
-        <link rel="icon" href="/favicon.ico" sizes="any">
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+        <link rel="icon" href="{{ asset('images/nextgenem-mark.png') }}" type="image/png">
         <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
         <!-- Fonts -->
@@ -30,9 +29,8 @@
         <header x-data="{ open: false }" class="absolute inset-x-0 top-0 z-50">
             <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
                 <div class="flex lg:flex-1">
-                    <a href="{{ route('board') }}" class="-m-1.5 p-1.5">
-                        <span class="sr-only">Your Company</span>
-                        <img class="h-10 w-auto" src="{{ URL::asset('storage/images/1.png') }}" alt="" />
+                    <a href="{{ route('home') }}" class="-m-1.5 rounded-xl bg-white px-3 py-2 shadow-sm">
+                        <img class="h-9 w-auto" src="{{ asset('images/nextgenem-logo.png') }}" alt="NextGenEM" />
                     </a>
                 </div>
                 <div class="flex lg:hidden">
@@ -69,9 +67,8 @@
             >
                 <div class="fixed inset-y-0 right-0 w-full max-w-sm bg-gray-900 p-6 overflow-y-auto sm:ring-1 sm:ring-white/10">
                     <div class="flex items-center justify-between">
-                        <a href="#" class="-m-1.5 p-1.5">
-                            <span class="sr-only">You found me</span>
-                            <img class="h-8 w-auto" src="{{ URL::asset('storage/images/IMG_4371.jpeg') }}" alt="" />
+                        <a href="{{ route('home') }}" class="-m-1.5 rounded-xl bg-white px-3 py-2 shadow-sm">
+                            <img class="h-8 w-auto" src="{{ asset('images/nextgenem-logo.png') }}" alt="NextGenEM" />
                         </a>
                         <button
                                 type="button"

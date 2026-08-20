@@ -11,10 +11,9 @@
         <div class="bg-background flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
             <div class="flex w-full max-w-sm flex-col gap-2">
                 <a href="{{ route('home') }}" class="flex flex-col items-center gap-2 font-medium" wire:navigate>
-                    <span class="flex h-20 w-20 mb-1 items-center justify-center rounded-md">
-                        <x-app-logo-icon class="size-20" />
+                    <span class="flex w-full max-w-72 items-center justify-center rounded-xl bg-white px-5 py-3 shadow-sm ring-1 ring-slate-200/80">
+                        <img src="{{ asset('images/nextgenem-logo.png') }}" alt="NextGenEM" class="h-auto w-full object-contain">
                     </span>
-                    <span class="text-xl font-semibold tracking-tight">{{ config('app.name', 'NextGenEM') }}</span>
                 </a>
                 <div class="flex flex-col gap-6">
                     {{ $slot }}

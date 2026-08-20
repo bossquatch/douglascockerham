@@ -1,6 +1,3 @@
-<div class="flex aspect-square size-8 items-center justify-center rounded-md">
-    <x-app-logo-icon class="size-8" />
-</div>
-<div class="ms-1 grid flex-1 text-start text-sm">
-    <span class="mb-0.5 truncate leading-tight font-semibold">NextGenEM</span>
-</div>
+<span class="inline-flex items-center rounded-lg bg-white px-2 py-1 shadow-sm ring-1 ring-slate-200/80">
+    <img src="{{ asset('images/nextgenem-logo.png') }}" alt="NextGenEM" class="h-7 w-auto object-contain">
+</span>
