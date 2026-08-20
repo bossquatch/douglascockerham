@@ -167,6 +167,35 @@
     color: #215e31;
 }
 
+.admin-test-legend {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 22px 0 0;
+    padding: 12px 15px;
+    border: 1px solid #e7bd91;
+    border-radius: 8px;
+    background: #fff8ef;
+    color: #754318;
+}
+.admin-test-legend > span,
+.test-record-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #d8782f;
+    border-radius: 999px;
+    background: #fff0df;
+    color: #9b4b13;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: .08em;
+    line-height: 1;
+}
+.admin-test-legend > span { min-width: 48px; padding: 7px 9px; }
+.admin-test-legend p { margin: 0; font-size: 13px; line-height: 1.45; }
+.test-record-badge { margin-left: 5px; padding: 4px 6px; vertical-align: 1px; }
+
 .admin-error {
     margin: 22px 0;
     padding: 14px 17px;

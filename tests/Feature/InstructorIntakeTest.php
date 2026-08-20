@@ -77,6 +77,7 @@ test('one instructor submission stores multiple course capabilities', function (
 
     $response->assertRedirect(route('instructors.success'));
     expect(InstructorProfile::count())->toBe(1)
+        ->and(InstructorProfile::first()->is_test)->toBeFalse()
         ->and(InstructorCapability::count())->toBe(2)
         ->and(InstructorProfile::first()->instructor_name)->toBe('Alex Rivera')
         ->and(InstructorCapability::where('course_code', 'G-400')->value('course_title'))->toBe('Advanced Incident Command System Command & General Staff: Complex Incidents');

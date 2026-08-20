@@ -18,6 +18,7 @@ function createCapabilityRecord(): InstructorCapability
         'instructor_email' => 'alex@example.gov',
         'instructor_phone' => null,
         'county' => 'Polk',
+        'is_test' => true,
     ]);
 
     return $profile->capabilities()->create([
@@ -66,7 +67,11 @@ test('guests are redirected to login from instructor administration', function (
 test('non administrators can access instructor administration', function () {
     $this->actingAs(User::factory()->create())
         ->get(route('instructors.admin.index'))
-        ->assertOk();
+        ->assertOk()
+        ->assertSee('Profile')
+        ->assertSee('Password')
+        ->assertSee('Sign out')
+        ->assertSee('existing test instructor entries');
 });
 
 test('administrators can review instructor capabilities', function () {
@@ -77,7 +82,8 @@ test('administrators can review instructor capabilities', function () {
         ->get(route('instructors.admin.index'))
         ->assertOk()
         ->assertSeeText('Alex Rivera')
-        ->assertSeeText('G-300');
+        ->assertSeeText('G-300')
+        ->assertSeeText('TEST');
 
     $this->actingAs($administrator)
         ->patch(route('instructors.admin.update', $capability), validAdminUpdatePayload($capability, [

@@ -3,7 +3,7 @@
 use App\Livewire\Auth\ForgotPassword;
 use App\Livewire\Auth\ResetPassword;
 use App\Models\User;
-use Illuminate\Auth\Notifications\ResetPassword as ResetPasswordNotification;
+use App\Notifications\NextGenResetPassword;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
 
@@ -24,7 +24,7 @@ test('reset password link can be requested', function () {
         ->set('email', $user->email)
         ->call('sendPasswordResetLink');
 
-    Notification::assertSentTo($user, ResetPasswordNotification::class);
+    Notification::assertSentTo($user, NextGenResetPassword::class);
 });
 
 test('reset password screen can be rendered', function () {
@@ -36,7 +36,7 @@ test('reset password screen can be rendered', function () {
         ->set('email', $user->email)
         ->call('sendPasswordResetLink');
 
-    Notification::assertSentTo($user, ResetPasswordNotification::class, function ($notification) {
+    Notification::assertSentTo($user, NextGenResetPassword::class, function ($notification) {
         $response = $this->get('/reset-password/'.$notification->token);
 
         $response->assertStatus(200);
@@ -54,7 +54,7 @@ test('password can be reset with valid token', function () {
         ->set('email', $user->email)
         ->call('sendPasswordResetLink');
 
-    Notification::assertSentTo($user, ResetPasswordNotification::class, function ($notification) use ($user) {
+    Notification::assertSentTo($user, NextGenResetPassword::class, function ($notification) use ($user) {
         $response = Livewire::test(ResetPassword::class, ['token' => $notification->token])
             ->set('email', $user->email)
             ->set('password', 'password')
@@ -67,4 +67,21 @@ test('password can be reset with valid token', function () {
 
         return true;
     });
+});
+
+test('password reset email uses NextGenEM branding and the Region 7 logo', function () {
+    $user = User::factory()->make(['name' => 'Doug']);
+    $notification = new NextGenResetPassword('test-token');
+    $mail = $notification->toMail($user);
+
+    expect($mail->subject)->toBe('Reset your NextGenEM password')
+        ->and($mail->view)->toBe([
+            'html' => 'mail.auth.reset-password',
+            'text' => 'mail.auth.reset-password-text',
+        ])
+        ->and($mail->viewData['resetUrl'])->toContain('/reset-password/test-token')
+        ->and(view('mail.auth.reset-password', $mail->viewData)->render())
+        ->toContain('NextGenEM')
+        ->toContain('region-7-emergency-management-shield.webp')
+        ->not->toContain('Laravel');
 });

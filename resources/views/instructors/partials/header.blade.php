@@ -12,5 +12,24 @@
         <a @class(['is-active' => $active === 'intake']) href="{{ route('instructors.create') }}" @if($active === 'intake') aria-current="page" @endif>Intake</a>
         <a @class(['is-active' => $active === 'administration']) href="{{ route('instructors.admin.index') }}" @if($active === 'administration') aria-current="page" @endif>Administration</a>
     </nav>
-    <p>Polk · Hardee · DeSoto · Okeechobee · Highlands</p>
+    @auth
+        <details class="region-profile-menu">
+            <summary aria-label="Open profile menu for {{ auth()->user()->name }}">
+                <span class="region-profile-menu__initials" aria-hidden="true">{{ auth()->user()->initials() }}</span>
+                <span class="region-profile-menu__identity"><strong>{{ auth()->user()->name }}</strong><small>Profile</small></span>
+                <span class="region-profile-menu__chevron" aria-hidden="true">⌄</span>
+            </summary>
+            <div class="region-profile-menu__panel">
+                <div class="region-profile-menu__account"><strong>{{ auth()->user()->name }}</strong><small>{{ auth()->user()->email }}</small></div>
+                <a href="{{ route('settings.profile') }}">Profile</a>
+                <a href="{{ route('settings.password') }}">Password</a>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit">Sign out</button>
+                </form>
+            </div>
+        </details>
+    @else
+        <p>Polk · Hardee · DeSoto · Okeechobee · Highlands</p>
+    @endauth
 </header>
