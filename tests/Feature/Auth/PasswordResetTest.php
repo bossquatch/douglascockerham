@@ -69,7 +69,7 @@ test('password can be reset with valid token', function () {
     });
 });
 
-test('password reset email uses NextGenEM branding and the Region 7 logo', function () {
+test('password reset email uses NextGenEM branding without Region 7 branding', function () {
     $user = User::factory()->make(['name' => 'Doug']);
     $notification = new NextGenResetPassword('test-token');
     $mail = $notification->toMail($user);
@@ -82,6 +82,8 @@ test('password reset email uses NextGenEM branding and the Region 7 logo', funct
         ->and($mail->viewData['resetUrl'])->toContain('/reset-password/test-token')
         ->and(view('mail.auth.reset-password', $mail->viewData)->render())
         ->toContain('NextGenEM')
-        ->toContain('region-7-emergency-management-shield.webp')
+        ->toContain('nextgenem-logo.png')
+        ->not->toContain('Region 7')
+        ->not->toContain('region-7-emergency-management-shield.webp')
         ->not->toContain('Laravel');
 });
