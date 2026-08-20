@@ -9,7 +9,9 @@ uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 test('login screen can be rendered', function () {
     $response = $this->get('/login');
 
-    $response->assertStatus(200);
+    $response->assertStatus(200)
+        ->assertSee('NextGenEM')
+        ->assertDontSee('Laravel');
 });
 
 test('users can authenticate using the login screen', function () {

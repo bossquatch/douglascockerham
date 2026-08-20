@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Notifications\NextGenResetPassword;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -57,5 +58,13 @@ class User extends Authenticatable
             ->take(2)
             ->map(fn ($word) => Str::substr($word, 0, 1))
             ->implode('');
+    }
+
+    /**
+     * Send the branded NextGenEM password reset notification.
+     */
+    public function sendPasswordResetNotification($token): void
+    {
+        $this->notify(new NextGenResetPassword($token));
     }
 }

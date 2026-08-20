@@ -13,13 +13,16 @@ class InstructorProfile extends Model
 
     protected $fillable = [
         'reference', 'submitted_by_name', 'submitted_by_email', 'instructor_name',
-        'agency', 'instructor_email', 'instructor_phone', 'county', 'review_status',
+        'agency', 'instructor_email', 'instructor_phone', 'county', 'is_test', 'review_status',
         'review_notes', 'reviewed_by', 'reviewed_at',
     ];
 
     protected function casts(): array
     {
-        return ['reviewed_at' => 'datetime'];
+        return [
+            'is_test' => 'boolean',
+            'reviewed_at' => 'datetime',
+        ];
     }
 
     public function capabilities(): HasMany

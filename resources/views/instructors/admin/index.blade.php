@@ -16,6 +16,7 @@
         </div>
 
         @if(session('status'))<div class="admin-notice">{{ session('status') }}</div>@endif
+        <div class="admin-test-legend"><span>TEST</span><p>Records with this badge are existing test instructor entries. New public intake submissions are treated as live records.</p></div>
         @if($errors->any())
             <div class="admin-error" role="alert"><strong>The record was not saved.</strong><ul>@foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul></div>
         @endif
@@ -43,7 +44,7 @@
                     <tbody>
                     @forelse($capabilities as $capability)
                         <tr class="{{ optional($selected)->is($capability) ? 'is-selected' : '' }}">
-                            <td><a href="{{ request()->fullUrlWithQuery(['selected' => $capability->id]) }}"><strong>{{ $capability->profile->instructor_name }}</strong><small>{{ $capability->profile->instructor_email ?: $capability->profile->instructor_phone }}</small></a></td>
+                            <td><a href="{{ request()->fullUrlWithQuery(['selected' => $capability->id]) }}"><strong>{{ $capability->profile->instructor_name }} @if($capability->profile->is_test)<span class="test-record-badge">TEST</span>@endif</strong><small>{{ $capability->profile->instructor_email ?: $capability->profile->instructor_phone }}</small></a></td>
                             <td>{{ $capability->profile->county }}</td><td>{{ $capability->profile->agency }}</td>
                             <td><strong>{{ $capability->course_code }}</strong><small>{{ $capability->course_title }}</small></td>
                             <td><span class="status status--{{ Str::slug($capability->flex_status) }}">{{ $capability->flex_status }}</span></td>
