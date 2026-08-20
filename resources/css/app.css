@@ -61,6 +61,163 @@ select:focus[data-flux-control] {
     @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;
 }
 
+@layer components {
+    .auth-light {
+        color-scheme: light;
+    }
+
+    .auth-page {
+        --color-accent: #0759d9;
+        --color-accent-content: #0759d9;
+        --color-accent-foreground: #ffffff;
+        position: relative;
+        overflow-x: hidden;
+        background:
+            radial-gradient(circle at 15% 10%, rgb(37 99 235 / 0.08), transparent 28rem),
+            radial-gradient(circle at 88% 92%, rgb(249 115 22 / 0.055), transparent 24rem),
+            #ffffff;
+        color: #10243f;
+    }
+
+    .auth-page::before {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        background-image: linear-gradient(rgb(15 63 111 / 0.035) 1px, transparent 1px), linear-gradient(90deg, rgb(15 63 111 / 0.035) 1px, transparent 1px);
+        background-size: 48px 48px;
+        mask-image: linear-gradient(to bottom, black, transparent 72%);
+        content: '';
+        pointer-events: none;
+    }
+
+    .auth-shell {
+        display: flex;
+        min-height: 100svh;
+        align-items: center;
+        justify-content: center;
+        padding: 3rem 1.5rem;
+    }
+
+    .auth-column {
+        display: flex;
+        width: 100%;
+        max-width: 28rem;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.75rem;
+    }
+
+    .auth-brand {
+        display: block;
+        width: min(100%, 19rem);
+        border-radius: 0.75rem;
+        outline: none;
+        transition: transform 180ms ease, filter 180ms ease;
+    }
+
+    .auth-brand:hover {
+        transform: translateY(-1px);
+        filter: saturate(1.06);
+    }
+
+    .auth-brand:focus-visible {
+        box-shadow: 0 0 0 3px rgb(249 115 22 / 0.34);
+    }
+
+    .auth-brand__logo {
+        display: block;
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+
+    .auth-panel {
+        width: 100%;
+        border: 1px solid rgb(203 216 230 / 0.9);
+        border-radius: 1.5rem;
+        background: rgb(255 255 255 / 0.94);
+        padding: 2.25rem;
+        box-shadow: 0 24px 70px -34px rgb(15 47 82 / 0.42), 0 8px 24px -18px rgb(15 47 82 / 0.22);
+        backdrop-filter: blur(12px);
+    }
+
+    .auth-panel [data-flux-heading] {
+        color: #10243f;
+        letter-spacing: -0.025em;
+    }
+
+    .auth-panel [data-flux-subheading],
+    .auth-panel [data-flux-text] {
+        color: #5b6f84;
+    }
+
+    .auth-panel [data-flux-label] {
+        color: #263f5b;
+        font-size: 0.875rem;
+        font-weight: 600;
+    }
+
+    .auth-panel [data-flux-control] {
+        border-color: #c9d7e5;
+        background: #ffffff;
+        color: #10243f;
+        box-shadow: 0 1px 2px rgb(15 47 82 / 0.05);
+    }
+
+    .auth-panel [data-flux-control]:hover {
+        border-color: #9fb5ca;
+    }
+
+    .auth-panel input:focus[data-flux-control],
+    .auth-panel textarea:focus[data-flux-control],
+    .auth-panel select:focus[data-flux-control] {
+        border-color: #0759d9;
+        box-shadow: 0 0 0 3px rgb(7 89 217 / 0.14);
+    }
+
+    .auth-panel [data-flux-button][data-variant='primary'] {
+        border-color: #0759d9;
+        background: #0759d9;
+        color: #ffffff;
+        font-weight: 650;
+        box-shadow: 0 10px 22px -13px rgb(7 89 217 / 0.75);
+    }
+
+    .auth-panel [data-flux-button][data-variant='primary']:hover {
+        border-color: #0649b3;
+        background: #0649b3;
+    }
+
+    .auth-panel a:not(.auth-brand) {
+        color: #0759d9;
+        text-underline-offset: 0.2em;
+    }
+
+    .auth-panel a:not(.auth-brand):hover {
+        color: #063f96;
+    }
+}
+
+@media (max-width: 639px) {
+    .auth-shell {
+        align-items: flex-start;
+        padding: 2rem 1rem;
+    }
+
+    .auth-column {
+        gap: 1.25rem;
+    }
+
+    .auth-brand {
+        width: min(82vw, 17rem);
+    }
+
+    .auth-panel {
+        border-radius: 1.25rem;
+        padding: 1.75rem 1.25rem;
+    }
+}
+
 /* \[:where(&)\]:size-4 {
     @apply size-4;
 } */

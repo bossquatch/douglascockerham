@@ -44,8 +44,8 @@
     </form>
 
     @if (Route::has('register'))
-        <div class="space-x-1 rtl:space-x-reverse text-center text-sm text-zinc-600 dark:text-zinc-400">
-            {{ __('Don\'t have an account?') }} <a href="#" class="text-white italic font-bold">Contact Us.</a>
+        <div class="space-x-1 rtl:space-x-reverse text-center text-sm text-slate-600">
+            {{ __('Don\'t have an account?') }} <a href="#" class="font-semibold text-blue-700 transition-colors hover:text-blue-900">Contact Us.</a>
 {{--            <flux:link :href="route('register')" wire:navigate>{{ __('Sign up') }}</flux:link>--}}
         </div>
     @endif
