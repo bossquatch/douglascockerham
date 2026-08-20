@@ -63,7 +63,7 @@ test('the public instructor intake can be rendered without signing in', function
 
 test('legacy instructor URLs redirect to the training application', function () {
     $this->get('/region7/instructors')->assertRedirect('/em/training');
-    $this->get('/region7/instructors/admin')->assertRedirect('/em/training/admin');
+    $this->get('/region7/instructors/admin')->assertRedirect(route('login'));
 });
 
 test('one instructor submission stores multiple course capabilities', function () {

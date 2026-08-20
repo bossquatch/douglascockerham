@@ -58,13 +58,9 @@ function validAdminUpdatePayload(InstructorCapability $capability, array $overri
     ], $overrides);
 }
 
-test('the public can access instructor administration', function () {
+test('guests are redirected to login from instructor administration', function () {
     $this->get(route('instructors.admin.index'))
-        ->assertOk()
-        ->assertSeeText('Instructor capability review')
-        ->assertSeeText('Polk · Hardee · DeSoto · Okeechobee · Highlands')
-        ->assertSeeText('Intake')
-        ->assertSeeText('Administration');
+        ->assertRedirect(route('login'));
 });
 
 test('non administrators can access instructor administration', function () {
@@ -116,21 +112,22 @@ test('administrators can edit instructor and course records', function () {
 test('administrators cannot set date last taught in the future', function () {
     $capability = createCapabilityRecord();
 
-    $this->patch(route('instructors.admin.update', $capability), validAdminUpdatePayload($capability, [
-        'last_taught_at' => now()->addDay()->toDateString(),
-    ]))->assertSessionHasErrors('last_taught_at');
+    $this->actingAs(User::factory()->create())
+        ->patch(route('instructors.admin.update', $capability), validAdminUpdatePayload($capability, [
+            'last_taught_at' => now()->addDay()->toDateString(),
+        ]))->assertSessionHasErrors('last_taught_at');
 });
 
-test('public visitors can edit instructor and course records', function () {
+test('guests cannot edit instructor and course records', function () {
     $capability = createCapabilityRecord();
 
     $this->patch(route('instructors.admin.update', $capability), validAdminUpdatePayload($capability, [
         'availability' => 'Limited',
         'review_status' => 'verified',
-    ]))->assertSessionHas('status');
+    ]))->assertRedirect(route('login'));
 
-    expect($capability->fresh()->availability)->toBe('Limited')
-        ->and($capability->fresh()->review_status)->toBe('verified')
+    expect($capability->fresh()->availability)->toBe('Available')
+        ->and($capability->fresh()->review_status)->toBe('pending')
         ->and($capability->fresh()->reviewed_by)->toBeNull();
 });
 
@@ -150,10 +147,18 @@ test('dashboard totals reflect the active filters', function () {
         ->assertSee('<strong data-summary-gaps>0</strong>', false);
 });
 
-test('public visitors can export a real xlsx workbook', function () {
+test('guests cannot export the instructor workbook', function () {
     createCapabilityRecord();
 
-    $response = $this->get(route('instructors.admin.export'));
+    $this->get(route('instructors.admin.export'))
+        ->assertRedirect(route('login'));
+});
+
+test('authenticated users can export a real xlsx workbook', function () {
+    createCapabilityRecord();
+
+    $response = $this->actingAs(User::factory()->create())
+        ->get(route('instructors.admin.export'));
 
     $response->assertOk();
     expect($response->headers->get('content-type'))
