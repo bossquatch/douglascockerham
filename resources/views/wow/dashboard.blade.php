@@ -35,6 +35,9 @@
         <p>Market prices, learned recipes, and gold-making opportunities.</p>
         @if($markets->isNotEmpty() || $characters->isNotEmpty())
             <form method="get" action="{{ route('wow.dashboard') }}">
+                @if($maxBuyout !== null)
+                    <input type="hidden" name="max_buyout" value="{{ $budgetGold }}">
+                @endif
                 @if($markets->isNotEmpty())
                     <label>Market <select name="market">@foreach($markets as $value)<option @selected($market === $value)>{{ $value }}</option>@endforeach</select></label>
                 @endif
@@ -119,6 +122,27 @@
     <section class="panel" id="resale">
         <div class="section-head"><h2>Buy and resell</h2>
         <p class="muted">The resale target is the median of at least two earlier days of recorded asking prices. Profit is per item after the auction cut. Check live price, quantity, and whether the item actually sells before buying.</p></div>
+        <form class="filters" method="get" action="{{ route('wow.dashboard') }}#resale">
+            @if($market !== null)
+                <input type="hidden" name="market" value="{{ $market }}">
+            @endif
+            @if($character)
+                <input type="hidden" name="character" value="{{ $character->id }}">
+            @endif
+            <label>Maximum buyout per item (gold)
+                <input name="max_buyout" type="number" min="0" max="99999999.9999" step="0.0001"
+                    inputmode="decimal" placeholder="e.g. 5" value="{{ $invalidBudget ? '' : $budgetGold }}">
+            </label>
+            <button>Apply budget</button>
+            @if($maxBuyout !== null || $invalidBudget)
+                <a href="{{ route('wow.dashboard', array_filter(['market' => $market, 'character' => $character?->id])) }}#resale">Clear budget</a>
+            @endif
+        </form>
+        @if($invalidBudget)
+            <p class="loss" role="alert">Enter a nonnegative gold amount with up to four decimal places.</p>
+        @elseif($maxBuyout !== null)
+            <p class="muted">Showing buyouts up to {{ $money($maxBuyout) }} per item.</p>
+        @endif
         <div class="filters" data-filter hidden>
             <label>Find an item <input type="search" placeholder="Item name or ID"></label><small role="status"></small>
         </div>
@@ -126,7 +150,7 @@
             <thead><tr><th>Item</th><th class="num">Saved buyout</th><th class="num">Resale target</th><th class="num">Estimated profit</th><th class="num">Prior days</th></tr></thead>
             <tbody>
             @forelse($resales as $row)
-                <tr data-entry data-key="{{ $row['key'] }}"><td>@if($row['item_id'])<a class="rarity-{{ $row['quality'] ?? 'unknown' }}" href="https://www.wowhead.com/forever/item={{ $row['item_id'] }}">{{ $row['item'] }}</a>@else{{ $row['item'] }}@endif
+                <tr data-entry data-key="{{ $row['key'] }}" data-buyout="{{ $row['buy'] }}"><td>@if($row['item_id'])<a class="rarity-{{ $row['quality'] ?? 'unknown' }}" href="https://www.wowhead.com/forever/item={{ $row['item_id'] }}">{{ $row['item'] }}</a>@else{{ $row['item'] }}@endif
                     <details><summary>Price history</summary>
                         <small>Saved daily asking prices, oldest first</small>
                         <ul class="chart item-history">
@@ -137,7 +161,7 @@
                     </details>
                 </td><td class="num">{{ $money($row['buy']) }}</td><td class="num">{{ $money($row['target']) }}</td><td class="num gain">{{ $money($row['profit']) }}</td><td class="num">{{ $row['days'] }}</td></tr>
             @empty
-                <tr><td colspan="5">No candidates meet the price and history requirements in this snapshot.</td></tr>
+                <tr><td colspan="5">{{ $invalidBudget ? 'Apply a valid budget to see resale candidates.' : 'No candidates meet the price and history requirements in this snapshot.' }}</td></tr>
             @endforelse
             </tbody>
         </table></div>

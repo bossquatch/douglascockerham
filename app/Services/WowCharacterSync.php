@@ -123,6 +123,7 @@ class WowCharacterSync
 
                 $equipment[$slot] = [
                     'name' => $name,
+                    'slot_type' => $item['slot']['type'] ?? null,
                     'id' => $item['item']['id'] ?? null,
                     'quality' => WowItemMetadata::quality($item['quality']['type'] ?? null),
                     'level' => $item['level']['value'] ?? null,

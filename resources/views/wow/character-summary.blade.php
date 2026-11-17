@@ -62,6 +62,12 @@
 @endif
 @if(!empty($profileStats['equipment']))
     <details class="details-panel"><summary>Equipped items</summary>
+        @isset($craftOffers)
+            <p class="muted">Compared with Darvor’s learned recipes that have verified equipment stats. Green shows gains, red shows losses.</p>
+            @if($craftOffers === [])
+                <p class="muted">No craftable improvements found in the verified recipes for these equipped items.</p>
+            @endif
+        @endisset
         <div class="gear-list">
             @foreach($profileStats['equipment'] as $slot => $item)
                 @php($gear = is_array($item) ? $item : ['name' => $item])
@@ -84,6 +90,18 @@
                             <li>{{ $line }}</li>
                         @endforeach
                     </ul>
+                    @foreach($craftOffers[$slot] ?? [] as $offer)
+                        <div class="craft-offer">
+                            <small>{{ $offer['level_needed'] ? 'At level '.$offer['level_needed'] : ($offer['tradeoff'] ? 'Craftable trade-off' : 'Craftable improvement') }}</small>
+                            <h4><a href="https://www.wowhead.com/forever/item={{ $offer['id'] }}">{{ $offer['name'] }}</a></h4>
+                            <ul class="craft-deltas">
+                                @foreach($offer['deltas'] as $stat => $delta)
+                                    <li class="{{ $delta > 0 ? 'gain' : 'loss' }}">{{ $delta > 0 ? '+' : '−' }}{{ abs($delta) }} {{ $stat }}</li>
+                                @endforeach
+                            </ul>
+                            @if($offer['special_effect'])<small>Review the equipped item’s special effects before replacing it.</small>@endif
+                        </div>
+                    @endforeach
                 </article>
             @endforeach
         </div>

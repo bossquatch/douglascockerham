@@ -13,7 +13,8 @@ class WowDashboardController extends Controller
         abort_unless(is_string($owner) && $owner !== '' && strcasecmp($request->user()->email, $owner) === 0, 403);
 
         $markets = DB::table('wow_auction_prices')->distinct()->orderBy('market')->pluck('market');
-        $market = $request->query('market', $markets->first());
+        $configuredMarket = 'US Normal Alliance · '.(int) config('wow.battle_net.auction_house');
+        $market = $request->query('market', $markets->containsStrict($configuredMarket) ? $configuredMarket : $markets->first());
         abort_unless($market === null || $markets->containsStrict($market), 404);
 
         $characters = DB::table('wow_character_snapshots')
@@ -96,10 +97,21 @@ class WowDashboardController extends Controller
             ];
         })->values();
 
+        $budgetInput = $request->query('max_buyout');
+        $budgetGold = is_string($budgetInput) ? trim($budgetInput) : '';
+        $invalidBudget = $budgetInput !== null && (! is_string($budgetInput)
+            || ($budgetGold !== '' && ! preg_match('/\A(?:[0-9]{1,8}(?:\.[0-9]{0,4})?|\.[0-9]{1,4})\z/', $budgetGold)));
+        $maxBuyout = null;
+        if ($budgetGold !== '' && ! $invalidBudget) {
+            [$gold, $fraction] = array_pad(explode('.', $budgetGold, 2), 2, '');
+            $maxBuyout = (int) $gold * 10_000 + (int) str_pad($fraction, 4, '0');
+        }
+
         $resales = collect();
-        if ($snapshot) {
+        if ($snapshot && ! $invalidBudget) {
             $resales = DB::table('wow_auction_prices')->where('import_id', $snapshot->id)
                 ->where('market', $market)->where('buyout_copper', '>', 0)
+                ->when($maxBuyout !== null, fn ($query) => $query->where('buyout_copper', '<=', $maxBuyout))
                 ->cursor()->map(function ($row) use ($tracked, $cut) {
                     $history = json_decode($row->auctionator_data, true)['h'] ?? [];
                     if (! is_array($history)) {
@@ -168,7 +180,7 @@ class WowDashboardController extends Controller
 
         return response()->view('wow.dashboard', compact(
             'markets', 'market', 'characters', 'character', 'stats', 'learned', 'snapshots', 'snapshot',
-            'tracked', 'prices', 'ranked', 'materials', 'resales', 'cut'
+            'tracked', 'prices', 'ranked', 'materials', 'resales', 'cut', 'budgetGold', 'maxBuyout', 'invalidBudget'
         ))->header('Cache-Control', 'private, no-store');
     }
 }

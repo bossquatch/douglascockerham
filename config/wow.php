@@ -5,6 +5,37 @@ return [
     'battle_net' => [
         'client_id' => env('BLIZZARD_CLIENT_ID'),
         'client_secret' => env('BLIZZARD_CLIENT_SECRET'),
+        'auction_house' => env('WOW_AUCTION_HOUSE_ID'),
+    ],
+    // Verified WoW Forever equipment that can be traded before equipping.
+    'offerable_gear' => [
+        'Back' => [
+            ["Hillman's Cloak", 3719, 25, ['Armor' => 21, 'Spell Power' => 5, 'Stamina' => 4]],
+        ],
+        'Shoulders' => [
+            ["Hillman's Shoulders", 4251, 21, ['Armor' => 65, 'Stamina' => 5, 'Spirit' => 3]],
+        ],
+        'Chest' => [
+            ['Moonglow Vest', 6709, 13, ['Armor' => 74, 'Intellect' => 3, 'Spell Power' => 4]],
+            ['Toughened Leather Armor', 2314, 19, ['Armor' => 84, 'Stamina' => 2, 'Spirit' => 7]],
+        ],
+        'Waist' => [
+            ['Fine Leather Belt', 4246, 11, ['Armor' => 40, 'Agility' => 2, 'Stamina' => 2]],
+            ['Dark Leather Belt', 4249, 20, ['Armor' => 48, 'Agility' => 4, 'Stamina' => 4]],
+        ],
+        'Legs' => [
+            ['Light Leather Pants', 7282, 14, ['Armor' => 66, 'Agility' => 5, 'Stamina' => 3]],
+            ['Dark Leather Pants', 5961, 18, ['Armor' => 72, 'Agility' => 8]],
+        ],
+        'Feet' => [
+            ['Embossed Leather Boots', 2309, 10, ['Armor' => 48, 'Stamina' => 2, 'Spell Power' => 2]],
+        ],
+        'Wrist' => [
+            ['Light Leather Bracers', 7281, 9, ['Armor' => 30, 'Agility' => 1, 'Strength' => 1]],
+        ],
+        'Hands' => [
+            ['Nimble Leather Gloves', 7285, 19, ['Armor' => 52, 'Agility' => 4, 'Stamina' => 4]],
+        ],
     ],
     'auction_cut_percent' => 5,
     'items' => [

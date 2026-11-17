@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\WowCharacterSync;
+use App\Services\WowCraftedGear;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -28,6 +29,7 @@ class WowCharacterLookupController extends Controller
         $recipes = [];
         $error = null;
         $missing = [];
+        $craftOffers = [];
 
         try {
             $id = config('wow.battle_net.client_id');
@@ -68,6 +70,7 @@ class WowCharacterLookupController extends Controller
 
                     if ($error === null) {
                         [$stats, $recipes] = $characterSync->summarize($data);
+                        $craftOffers = app(WowCraftedGear::class)->compare($data['profile'], $stats['equipment']);
                     }
                 }
             }
@@ -75,7 +78,7 @@ class WowCharacterLookupController extends Controller
             $error = 'The server could not reach Battle.net. Try again in a moment.';
         }
 
-        return response()->view('wow.lookup-result', compact('parameters', 'name', 'stats', 'recipes', 'error', 'missing'))
+        return response()->view('wow.lookup-result', compact('parameters', 'name', 'stats', 'recipes', 'error', 'missing', 'craftOffers'))
             ->header('Cache-Control', 'private, no-store');
     }
 }
