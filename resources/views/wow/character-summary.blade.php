@@ -47,6 +47,29 @@
 @else
     <p class="muted">No character stats available yet.</p>
 @endif
+@isset($talentGroups)
+    <details class="details-panel" open><summary>Talents</summary>
+        @forelse($talentGroups as $group)
+            <p class="muted">{{ $group['active'] ? 'Active build' : (count($talentGroups) === 1 ? 'Reported build' : 'Alternate build') }}</p>
+            <div class="progress-list">
+                @foreach($group['trees'] as $tree)
+                    <div class="profession">
+                        <h3>{{ $tree['name'] }} · {{ $tree['points'] }} points</h3>
+                        @if($tree['talents'])
+                            <ul>
+                                @foreach($tree['talents'] as $talent)
+                                    <li>{{ $talent['name'] }}@if($talent['rank'] !== null) · rank {{ $talent['rank'] }} @endif</li>
+                                @endforeach
+                            </ul>
+                        @endif
+                    </div>
+                @endforeach
+            </div>
+        @empty
+            <p class="muted">Battle.net reported no talent allocation.</p>
+        @endforelse
+    </details>
+@endisset
 @if(!empty($profileStats['professions']))
     <details class="details-panel" open><summary>Profession ranks</summary>
         <div class="progress-list">
@@ -64,6 +87,11 @@
     <details class="details-panel"><summary>Equipped items</summary>
         @isset($craftOffers)
             <p class="muted">Compared with Darvor’s learned recipes that have verified equipment stats. Green shows gains, red shows losses.</p>
+            @if($balance ?? false)
+                <p class="muted"><strong>Balance Druid{{ $buildOverride ? ' · selected manually' : ' · from talents' }}</strong>. Gear is ranked for caster leveling, with spell power, spell hit and intellect ahead of melee stats. Stat trade-offs still apply.</p>
+            @else
+                <p class="muted">Using general stat comparisons.</p>
+            @endif
             @if($craftOffers === [])
                 <p class="muted">No craftable improvements found in the verified recipes for these equipped items.</p>
             @endif
@@ -92,7 +120,7 @@
                     </ul>
                     @foreach($craftOffers[$slot] ?? [] as $offer)
                         <div class="craft-offer">
-                            <small>{{ $offer['level_needed'] ? 'At level '.$offer['level_needed'] : ($offer['tradeoff'] ? 'Craftable trade-off' : 'Craftable improvement') }}</small>
+                            <small>{{ $offer['level_needed'] ? 'At level '.$offer['level_needed'] : ($offer['balance_score'] !== null ? ($offer['balance_score'] > 0 ? ($offer['tradeoff'] ? 'Balance gain with trade-offs' : 'Balance improvement') : 'Lower priority for Balance') : ($offer['tradeoff'] ? 'Craftable trade-off' : 'Craftable improvement')) }}</small>
                             <h4><a href="https://www.wowhead.com/forever/item={{ $offer['id'] }}">{{ $offer['name'] }}</a></h4>
                             <ul class="craft-deltas">
                                 @foreach($offer['deltas'] as $stat => $delta)

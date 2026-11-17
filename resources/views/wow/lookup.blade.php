@@ -14,6 +14,12 @@
                 @endforeach
             </select>
         </label>
+        <label>Gear priorities
+            <select name="build">
+                <option value="auto">Use active talents</option>
+                <option value="balance" @selected(($parameters['build'] ?? old('build')) === 'balance')>Balance Druid</option>
+            </select>
+        </label>
         <button>Look up character</button>
     </form>
     @if($errors->any())
