@@ -85,3 +85,8 @@ Artisan::command('wow:import {file : Path to a price or character JSON export}',
 \Illuminate\Support\Facades\Schedule::command('wow:pull-auctions')
     ->hourlyAt(15)->withoutOverlapping(10)
     ->when(fn () => filled(config('wow.battle_net.auction_house')));
+
+\Illuminate\Support\Facades\Schedule::command('wow:battle-net-check', [
+    '--character' => 'darvor-nightstorm',
+    '--sync-character' => true,
+])->hourlyAt(25)->withoutOverlapping();
