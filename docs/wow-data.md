@@ -102,3 +102,10 @@ Reload `/wow` to see available character stats, profession ranks and equipped
 items. The sync retains the previously imported learned recipes and adds named
 recipes explicitly reported as known by Battle.net. This command does not
 change auction prices.
+
+The dashboard includes a read-only character lookup for public WoW Forever
+profiles in the Americas, Europe, Korea, and Taiwan. It uses the same Forge
+Battle.net credentials as the character sync, and is available only to the
+configured dashboard owner. Battle.net may omit stats, equipment, professions
+or recipe names for some characters. Looking up a character never imports a
+snapshot or changes the recipes used by the profit calculator.
