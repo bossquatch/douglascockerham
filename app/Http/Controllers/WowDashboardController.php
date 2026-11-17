@@ -17,7 +17,7 @@ class WowDashboardController extends Controller
         abort_unless($market === null || $markets->containsStrict($market), 404);
 
         $characters = DB::table('wow_character_snapshots')
-            ->selectRaw('realm, character, MAX(id) AS id')
+            ->select('realm', 'character')->selectRaw('MAX(id) AS id')
             ->groupBy('realm', 'character')->orderBy('character')->get();
         $selected = $request->query('character', $characters->first()?->id);
         abort_unless($selected === null || is_scalar($selected), 404);
