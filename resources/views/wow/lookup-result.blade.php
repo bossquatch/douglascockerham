@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Character lookup · Auction Ledger</title>
-    <link rel="stylesheet" href="{{ asset('wow/ledger.css') }}">
+    <link rel="stylesheet" href="{{ asset('auction-ledger-assets/ledger.css') }}">
 </head>
 <body>
 <main>
