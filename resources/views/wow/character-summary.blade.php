@@ -62,6 +62,30 @@
 @endif
 @if(!empty($profileStats['equipment']))
     <details class="details-panel"><summary>Equipped items</summary>
-        <dl class="stats">@foreach($profileStats['equipment'] as $slot => $item)<dt>{{ $slot }}</dt><dd>{{ $item }}</dd>@endforeach</dl>
+        <div class="gear-list">
+            @foreach($profileStats['equipment'] as $slot => $item)
+                @php($gear = is_array($item) ? $item : ['name' => $item])
+                <article class="stat-group gear">
+                    <p class="eyebrow">{{ $slot }}</p>
+                    <h3 class="rarity-{{ $gear['quality'] ?? 'unknown' }}">
+                        @if(!empty($gear['id']) && ctype_digit((string) $gear['id']))
+                            <a href="https://www.wowhead.com/forever/item={{ $gear['id'] }}">{{ $gear['name'] }}</a>
+                        @else
+                            {{ $gear['name'] }}
+                        @endif
+                    </h3>
+                    <ul>
+                        @foreach(['level' => 'Item level', 'armor' => 'Armor', 'damage' => 'Damage', 'speed' => 'Speed', 'dps' => 'DPS'] as $field => $label)
+                            @if(isset($gear[$field]))
+                                <li>{{ $label }}: {{ $gear[$field] }}</li>
+                            @endif
+                        @endforeach
+                        @foreach($gear['lines'] ?? [] as $line)
+                            <li>{{ $line }}</li>
+                        @endforeach
+                    </ul>
+                </article>
+            @endforeach
+        </div>
     </details>
 @endif

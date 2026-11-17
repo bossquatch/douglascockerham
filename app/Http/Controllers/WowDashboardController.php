@@ -128,9 +128,23 @@ class WowDashboardController extends Controller
                         'target' => $target,
                         'profit' => $profit,
                         'days' => $prior->count(),
+                        'history' => collect($history)->filter(fn ($price) => is_int($price) && $price > 0)
+                            ->take(7)->reverse()->values()->all(),
                     ];
                 })->filter()->sortByDesc('profit')->take(20)->values()->collect();
         }
+
+        $metadata = app(\App\Services\WowItemMetadata::class)->forKeys($resales->pluck('key'));
+        $resales = $resales->map(function ($row) use ($metadata) {
+            $id = explode(':', (string) $row['key'], 2)[0];
+
+            return [
+                ...$row,
+                'item' => $metadata[$id]['name'] ?? $row['item'],
+                'quality' => $metadata[$id]['quality'] ?? null,
+                'item_id' => ctype_digit($id) ? $id : null,
+            ];
+        });
 
         $ranked = $opportunities->sortByDesc(fn ($row) => max(
             $row['vendor_profit'] ?? PHP_INT_MIN, $row['auction_profit'] ?? PHP_INT_MIN
