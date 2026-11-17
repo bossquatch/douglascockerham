@@ -141,6 +141,33 @@ class WowCharacterSync
         return [$stats, $recipes];
     }
 
+    public function talentGroups(array $data): array
+    {
+        $groups = [];
+        foreach (($data['specialization_groups'] ?? []) as $group) {
+            $trees = [];
+            foreach (($group['specializations'] ?? []) as $tree) {
+                $name = $this->label($tree['specialization_name'] ?? $tree['specialization'] ?? null);
+                if ($name === null) {
+                    continue;
+                }
+
+                $talents = [];
+                foreach (($tree['talents'] ?? []) as $talent) {
+                    if ($label = $this->label($talent['talent'] ?? $talent['spell_tooltip']['spell'] ?? null)) {
+                        $talents[] = ['name' => $label, 'rank' => $talent['talent_rank'] ?? null];
+                    }
+                }
+                $trees[] = ['name' => $name, 'points' => (int) ($tree['spent_points'] ?? 0), 'talents' => $talents];
+            }
+            if ($trees) {
+                $groups[] = ['active' => ($group['is_active'] ?? false) === true, 'trees' => $trees];
+            }
+        }
+
+        return $groups;
+    }
+
     private function label(mixed $value): ?string
     {
         if (is_array($value)) {

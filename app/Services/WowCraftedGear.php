@@ -8,7 +8,14 @@ class WowCraftedGear
 {
     private const LEATHER_CLASSES = [1, 2, 3, 4, 7, 11];
 
-    public function compare(array $target, array $equipment): array
+    // Relative leveling preferences, not a combat simulation.
+    private const BALANCE_WEIGHTS = [
+        'Spell Hit' => 5, 'Spell Power' => 4, 'Arcane Spell Power' => 4, 'Nature Spell Power' => 4,
+        'Intellect' => 3, 'Spell Critical Strike' => 2, 'Spell Haste' => 2, 'Spirit' => 1,
+        'Stamina' => 0.75, 'Armor' => 0.05, 'Agility' => 0.1, 'Strength' => 0.1,
+    ];
+
+    public function compare(array $target, array $equipment, bool $balance = false): array
     {
         $level = $target['level'] ?? null;
         if (! is_int($level) || $level < 1 || $equipment === []) {
@@ -59,6 +66,14 @@ class WowCraftedGear
                     continue;
                 }
 
+                $score = null;
+                if ($balance) {
+                    $score = 0;
+                    foreach ($deltas as $stat => $delta) {
+                        $score += $delta * (self::BALANCE_WEIGHTS[$stat] ?? 0);
+                    }
+                }
+
                 $offers[$slot][] = [
                     'name' => $name,
                     'id' => $id,
@@ -66,11 +81,12 @@ class WowCraftedGear
                     'deltas' => $deltas,
                     'tradeoff' => $specialEffect || (bool) array_filter($deltas, fn ($delta) => $delta < 0),
                     'special_effect' => $specialEffect,
+                    'balance_score' => $score,
                 ];
             }
 
             if (isset($offers[$slot])) {
-                usort($offers[$slot], fn ($a, $b) => [$a['level_needed'] ?? 0, $a['tradeoff']] <=> [$b['level_needed'] ?? 0, $b['tradeoff']]);
+                usort($offers[$slot], fn ($a, $b) => [$a['level_needed'] ?? 0, -($a['balance_score'] ?? 0), $a['tradeoff']] <=> [$b['level_needed'] ?? 0, -($b['balance_score'] ?? 0), $b['tradeoff']]);
             }
         }
 
