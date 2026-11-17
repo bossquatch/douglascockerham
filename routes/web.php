@@ -30,6 +30,8 @@ Route::get('/em/classes/g400', function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/wow', \App\Http\Controllers\WowDashboardController::class)->name('wow.dashboard');
+    Route::post('/wow/character/refresh', [\App\Http\Controllers\WowDashboardController::class, 'refreshCharacter'])
+        ->middleware('throttle:2,1')->name('wow.character.refresh');
     Route::get('/wow/character', \App\Http\Controllers\WowCharacterLookupController::class)
         ->middleware('throttle:8,1')->name('wow.lookup');
     Route::redirect('/region7/instructors/admin', '/em/training/admin');

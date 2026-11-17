@@ -189,6 +189,19 @@
             @endforelse
     </div></section>
     <section class="panel" id="character">
+        @if(session('character_status'))
+            <p role="status">{{ session('character_status') }}</p>
+        @endif
+        @if(session('character_error'))
+            <p role="alert">{{ session('character_error') }}</p>
+        @endif
+        <form method="post" action="{{ route('wow.character.refresh') }}">
+            @csrf
+            @if($market)
+                <input type="hidden" name="market" value="{{ $market }}">
+            @endif
+            <button type="submit">Refresh Darvor</button>
+        </form>
         @include('wow.character-summary', ['profileStats' => $stats, 'profileName' => $character ? $character->character.' '.$character->realm : 'My character'])
         <p class="muted">{{ $learned->count() }} learned Leatherworking recipes · {{ $ranked->count() }} with verified craft inputs</p>
         @if($learned->isNotEmpty())
