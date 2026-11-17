@@ -10,7 +10,8 @@ class WowBattleNetCheck extends Command
 {
     protected $signature = 'wow:battle-net-check
         {--character=darvor-nightstorm : Forever character slug}
-        {--ruleset=2 : Forever ruleset ID}';
+        {--ruleset=2 : Forever ruleset ID}
+        {--sync-character : Import character stats, professions and equipment}';
 
     protected $description = 'Check Battle.net credentials and discover Forever character data and auction houses';
 
@@ -50,6 +51,10 @@ class WowBattleNetCheck extends Command
 
             $profilePath = "/profile/wow/character/{$character}";
             $profileQuery = ['namespace' => 'profile-forever-us', 'locale' => 'en_US'];
+            if ($this->option('sync-character')) {
+                return app(\App\Services\WowCharacterSync::class)->run($this, $api, $profilePath, $profileQuery, $character);
+            }
+
             $ok = true;
             foreach (['Profile' => '', 'Statistics' => '/statistics', 'Professions' => '/professions'] as $label => $suffix) {
                 $response = $api->get($profilePath.$suffix, $profileQuery);
