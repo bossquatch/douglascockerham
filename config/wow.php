@@ -5,6 +5,7 @@ return [
     'battle_net' => [
         'client_id' => env('BLIZZARD_CLIENT_ID'),
         'client_secret' => env('BLIZZARD_CLIENT_SECRET'),
+        'auction_house' => env('WOW_AUCTION_HOUSE_ID'),
     ],
     'auction_cut_percent' => 5,
     'items' => [

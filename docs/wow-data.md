@@ -109,3 +109,27 @@ Battle.net credentials as the character sync, and is available only to the
 configured dashboard owner. Battle.net may omit stats, equipment, professions
 or recipe names for some characters. Looking up a character never imports a
 snapshot or changes the recipes used by the profit calculator.
+
+## Hourly Auction House pulls
+
+From the application directory on Forge run
+`php8.3 artisan wow:pull-auctions --compare`. Compare the unit buyouts and
+quantities for several leathers against a fresh in-game US Normal Alliance
+scan. The comparison never writes data. Set `WOW_AUCTION_HOUSE_ID` to the
+matching house ID in Forge only after confirming it, and clear Laravel's
+config cache if needed. Run `php8.3 artisan wow:pull-auctions` once and confirm
+that the new market appears in `/wow`.
+
+If the server has no Laravel scheduler job for this site, add a Forge
+scheduled job as user `forge`, every minute:
+
+```sh
+cd /home/forge/douglascockerham.com && php8.3 artisan schedule:run
+```
+
+Laravel calls the pull at 15 minutes past each hour. Identical prices and
+quantities are skipped within a UTC day. The prior good snapshot remains
+active if the API request fails. Imported prices are current asking prices
+per unit for base items, not completed sales. The Blizzard market is
+separate from older Auctionator imports. Resale comparisons need at least
+two earlier daily observations on the same market.

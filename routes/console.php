@@ -81,3 +81,7 @@ Artisan::command('wow:import {file : Path to a price or character JSON export}',
 
     return 0;
 })->purpose('Import a private WoW price or character snapshot');
+
+\Illuminate\Support\Facades\Schedule::command('wow:pull-auctions')
+    ->hourlyAt(15)->withoutOverlapping(10)
+    ->when(fn () => filled(config('wow.battle_net.auction_house')));

@@ -13,7 +13,8 @@ class WowDashboardController extends Controller
         abort_unless(is_string($owner) && $owner !== '' && strcasecmp($request->user()->email, $owner) === 0, 403);
 
         $markets = DB::table('wow_auction_prices')->distinct()->orderBy('market')->pluck('market');
-        $market = $request->query('market', $markets->first());
+        $configuredMarket = 'US Normal Alliance · '.(int) config('wow.battle_net.auction_house');
+        $market = $request->query('market', $markets->containsStrict($configuredMarket) ? $configuredMarket : $markets->first());
         abort_unless($market === null || $markets->containsStrict($market), 404);
 
         $characters = DB::table('wow_character_snapshots')
