@@ -13,7 +13,7 @@
         <section class="panel"><h1>Character unavailable</h1><p class="loss" role="alert">{{ $error }}</p></section>
     @else
         <section class="panel">
-            @include('wow.character-summary', ['profileStats' => $stats, 'profileName' => $name])
+            @include('wow.character-summary', ['profileStats' => $stats, 'profileName' => $name, 'craftOffers' => $craftOffers])
             @if($missing)
                 <p class="muted">Battle.net didn’t supply {{ implode(', ', $missing) }} for this character.</p>
             @endif

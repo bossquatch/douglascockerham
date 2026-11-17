@@ -110,3 +110,7 @@ progress::-moz-progress-bar { background: var(--green); }
 }
 .item-history { min-width: 11rem; }
 .chart.item-history li { grid-template-columns: minmax(2rem, 1fr) auto; }
+
+.craft-offer { border-top: 1px solid var(--line); margin-top: 12px; padding-top: 8px; }
+.craft-offer h4 { font-size: .95rem; margin: 2px 0 0; }
+.gear .craft-deltas { display: flex; flex-wrap: wrap; gap: 2px 10px; }
