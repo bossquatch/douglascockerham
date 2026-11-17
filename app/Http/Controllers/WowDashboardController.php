@@ -2,15 +2,53 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 
 class WowDashboardController extends Controller
 {
-    public function __invoke(Request $request)
+    public function refreshCharacter(Request $request): RedirectResponse
+    {
+        $this->authorizeOwner($request);
+
+        try {
+            $refreshed = Artisan::call('wow:battle-net-check', [
+                '--character' => 'darvor-nightstorm',
+                '--sync-character' => true,
+            ]) === 0;
+        } catch (\Exception $exception) {
+            report($exception);
+            $refreshed = false;
+        }
+
+        $snapshot = DB::table('wow_character_snapshots')
+            ->whereRaw('LOWER(realm) = ?', ['nightstorm'])
+            ->whereRaw('LOWER('.DB::connection()->getQueryGrammar()->wrap('character').') = ?', ['darvor'])
+            ->max('id');
+
+        $parameters = array_filter(['character' => $snapshot]);
+        $market = $request->input('market');
+        if (is_string($market) && DB::table('wow_auction_prices')->where('market', $market)->exists()) {
+            $parameters['market'] = $market;
+        }
+
+        return redirect()->to(route('wow.dashboard', $parameters).'#character')->with(
+            $refreshed ? 'character_status' : 'character_error',
+            $refreshed ? 'Darvor’s character data was refreshed.' : 'Could not refresh Darvor’s character data. Try again shortly.',
+        );
+    }
+
+    private function authorizeOwner(Request $request): void
     {
         $owner = config('wow.owner_email');
         abort_unless(is_string($owner) && $owner !== '' && strcasecmp($request->user()->email, $owner) === 0, 403);
+    }
+
+    public function __invoke(Request $request)
+    {
+        $this->authorizeOwner($request);
 
         $markets = DB::table('wow_auction_prices')->distinct()->orderBy('market')->pluck('market');
         $configuredMarket = 'US Normal Alliance · '.(int) config('wow.battle_net.auction_house');
