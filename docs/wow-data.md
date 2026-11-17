@@ -73,3 +73,21 @@ The default 5% cut is for a faction market. Resale estimates compare the
 latest cached buyout with the median of at least two earlier recorded
 daily prices for the same item and market. They do not establish completed
 sales, available quantity at that price, or the time needed to resell.
+
+## Battle.net connection check
+
+In the Forge site environment, set `BLIZZARD_CLIENT_ID` and
+`BLIZZARD_CLIENT_SECRET` to the values from your Battle.net API client.
+Refresh the Laravel config cache if it is enabled. From the site's application
+directory on the server, run:
+
+```sh
+php8.3 artisan wow:battle-net-check
+```
+
+The command defaults to Darvor–Nightstorm, the US API, and the Normal
+ruleset. It reports authentication, profile/statistics/professions endpoint
+status, and the available auction house IDs. It does not import data. Use
+the output to confirm the character and identify the matching market before
+adding synchronization. Forever's endpoint layout is based on observed API
+behavior and may change.
