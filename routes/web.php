@@ -29,6 +29,7 @@ Route::get('/em/classes/g400', function () {
 })->name('g400');
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/wow', \App\Http\Controllers\WowDashboardController::class)->name('wow.dashboard');
     Route::redirect('/region7/instructors/admin', '/em/training/admin');
     Route::redirect('dashboard', '/em/training/admin')->name('dashboard');
     Route::redirect('inventory', '/em/training/admin')->name('inventory');
