@@ -8,6 +8,7 @@
         if ($copper % 100 || !$parts) $parts[] = ($copper % 100).'c';
         return ($amount < 0 ? '−' : '').implode(' ', $parts);
     };
+    $characterStats = collect($stats)->except(['professions', 'equipment']);
     $best = $ranked->first(fn ($row) => max($row['auction_profit'] ?? 0, $row['vendor_profit'] ?? 0) > 0);
     $vendorBest = $ranked->filter(fn ($row) => ($row['vendor_profit'] ?? 0) > 0)->sortByDesc('vendor_profit')->first();
 @endphp
@@ -126,11 +127,22 @@
         <section>
             <h2>Character and market data</h2>
             <p class="muted">{{ $learned->count() }} learned Leatherworking recipes · {{ $ranked->count() }} with verified craft inputs</p>
-            @if($stats)
-                <dl class="stats">@foreach($stats as $label => $value)<dt>{{ str_replace('_',' ',ucfirst($label)) }}</dt><dd>{{ is_scalar($value) ? (is_bool($value) ? ($value ? 'Yes' : 'No') : $value) : json_encode($value) }}</dd>@endforeach</dl>
+            @if($characterStats->isNotEmpty())
+                <dl class="stats">@foreach($characterStats as $label => $value)<dt>{{ str_replace('_',' ',ucfirst($label)) }}</dt><dd>{{ is_scalar($value) ? (is_bool($value) ? ($value ? 'Yes' : 'No') : $value) : json_encode($value) }}</dd>@endforeach</dl>
             @else
                 <p>No character stats imported yet.</p>
             @endif
+            @foreach(['professions' => 'Profession ranks', 'equipment' => 'Equipped items'] as $group => $heading)
+                @if(!empty($stats[$group]))
+                    <details><summary>{{ $heading }}</summary>
+                        <dl class="stats">
+                            @foreach($stats[$group] as $label => $value)
+                                <dt>{{ $label }}</dt><dd>{{ is_scalar($value) ? $value : json_encode($value) }}</dd>
+                            @endforeach
+                        </dl>
+                    </details>
+                @endif
+            @endforeach
             @if($learned->isNotEmpty())<details><summary>Learned recipes</summary><ul>@foreach($learned as $name)<li>{{ $name }}</li>@endforeach</ul></details>@endif
             @if($snapshots->isNotEmpty())<details><summary>Recent imports</summary><ul>@foreach($snapshots as $value)<li>{{ $value->captured_at }} UTC · {{ number_format($value->item_count) }} items</li>@endforeach</ul></details>@endif
         </section>

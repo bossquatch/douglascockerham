@@ -91,3 +91,14 @@ status, and the available auction house IDs. It does not import data. Use
 the output to confirm the character and identify the matching market before
 adding synchronization. Forever's endpoint layout is based on observed API
 behavior and may change.
+
+After the connection succeeds, import the character in the site directory:
+
+```sh
+php8.3 artisan wow:battle-net-check --character=darvor-nightstorm --sync-character
+```
+
+Reload `/wow` to see available character stats, profession ranks and equipped
+items. The sync retains the previously imported learned recipes and adds named
+recipes explicitly reported as known by Battle.net. This command does not
+change auction prices.
