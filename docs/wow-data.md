@@ -58,3 +58,18 @@ php artisan wow:import /private/path/character.json
 Transfer the two exports over SSH to a directory outside the site's web root
 first. The exports contain the initial market data and recipe list. Keep them
 out of the GitHub repository.
+
+## Private dashboard
+
+Set `WOW_DASHBOARD_OWNER_EMAIL` in the Forge site's environment to the email
+on the owner's existing site account. Refresh Laravel's config cache if the
+deployment uses one. Sign in and open `/wow`. Guests must sign in and any
+other account is denied. With no owner configured the page stays closed.
+
+Craft rankings cover learned recipes whose WoW Forever vendor values and
+reagent quantities are in `config/wow.php`. Auction estimates deduct the
+configured cut but do not estimate sale probability or lost deposits.
+The default 5% cut is for a faction market. Resale estimates compare the
+latest cached buyout with the median of at least two earlier recorded
+daily prices for the same item and market. They do not establish completed
+sales, available quantity at that price, or the time needed to resell.
