@@ -1,12 +1,19 @@
 @php
-    $money = static function ($amount) {
+    $money = static function ($amount, bool $plain = false) {
         if ($amount === null) return '—';
         $copper = abs((int) $amount);
-        $parts = [];
-        if ($copper >= 10000) $parts[] = intdiv($copper, 10000).'g';
-        if ($copper >= 100) $parts[] = (intdiv($copper, 100) % 100).'s';
-        if ($copper % 100 || !$parts) $parts[] = ($copper % 100).'c';
-        return ($amount < 0 ? '−' : '').implode(' ', $parts);
+        $coins = ['gold' => intdiv($copper, 10000), 'silver' => intdiv($copper, 100) % 100, 'copper' => $copper % 100];
+        $coins = array_filter($coins) ?: ['copper' => 0];
+        $negative = $amount < 0;
+        $label = ($negative ? 'minus ' : '').collect($coins)->map(fn ($count, $metal) => $count.' '.$metal)->implode(' ');
+        if ($plain) return $label;
+
+        $content = $negative ? '−' : '';
+        foreach ($coins as $metal => $count) {
+            $content .= '<span class="coin-unit">'.$count.'<span class="coin coin--'.$metal.'"></span></span>';
+        }
+
+        return new \Illuminate\Support\HtmlString('<span class="coin-amount" role="img" aria-label="'.e($label).'"><span aria-hidden="true">'.$content.'</span></span>');
     };
     $best = $ranked->first(fn ($row) => max($row['auction_profit'] ?? 0, $row['vendor_profit'] ?? 0) > 0);
     $vendorBest = $ranked->filter(fn ($row) => ($row['vendor_profit'] ?? 0) > 0)->sortByDesc('vendor_profit')->first();
@@ -58,7 +65,7 @@
     <div class="columns">
         @foreach([
             'Profitable crafts' => $ranked->map(fn ($row) => ['name' => $row['name'], 'value' => max($row['auction_profit'] ?? 0, $row['vendor_profit'] ?? 0)])->filter(fn ($row) => $row['value'] > 0)->take(5),
-            'Resale estimates' => $resales->take(5)->map(fn ($row) => ['name' => $row['item'], 'value' => $row['profit']]),
+            'Resale estimates' => $resales->take(5)->map(fn ($row) => ['name' => $row['item'], 'value' => $row['profit'], 'quality' => $row['quality']]),
         ] as $heading => $bars)
             <section class="panel">
                 <h2>{{ $heading }}</h2>
@@ -66,9 +73,9 @@
                 @if($bars->isNotEmpty())
                     <ul class="chart">
                         @foreach($bars as $bar)
-                            <li><span>{{ $bar['name'] }}</span>
-                                <progress class="{{ $heading === 'Resale estimates' ? 'resale' : '' }}" aria-label="{{ $bar['name'] }}: {{ $money($bar['value']) }}" value="{{ $bar['value'] }}" max="{{ $bars->max('value') }}"></progress>
-                                <strong class="gain">{{ $money($bar['value']) }}</strong>
+                            <li><span class="chart-label rarity-{{ $bar['quality'] ?? 'unknown' }}">{{ $bar['name'] }}</span>
+                                <progress class="{{ $heading === 'Resale estimates' ? 'resale' : '' }}" aria-label="{{ $bar['name'] }}: {{ $money($bar['value'], true) }}" value="{{ $bar['value'] }}" max="{{ $bars->max('value') }}"></progress>
+                                <strong class="gain chart-value">{{ $money($bar['value']) }}</strong>
                             </li>
                         @endforeach
                     </ul>
@@ -93,7 +100,7 @@
                 <tr data-entry data-profitable="{{ max($row['vendor_profit'] ?? 0, $row['auction_profit'] ?? 0) > 0 ? 'true' : 'false' }}">
                     <td><strong>{{ $row['name'] }}</strong><details><summary>Materials</summary>
                         @foreach($row['inputs'] as $input)
-                            <div>{{ $input['quantity'] }} × {{ $input['name'] }} · {{ $input['price'] ? $input['price']['method'].' at '.$money($input['price']['cost']).' each' : 'price unavailable' }}</div>
+                            <div>{{ $input['quantity'] }} × {{ $input['name'] }} · @if($input['price']){{ $input['price']['method'] }} at {{ $money($input['price']['cost']) }} each @else price unavailable @endif</div>
                         @endforeach
                     </details></td>
                     <td class="num">{{ $money($row['cost']) }}</td>
@@ -119,7 +126,16 @@
             <thead><tr><th>Item</th><th class="num">Saved buyout</th><th class="num">Resale target</th><th class="num">Estimated profit</th><th class="num">Prior days</th></tr></thead>
             <tbody>
             @forelse($resales as $row)
-                <tr data-entry><td>@if(ctype_digit((string) $row['key']))<a href="https://www.wowhead.com/forever/item={{ $row['key'] }}">{{ $row['item'] }}</a>@else{{ $row['item'] }}@endif</td><td class="num">{{ $money($row['buy']) }}</td><td class="num">{{ $money($row['target']) }}</td><td class="num gain">{{ $money($row['profit']) }}</td><td class="num">{{ $row['days'] }}</td></tr>
+                <tr data-entry data-key="{{ $row['key'] }}"><td>@if($row['item_id'])<a class="rarity-{{ $row['quality'] ?? 'unknown' }}" href="https://www.wowhead.com/forever/item={{ $row['item_id'] }}">{{ $row['item'] }}</a>@else{{ $row['item'] }}@endif
+                    <details><summary>Price history</summary>
+                        <small>Saved daily asking prices, oldest first</small>
+                        <ul class="chart item-history">
+                            @foreach($row['history'] as $price)
+                                <li><progress aria-label="{{ $money($price, true) }}" value="{{ $price }}" max="{{ max($row['history']) }}"></progress><span class="chart-value">{{ $money($price) }}</span></li>
+                            @endforeach
+                        </ul>
+                    </details>
+                </td><td class="num">{{ $money($row['buy']) }}</td><td class="num">{{ $money($row['target']) }}</td><td class="num gain">{{ $money($row['profit']) }}</td><td class="num">{{ $row['days'] }}</td></tr>
             @empty
                 <tr><td colspan="5">No candidates meet the price and history requirements in this snapshot.</td></tr>
             @endforelse
@@ -138,7 +154,12 @@
             <h3>Materials for profitable crafts</h3>
             <p class="muted">Each buy cap is per unit and assumes the other ingredients stay at the modeled prices.</p>
             @forelse($materials as $name => $uses)
-                <p><strong>{{ $name }}</strong><br>{{ $uses->map(fn ($use) => $use['recipe'].' (×'.$use['quantity'].', up to '.$money($use['cap']).' each)')->implode(', ') }}</p>
+                <p><strong>{{ $name }}</strong></p>
+                <ul class="material-caps">
+                    @foreach($uses as $use)
+                        <li>{{ $use['recipe'] }} · {{ $use['quantity'] }} needed · max {{ $money($use['cap']) }} each</li>
+                    @endforeach
+                </ul>
             @empty
                 <p>No profitable crafts with complete pricing in this snapshot.</p>
             @endforelse
@@ -154,9 +175,18 @@
     </section>
     @include('wow.lookup')
     @if($snapshots->isNotEmpty())
-        <section class="panel"><details><summary>Recent market imports</summary>
-            <ul>@foreach($snapshots as $value)<li>{{ $value->captured_at }} UTC · {{ number_format($value->item_count) }} items</li>@endforeach</ul>
-        </details></section>
+        <section class="panel">
+            <h2>Market coverage</h2>
+            <p class="muted">Items captured in each import · newest first</p>
+            <ul class="chart coverage-chart">
+                @foreach($snapshots as $value)
+                    <li><time class="chart-label" datetime="{{ \Illuminate\Support\Carbon::parse($value->captured_at, 'UTC')->toIso8601String() }}">{{ \Illuminate\Support\Carbon::parse($value->captured_at, 'UTC')->format('M j, H:i') }} UTC</time>
+                        <progress aria-label="{{ number_format($value->item_count) }} items" value="{{ $value->item_count }}" max="{{ $snapshots->max('item_count') }}"></progress>
+                        <strong class="chart-value">{{ number_format($value->item_count) }}</strong>
+                    </li>
+                @endforeach
+            </ul>
+        </section>
     @endif
 </main>
 </body>

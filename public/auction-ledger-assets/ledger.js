@@ -9,7 +9,7 @@ document.querySelectorAll('[data-filter]').forEach((filter) => {
         const query = search.value.trim().toLowerCase();
         let visible = 0;
         rows.forEach((row) => {
-            row.hidden = !row.textContent.toLowerCase().includes(query)
+            row.hidden = !`${row.textContent} ${row.dataset.key ?? ""}`.toLowerCase().includes(query)
                 || Boolean(profitable?.checked && row.dataset.profitable !== 'true');
             if (!row.hidden) visible += 1;
         });

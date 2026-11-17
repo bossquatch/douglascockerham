@@ -70,3 +70,43 @@ progress::-moz-progress-bar { background: var(--green); }
 .filters label:has(input[type=checkbox]) { display: flex; align-items: center; }
 .filters input[type=checkbox] { min-height: initial; accent-color: var(--gold); }
 [hidden] { display: none !important; }
+
+.coin-amount, .coin-unit { white-space: nowrap; }
+.coin-amount > span, .coin-unit { display: inline-flex; align-items: baseline; gap: .26em; }
+.coin-amount { font-variant-numeric: tabular-nums; }
+.coin {
+    display: inline-block;
+    width: .67em;
+    height: .67em;
+    border: 1px solid var(--coin-rim);
+    border-radius: 50%;
+    background: radial-gradient(circle at 37% 28%, var(--coin-light), var(--coin-dark));
+    box-shadow: inset 0 0 0 1px #ffffff25, 0 1px 1px #0008;
+}
+.coin--gold { --coin-light:#fff0a7; --coin-dark:#b47220; --coin-rim:#f2cb6b; }
+.coin--silver { --coin-light:#f7fbff; --coin-dark:#75889a; --coin-rim:#cbdae5; }
+.coin--copper { --coin-light:#ffd0a7; --coin-dark:#a84d29; --coin-rim:#eea575; }
+.chart li { grid-template-columns: minmax(85px, 1fr) minmax(40px, 1.5fr) 8.8rem; }
+.chart-label { overflow-wrap: anywhere; min-width: 0; }
+.chart-value { text-align: right; font-variant-numeric: tabular-nums; }
+.coverage-chart li { grid-template-columns: minmax(95px, 1fr) minmax(40px, 3fr) 5rem; }
+.chart progress { margin: 0; }
+.gear-list { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); margin-top: 12px; }
+.gear ul { list-style: none; padding: 0; margin: 5px 0 0; color: var(--muted); }
+.gear .eyebrow { margin: 0 0 3px; }
+.gear h3 a { color: inherit; }
+.rarity-poor { color:#a9a9a9; }
+.rarity-common { color:#f7f4ed; }
+.rarity-uncommon { color:#7be05b; }
+.rarity-rare { color:#79b9ff; }
+.rarity-epic { color:#d4a0ff; }
+.rarity-legendary { color:#ffad60; }
+.rarity-artifact,.rarity-heirloom { color:#ead69d; }
+.rarity-unknown { color:var(--text); }
+@media (max-width: 520px) {
+    .chart li { grid-template-columns: minmax(0, 1fr) 8.8rem; gap: 3px 8px; }
+    .chart-label { grid-column: 1 / -1; }
+    .coverage-chart li { grid-template-columns: minmax(0, 1fr) 5rem; }
+}
+.item-history { min-width: 11rem; }
+.chart.item-history li { grid-template-columns: minmax(2rem, 1fr) auto; }

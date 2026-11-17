@@ -111,7 +111,27 @@ class WowCharacterSync
             $slot = $this->label($item['slot'] ?? null);
             $name = $this->label($item['name'] ?? $item['item'] ?? null);
             if ($slot !== null && $name !== null) {
-                $equipment[$slot] = $name;
+                $lines = [];
+                foreach (['stats', 'enchantments', 'spells'] as $group) {
+                    foreach (($item[$group] ?? []) as $detail) {
+                        $display = $detail['display']['display_string'] ?? $detail['display_string'] ?? $detail['description'] ?? null;
+                        if ($line = $this->label($display)) {
+                            $lines[] = $line;
+                        }
+                    }
+                }
+
+                $equipment[$slot] = [
+                    'name' => $name,
+                    'id' => $item['item']['id'] ?? null,
+                    'quality' => WowItemMetadata::quality($item['quality']['type'] ?? null),
+                    'level' => $item['level']['value'] ?? null,
+                    'armor' => $item['armor']['value'] ?? null,
+                    'damage' => $this->label($item['weapon']['damage']['display_string'] ?? null),
+                    'speed' => $item['weapon']['attack_speed']['value'] ?? null,
+                    'dps' => $item['weapon']['dps']['value'] ?? null,
+                    'lines' => array_values(array_unique($lines)),
+                ];
             }
         }
 
