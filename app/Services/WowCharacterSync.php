@@ -34,6 +34,34 @@ class WowCharacterSync
         $recipes = $lastSnapshot ? DB::table('wow_learned_recipes')->where('snapshot_id', $lastSnapshot->id)
             ->get()->groupBy('profession')->map(fn ($rows) => $rows->pluck('name')->all())->all() : [];
 
+        [$stats, $recipes] = $this->summarize($data, $recipes);
+        $export = tempnam(sys_get_temp_dir(), 'wow-character-');
+        if ($export === false) {
+            throw new RuntimeException('Could not create a temporary character export.');
+        }
+
+        try {
+            $payload = json_encode([
+                'source' => 'character',
+                'captured_at' => now()->utc()->toIso8601String(),
+                'realm' => $lastSnapshot->realm ?? $surname,
+                'character' => $lastSnapshot->character ?? $character,
+                'stats' => $stats,
+                'recipes' => $recipes,
+            ], JSON_THROW_ON_ERROR);
+            if (file_put_contents($export, $payload) === false) {
+                throw new RuntimeException('Could not write the temporary character export.');
+            }
+
+            return $command->call('wow:import', ['file' => $export]);
+        } finally {
+            unlink($export);
+        }
+    }
+
+    public function summarize(array $data, array $recipes = []): array
+    {
+        $profile = $data['profile'];
         $stats = array_filter([
             'level' => $profile['level'] ?? null,
             'class' => $this->label($profile['character_class'] ?? null),
@@ -89,28 +117,7 @@ class WowCharacterSync
 
         $stats['professions'] = $professionRanks;
         $stats['equipment'] = $equipment;
-        $export = tempnam(sys_get_temp_dir(), 'wow-character-');
-        if ($export === false) {
-            throw new RuntimeException('Could not create a temporary character export.');
-        }
-
-        try {
-            $payload = json_encode([
-                'source' => 'character',
-                'captured_at' => now()->utc()->toIso8601String(),
-                'realm' => $lastSnapshot->realm ?? $surname,
-                'character' => $lastSnapshot->character ?? $character,
-                'stats' => $stats,
-                'recipes' => $recipes,
-            ], JSON_THROW_ON_ERROR);
-            if (file_put_contents($export, $payload) === false) {
-                throw new RuntimeException('Could not write the temporary character export.');
-            }
-
-            return $command->call('wow:import', ['file' => $export]);
-        } finally {
-            unlink($export);
-        }
+        return [$stats, $recipes];
     }
 
     private function label(mixed $value): ?string
@@ -118,7 +125,7 @@ class WowCharacterSync
         if (is_array($value)) {
             $value = $value['name'] ?? $value['en_US'] ?? $value['type'] ?? null;
             if (is_array($value)) {
-                $value = $value['en_US'] ?? null;
+                $value = collect($value)->first(fn ($part) => is_string($part));
             }
         }
 
