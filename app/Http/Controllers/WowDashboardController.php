@@ -64,10 +64,15 @@ class WowDashboardController extends Controller
         abort_unless($selected === null || $character !== null, 404);
 
         $stats = [];
+        $characterCapturedAt = null;
         $learned = collect();
         if ($character) {
-            $stats = DB::table('wow_character_snapshots')->where('id', $character->id)->value('stats');
-            $stats = json_decode($stats, true) ?? [];
+            $characterSnapshot = DB::table('wow_character_snapshots as snapshots')
+                ->join('wow_imports as imports', 'snapshots.import_id', '=', 'imports.id')
+                ->where('snapshots.id', $character->id)
+                ->first(['snapshots.stats', 'imports.captured_at']);
+            $stats = json_decode($characterSnapshot->stats ?? '{}', true) ?? [];
+            $characterCapturedAt = $characterSnapshot?->captured_at;
             $learned = DB::table('wow_learned_recipes')->where('snapshot_id', $character->id)
                 ->where('profession', 'Leatherworking')->orderBy('name')->pluck('name');
         }
@@ -217,7 +222,7 @@ class WowDashboardController extends Controller
         })->groupBy('name')->sortKeys();
 
         return response()->view('wow.dashboard', compact(
-            'markets', 'market', 'characters', 'character', 'stats', 'learned', 'snapshots', 'snapshot',
+            'markets', 'market', 'characters', 'character', 'stats', 'characterCapturedAt', 'learned', 'snapshots', 'snapshot',
             'tracked', 'prices', 'ranked', 'materials', 'resales', 'cut', 'budgetGold', 'maxBuyout', 'invalidBudget'
         ))->header('Cache-Control', 'private, no-store');
     }

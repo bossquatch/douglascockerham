@@ -33,6 +33,17 @@
         <p class="eyebrow">World of Warcraft: Forever</p>
         <h1>Auction Ledger</h1>
         <p>Market prices, learned recipes, and gold-making opportunities.</p>
+        <p class="muted">Last updated
+            @foreach(['Market' => $snapshot?->captured_at, 'Character' => $characterCapturedAt] as $label => $capturedAt)
+                · {{ $label }}
+                @if($capturedAt)
+                    @php($updatedAt = \Illuminate\Support\Carbon::parse($capturedAt, 'UTC')->timezone('America/New_York'))
+                    <time datetime="{{ $updatedAt->toIso8601String() }}">{{ $updatedAt->format('M j, Y g:i A T') }}</time>
+                @else
+                    <span>Awaiting first import</span>
+                @endif
+            @endforeach
+        </p>
         @if($markets->isNotEmpty() || $characters->isNotEmpty())
             <form method="get" action="{{ route('wow.dashboard') }}">
                 @if($maxBuyout !== null)
