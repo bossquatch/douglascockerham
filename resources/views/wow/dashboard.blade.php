@@ -114,6 +114,8 @@
         @endforeach
     </div>
 
+    @include('wow.craft-demand')
+
     <section class="panel" id="crafts">
         <div class="section-head"><h2>@include('wow.icon', ['icon' => 'craft']) Craft for profit</h2>
         <p class="muted">Ranked by the better sale method. Costs use the cheapest priced source for each ingredient, including conversions you know. Auction estimates deduct {{ $cut }}% and exclude lost deposits.</p></div>

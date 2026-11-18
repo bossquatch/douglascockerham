@@ -6,13 +6,21 @@
     ])->filter()->implode(' · ');
     $groups = [
         'Vitals' => ['health', 'power', 'armor'],
-        'Attributes' => ['strength', 'agility', 'stamina', 'intellect'],
+        'Attributes' => ['strength', 'agility', 'stamina', 'intellect', 'spirit'],
         'Offense' => ['attack_power', 'spell_power', 'spell_penetration', 'melee_crit', 'ranged_crit', 'spell_crit', 'melee_haste'],
         'Defense' => ['dodge', 'parry', 'block'],
     ];
-    $knownKeys = collect($groups)->flatten()->merge(['level', 'race', 'class', 'specialization', 'faction', 'equipment', 'professions']);
+    $knownKeys = collect($groups)->flatten()->merge(['level', 'race', 'class', 'specialization', 'faction', 'equipment', 'professions', 'attribute_base']);
     $groups['Other stats'] = array_keys(array_diff_key($profileStats, array_fill_keys($knownKeys->all(), true)));
     $percent = ['dodge', 'parry', 'block', 'melee_crit', 'ranged_crit', 'spell_crit', 'melee_haste'];
+    $displayGearValue = static function ($value, $field) {
+        if (! is_numeric($value)) return $value;
+        $number = (float) $value;
+        if ($number == 0 || ($field !== 'dps' && floor($number) === $number)) return $value;
+
+        $precision = 1 - (int) floor(log10(abs($number)));
+        return number_format(round($number, $precision), max(0, $precision), '.', '');
+    };
     $display = static function ($value, $key) use ($percent) {
         if (is_numeric($value)) {
             if (in_array($key, $percent, true)) return number_format((float) $value, 2).'%';
@@ -30,9 +38,35 @@
 @if($profileStats)
     <div class="stat-groups">
         @foreach($groups as $title => $keys)
-            @php($values = array_intersect_key($profileStats, array_fill_keys($keys, true)))
+            @php
+                $values = array_intersect_key($profileStats, array_fill_keys($keys, true));
+            @endphp
             @if($values)
                 <div class="stat-group"><h3>{{ $title }}</h3>
+                    @if($title === 'Attributes')
+                        <table class="attributes-table">
+                            <thead><tr><th scope="col">Stat</th><th scope="col">Base</th><th scope="col">Bonus</th><th scope="col">Total</th></tr></thead>
+                            <tbody>
+                                @foreach($values as $key => $total)
+                                    @php
+                                        $base = $profileStats['attribute_base'][$key] ?? null;
+                                        $bonus = is_numeric($base) && is_numeric($total) ? $total - $base : null;
+                                    @endphp
+                                    <tr>
+                                        <th scope="row">{{ ucfirst($key) }}</th>
+                                        <td>{{ $base === null ? '—' : $display($base, $key) }}</td>
+                                        <td class="{{ $bonus > 0 ? 'gain' : ($bonus < 0 ? 'loss' : '') }}">{{ $bonus === null ? '—' : ($bonus > 0 ? '+' : '').$display($bonus, $key) }}</td>
+                                        <td>{{ $display($total, $key) }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        @if(empty($profileStats['attribute_base']))
+                            <small>Base and bonus are unavailable for this snapshot.</small>
+                        @else
+                            <small>Bonus is the net change reported by Battle.net.</small>
+                        @endif
+                    @else
                     <dl class="stats">
                         @foreach($keys as $key)
                             @if(array_key_exists($key, $values))
@@ -40,6 +74,7 @@
                             @endif
                         @endforeach
                     </dl>
+                    @endif
                 </div>
             @endif
         @endforeach
@@ -74,12 +109,21 @@
     <details class="details-panel" open><summary>Profession ranks</summary>
         <div class="progress-list">
             @foreach($profileStats['professions'] as $profession => $rank)
+                @php
+                    $hasProgress = is_string($rank) && preg_match('/^([0-9]+) \/ ([1-9][0-9]*)$/', $rank, $parts)
+                        && (int) $parts[1] <= (int) $parts[2];
+                @endphp
                 <div class="profession"><h3>@include('wow.icon', ['icon' => match (strtolower($profession)) {
                     'leatherworking' => 'craft', 'skinning' => 'materials', 'cooking' => 'cooking',
                     'fishing' => 'fishing', 'first aid' => 'first-aid', 'herbalism' => 'herbalism',
                     'alchemy' => 'alchemy', default => 'craft',
-                }]) {{ $profession }}</h3><p class="muted">{{ $rank }}</p>
-                    @if(is_string($rank) && preg_match('/^([0-9]+) \/ ([1-9][0-9]*)$/', $rank, $parts) && (int) $parts[1] <= (int) $parts[2])
+                }]) {{ $profession }}</h3><p class="muted profession-rank">
+                    <span>{{ $rank }}</span>
+                    @if($hasProgress)
+                        <strong>{{ rtrim(rtrim(number_format($parts[1] / $parts[2] * 100, 1), '0'), '.') }}%</strong>
+                    @endif
+                </p>
+                    @if($hasProgress)
                         <progress aria-label="{{ $profession }} rank" value="{{ $parts[1] }}" max="{{ $parts[2] }}"></progress>
                     @endif
                 </div>
@@ -102,7 +146,9 @@
         @endisset
         <div class="gear-list">
             @foreach($profileStats['equipment'] as $slot => $item)
-                @php($gear = is_array($item) ? $item : ['name' => $item])
+                @php
+                    $gear = is_array($item) ? $item : ['name' => $item];
+                @endphp
                 <article class="stat-group gear">
                     <p class="eyebrow">@include('wow.icon', ['icon' => match (strtolower($slot)) {
                         'feet' => 'boots', 'hands' => 'gloves', 'legs' => 'legs', 'back' => 'back',
@@ -119,7 +165,7 @@
                     <ul>
                         @foreach(['level' => 'Item level', 'armor' => 'Armor', 'damage' => 'Damage', 'speed' => 'Speed', 'dps' => 'DPS'] as $field => $label)
                             @if(isset($gear[$field]))
-                                <li>{{ $label }}: {{ $gear[$field] }}</li>
+                                <li>{{ $label }}: {{ $displayGearValue($gear[$field], $field) }}</li>
                             @endif
                         @endforeach
                         @foreach($gear['lines'] ?? [] as $line)

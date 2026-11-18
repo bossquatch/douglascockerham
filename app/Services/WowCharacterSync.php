@@ -69,10 +69,15 @@ class WowCharacterSync
             'faction' => $this->label($profile['faction'] ?? null),
             'specialization' => $this->label($profile['active_spec'] ?? null),
         ], 'is_scalar');
-        foreach (['health', 'power', 'strength', 'agility', 'intellect', 'stamina', 'armor', 'attack_power',
+        $attributes = ['strength', 'agility', 'stamina', 'intellect', 'spirit'];
+        foreach (['health', 'power', ...$attributes, 'armor', 'attack_power',
             'spell_power', 'spell_penetration', 'spell_crit', 'melee_crit', 'melee_haste', 'ranged_crit', 'dodge', 'parry', 'block'] as $key) {
             $number = $data['statistics'][$key] ?? null;
             if (is_array($number)) {
+                if (in_array($key, $attributes, true) && is_numeric($number['base'] ?? null)
+                    && is_numeric($number['effective'] ?? null)) {
+                    $stats['attribute_base'][$key] = $number['base'];
+                }
                 $number = $number['effective'] ?? $number['value'] ?? $number['rating'] ?? null;
             }
             if (is_numeric($number)) {

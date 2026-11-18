@@ -119,3 +119,10 @@ progress::-moz-progress-bar { background: var(--green); }
 .hero h1 .wow-icon { width: .85em; height: .85em; max-width: 52px; max-height: 52px; vertical-align: .04em; border-radius: 8px; margin-inline-end: .22em; }
 .emblem .wow-icon { width: 34px; height: 34px; max-width: none; max-height: none; margin: 0; }
 .chart-label .wow-icon { width: 16px; height: 16px; }
+
+.attributes-table { width: 100%; margin: 6px 0; }
+.attributes-table th,.attributes-table td { padding: 4px 3px; text-align: right; }
+.attributes-table th:first-child { text-align: left; }
+.attributes-table tbody th { color: var(--muted); }
+.profession-rank { display: flex; justify-content: space-between; gap: 8px; }
+.profession-rank strong { color: var(--text); }
