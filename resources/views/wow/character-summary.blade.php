@@ -24,7 +24,7 @@
     };
 @endphp
 <div class="identity">
-    <span class="emblem" aria-hidden="true">✦</span>
+    <span class="emblem" aria-hidden="true">@include('wow.icon', ['icon' => strtolower($profileStats['class'] ?? '') === 'druid' ? 'druid' : 'character'])</span>
     <div><h2>{{ $profileName }}</h2>@if($identity)<p class="muted">{{ $identity }}</p>@endif</div>
 </div>
 @if($profileStats)
@@ -74,7 +74,11 @@
     <details class="details-panel" open><summary>Profession ranks</summary>
         <div class="progress-list">
             @foreach($profileStats['professions'] as $profession => $rank)
-                <div class="profession"><h3>{{ $profession }}</h3><p class="muted">{{ $rank }}</p>
+                <div class="profession"><h3>@include('wow.icon', ['icon' => match (strtolower($profession)) {
+                    'leatherworking' => 'craft', 'skinning' => 'materials', 'cooking' => 'cooking',
+                    'fishing' => 'fishing', 'first aid' => 'first-aid', 'herbalism' => 'herbalism',
+                    'alchemy' => 'alchemy', default => 'craft',
+                }]) {{ $profession }}</h3><p class="muted">{{ $rank }}</p>
                     @if(is_string($rank) && preg_match('/^([0-9]+) \/ ([1-9][0-9]*)$/', $rank, $parts) && (int) $parts[1] <= (int) $parts[2])
                         <progress aria-label="{{ $profession }} rank" value="{{ $parts[1] }}" max="{{ $parts[2] }}"></progress>
                     @endif
@@ -100,7 +104,11 @@
             @foreach($profileStats['equipment'] as $slot => $item)
                 @php($gear = is_array($item) ? $item : ['name' => $item])
                 <article class="stat-group gear">
-                    <p class="eyebrow">{{ $slot }}</p>
+                    <p class="eyebrow">@include('wow.icon', ['icon' => match (strtolower($slot)) {
+                        'feet' => 'boots', 'hands' => 'gloves', 'legs' => 'legs', 'back' => 'back',
+                        'main hand', 'off hand', 'ranged' => 'weapon',
+                        'ring 1', 'ring 2', 'trinket 1', 'trinket 2', 'neck' => 'accessory', default => 'gear',
+                    }]) {{ $slot }}</p>
                     <h3 class="rarity-{{ $gear['quality'] ?? 'unknown' }}">
                         @if(!empty($gear['id']) && ctype_digit((string) $gear['id']))
                             <a href="https://www.wowhead.com/forever/item={{ $gear['id'] }}">{{ $gear['name'] }}</a>

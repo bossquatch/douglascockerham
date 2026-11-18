@@ -9,6 +9,28 @@ use Illuminate\Support\Facades\DB;
 
 class WowDashboardController extends Controller
 {
+    public function refreshAuctions(Request $request): RedirectResponse
+    {
+        $this->authorizeOwner($request);
+
+        try {
+            $refreshed = Artisan::call('wow:pull-auctions') === 0;
+            $unchanged = $refreshed && str_contains(Artisan::output(), 'Imported ') === false;
+        } catch (\Exception $exception) {
+            report($exception);
+            $refreshed = false;
+        }
+
+        if (! $refreshed) {
+            return redirect()->route('wow.dashboard')
+                ->with('auction_error', 'Could not refresh the Auction House. Check the configured house and try again.');
+        }
+
+        return redirect()->route('wow.dashboard')->with('auction_status', $unchanged
+            ? 'Auction House checked. The latest snapshot is already saved.'
+            : 'Auction House refreshed. A new snapshot was saved.');
+    }
+
     public function refreshCharacter(Request $request): RedirectResponse
     {
         $this->authorizeOwner($request);
