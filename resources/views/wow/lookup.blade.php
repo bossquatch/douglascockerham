@@ -1,7 +1,7 @@
 <section class="panel" id="lookup">
     <div class="section-head">
         <p class="eyebrow">Battle.net</p>
-        <h2>Character lookup</h2>
+        <h2>@include('wow.icon', ['icon' => 'search']) Character lookup</h2>
         <p>Find a public WoW Forever character by first name, surname and region.</p>
     </div>
     <form class="lookup-form" action="{{ route('wow.lookup') }}#lookup" method="get">
@@ -20,7 +20,7 @@
                 <option value="balance" @selected(($parameters['build'] ?? old('build')) === 'balance')>Balance Druid</option>
             </select>
         </label>
-        <button>Look up character</button>
+        <button>@include('wow.icon', ['icon' => 'search']) Look up character</button>
     </form>
     @if($errors->any())
         <ul class="loss" role="alert">@foreach($errors->all() as $message)<li>{{ $message }}</li>@endforeach</ul>

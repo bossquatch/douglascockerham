@@ -9,6 +9,28 @@ use Illuminate\Support\Facades\DB;
 
 class WowDashboardController extends Controller
 {
+    public function refreshAuctions(Request $request): RedirectResponse
+    {
+        $this->authorizeOwner($request);
+
+        try {
+            $refreshed = Artisan::call('wow:pull-auctions') === 0;
+            $unchanged = $refreshed && str_contains(Artisan::output(), 'Imported ') === false;
+        } catch (\Exception $exception) {
+            report($exception);
+            $refreshed = false;
+        }
+
+        if (! $refreshed) {
+            return redirect()->route('wow.dashboard')
+                ->with('auction_error', 'Could not refresh the Auction House. Check the configured house and try again.');
+        }
+
+        return redirect()->route('wow.dashboard')->with('auction_status', $unchanged
+            ? 'Auction House checked. The latest snapshot is already saved.'
+            : 'Auction House refreshed. A new snapshot was saved.');
+    }
+
     public function refreshCharacter(Request $request): RedirectResponse
     {
         $this->authorizeOwner($request);
@@ -64,10 +86,15 @@ class WowDashboardController extends Controller
         abort_unless($selected === null || $character !== null, 404);
 
         $stats = [];
+        $characterCapturedAt = null;
         $learned = collect();
         if ($character) {
-            $stats = DB::table('wow_character_snapshots')->where('id', $character->id)->value('stats');
-            $stats = json_decode($stats, true) ?? [];
+            $characterSnapshot = DB::table('wow_character_snapshots as snapshots')
+                ->join('wow_imports as imports', 'snapshots.import_id', '=', 'imports.id')
+                ->where('snapshots.id', $character->id)
+                ->first(['snapshots.stats', 'imports.captured_at']);
+            $stats = json_decode($characterSnapshot->stats ?? '{}', true) ?? [];
+            $characterCapturedAt = $characterSnapshot?->captured_at;
             $learned = DB::table('wow_learned_recipes')->where('snapshot_id', $character->id)
                 ->where('profession', 'Leatherworking')->orderBy('name')->pluck('name');
         }
@@ -216,8 +243,12 @@ class WowDashboardController extends Controller
             });
         })->groupBy('name')->sortKeys();
 
+        $recipeCatalog = $learned->isEmpty() ? [] : json_decode(
+            file_get_contents(resource_path('data/wow-leatherworking.json')), true, flags: JSON_THROW_ON_ERROR
+        );
+
         return response()->view('wow.dashboard', compact(
-            'markets', 'market', 'characters', 'character', 'stats', 'learned', 'snapshots', 'snapshot',
+            'markets', 'market', 'characters', 'character', 'stats', 'characterCapturedAt', 'learned', 'recipeCatalog', 'snapshots', 'snapshot',
             'tracked', 'prices', 'ranked', 'materials', 'resales', 'cut', 'budgetGold', 'maxBuyout', 'invalidBudget'
         ))->header('Cache-Control', 'private, no-store');
     }
