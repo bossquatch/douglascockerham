@@ -13,7 +13,7 @@
 * { box-sizing: border-box; }
 html { scroll-margin-top: 1rem; }
 body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.55 system-ui, sans-serif; }
-main { width: min(1280px, 100%); padding: clamp(16px, 4vw, 48px); margin: auto; }
+main { width: min(1500px, 100%); padding: clamp(16px, 4vw, 48px); margin: auto; }
 h1,h2,h3,p { margin: 0; }
 h1 { font: 600 clamp(2.5rem, 7vw, 5rem)/1.03 Georgia, serif; letter-spacing: -.05em; }
 h2 { font: 600 clamp(1.5rem, 3vw, 2rem)/1.2 Georgia, serif; }
@@ -70,7 +70,7 @@ progress::-moz-progress-bar { background: var(--green); }
 [hidden] { display: none !important; }
 
 .coin-amount, .coin-unit { white-space: nowrap; }
-.coin-amount > span, .coin-unit { display: inline-flex; align-items: baseline; gap: .26em; }
+.coin-amount > span, .coin-unit { display: inline-flex; align-items: center; gap: .26em; }
 .coin-amount { font-variant-numeric: tabular-nums; }
 .coin {
     display: inline-block;
@@ -103,7 +103,7 @@ progress::-moz-progress-bar { background: var(--green); }
 .rarity-unknown { color:var(--text); }
 @media (max-width: 520px) {
     .chart li { grid-template-columns: minmax(0, 1fr) 8.8rem; gap: 3px 8px; }
-    .chart-label { grid-column: 1 / -1; }
+    .coverage-chart .chart-label { grid-column: 1 / -1; }
     .coverage-chart li { grid-template-columns: minmax(0, 1fr) 5rem; }
 }
 .item-history { min-width: 11rem; }
@@ -113,10 +113,34 @@ progress::-moz-progress-bar { background: var(--green); }
 .craft-offer h4 { font-size: .95rem; margin: 2px 0 0; }
 .gear .craft-deltas { display: flex; flex-wrap: wrap; gap: 2px 10px; }
 
-.wow-icon { display: inline-block; width: 1.25em; height: 1.25em; max-width: 32px; max-height: 32px; object-fit: contain; border-radius: 4px; vertical-align: -.22em; margin-inline-end: .35em; }
-.hero h1 .wow-icon { width: .85em; height: .85em; max-width: 52px; max-height: 52px; vertical-align: .04em; border-radius: 8px; margin-inline-end: .22em; }
-.emblem .wow-icon { width: 34px; height: 34px; max-width: none; max-height: none; margin: 0; }
-.chart-label .wow-icon { width: 16px; height: 16px; }
+.icon-label,
+:is(h1,h2,h3,button,nav a,.eyebrow,.chart-label,.card > span):has(> .wow-icon) {
+    display: flex;
+    align-items: center;
+    gap: .45em;
+    min-width: 0;
+}
+.wow-icon {
+    display: block;
+    flex: none;
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    border-radius: 4px;
+}
+.hero h1 .wow-icon { width: clamp(32px, 5vw, 52px); height: clamp(32px, 5vw, 52px); border-radius: 8px; }
+h2 > .wow-icon { width: 24px; height: 24px; }
+.emblem .wow-icon { width: 34px; height: 34px; }
+summary .icon-label { display: inline-flex; vertical-align: middle; }
+
+.profit-panel { container-type: inline-size; }
+.profit-chart { grid-template-columns: fit-content(55%) minmax(3rem, 1fr) max-content; column-gap: 16px; }
+.profit-chart li { grid-column: 1 / -1; grid-template-columns: subgrid; column-gap: inherit; }
+@container (max-width: 500px) {
+    .profit-chart { grid-template-columns: minmax(0, 1fr) max-content; }
+    .profit-chart li { row-gap: 5px; }
+    .profit-chart .chart-label { grid-column: 1 / -1; }
+}
 
 .attributes-table { width: 100%; margin: 6px 0; }
 .attributes-table th,.attributes-table td { padding: 4px 3px; text-align: right; }

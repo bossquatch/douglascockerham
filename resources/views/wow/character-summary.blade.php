@@ -61,10 +61,12 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        @if(empty($profileStats['attribute_base']))
-                            <small>Base and bonus are unavailable for this snapshot.</small>
+                        @if(! array_key_exists('attribute_base', $profileStats) && ($canRefreshAttributes ?? false))
+                            <small>This snapshot saved totals only. Use <strong>Refresh Darvor</strong> above to fetch the breakdown.</small>
+                        @elseif(empty($profileStats['attribute_base']))
+                            <small>Battle.net did not supply both base and total values for these attributes.</small>
                         @else
-                            <small>Bonus is the net change reported by Battle.net.</small>
+                            <small>Bonus is the difference between the total and base values.</small>
                         @endif
                     @else
                     <dl class="stats">
