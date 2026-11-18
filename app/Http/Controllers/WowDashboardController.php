@@ -243,8 +243,12 @@ class WowDashboardController extends Controller
             });
         })->groupBy('name')->sortKeys();
 
+        $recipeCatalog = $learned->isEmpty() ? [] : json_decode(
+            file_get_contents(resource_path('data/wow-leatherworking.json')), true, flags: JSON_THROW_ON_ERROR
+        );
+
         return response()->view('wow.dashboard', compact(
-            'markets', 'market', 'characters', 'character', 'stats', 'characterCapturedAt', 'learned', 'snapshots', 'snapshot',
+            'markets', 'market', 'characters', 'character', 'stats', 'characterCapturedAt', 'learned', 'recipeCatalog', 'snapshots', 'snapshot',
             'tracked', 'prices', 'ranked', 'materials', 'resales', 'cut', 'budgetGold', 'maxBuyout', 'invalidBudget'
         ))->header('Cache-Control', 'private, no-store');
     }

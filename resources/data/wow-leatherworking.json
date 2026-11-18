@@ -1,0 +1,898 @@
+{
+  "Black Whelp Slippers": {
+    "quality": "rare",
+    "skill": 35,
+    "skill_up": "40 / 40",
+    "requires_level": 10,
+    "item_level": 15,
+    "details": [
+      "Binds when picked up",
+      "53 Armor",
+      "+4 Intellect"
+    ],
+    "materials": [
+      "Light Leather ×12",
+      "Cured Light Hide ×2",
+      "Black Whelp Scale ×2"
+    ]
+  },
+  "Camp Tent": {
+    "quality": "common",
+    "icon": "inv_misc_leatherscrap_01",
+    "skill_up": "20 / 25",
+    "item_level": 4,
+    "materials": [
+      "Light Leather ×5"
+    ]
+  },
+  "Cured Heavy Hide": {
+    "quality": "common",
+    "icon": "inv_misc_pelt_wolf_02",
+    "skill_up": "135 / 145",
+    "item_level": 30,
+    "materials": [
+      "Heavy Hide ×1",
+      "Salt ×3"
+    ]
+  },
+  "Cured Light Hide": {
+    "quality": "common",
+    "icon": "inv_misc_pelt_wolf_01",
+    "skill_up": "50 / 70",
+    "item_level": 10,
+    "materials": [
+      "Light Hide ×1",
+      "Salt ×1"
+    ]
+  },
+  "Cured Medium Hide": {
+    "quality": "common",
+    "icon": "inv_misc_pelt_bear_02",
+    "skill_up": "90 / 105",
+    "item_level": 20,
+    "materials": [
+      "Medium Hide ×1",
+      "Salt ×1"
+    ]
+  },
+  "Dark Leather Belt": {
+    "quality": "uncommon",
+    "icon": "inv_belt_03",
+    "skill_up": "125 / 150",
+    "requires_level": 20,
+    "item_level": 25,
+    "details": [
+      "Leather Armor",
+      "Binds when equipped",
+      "48 Armor",
+      "+4 Agility",
+      "+4 Stamina"
+    ],
+    "materials": [
+      "Fine Leather Belt ×1",
+      "Cured Medium Hide ×1",
+      "Fine Thread ×2",
+      "Gray Dye ×1"
+    ]
+  },
+  "Dark Leather Boots": {
+    "quality": "rare",
+    "skill": 35,
+    "skill_up": "40 / 40",
+    "requires_level": 10,
+    "item_level": 15,
+    "details": [
+      "Binds when picked up",
+      "53 Armor",
+      "+4 Agility",
+      "+4 Stamina"
+    ],
+    "materials": [
+      "Light Leather ×24",
+      "Cured Light Hide ×2",
+      "Gray Dye ×1"
+    ]
+  },
+  "Dark Leather Cloak": {
+    "quality": "uncommon",
+    "icon": "inv_misc_cape_10",
+    "skill_up": "110 / 135",
+    "requires_level": 17,
+    "item_level": 22,
+    "details": [
+      "Binds when equipped",
+      "18 Armor",
+      "+2 Strength",
+      "+3 Agility"
+    ],
+    "materials": [
+      "Medium Leather ×8",
+      "Fine Thread ×1",
+      "Gray Dye ×1"
+    ]
+  },
+  "Dark Leather Pants": {
+    "quality": "uncommon",
+    "icon": "inv_pants_09",
+    "skill_up": "115 / 140",
+    "requires_level": 18,
+    "item_level": 23,
+    "details": [
+      "Leather Armor",
+      "Binds when equipped",
+      "72 Armor",
+      "+8 Agility"
+    ],
+    "materials": [
+      "Medium Leather ×12",
+      "Gray Dye ×1",
+      "Fine Thread ×1"
+    ]
+  },
+  "Embossed Leather Boots": {
+    "quality": "uncommon",
+    "icon": "inv_boots_05",
+    "skill_up": "80 / 110",
+    "requires_level": 10,
+    "item_level": 15,
+    "details": [
+      "Leather Armor",
+      "Binds when equipped",
+      "48 Armor",
+      "+2 Stamina",
+      "+2 Spell Power"
+    ],
+    "materials": [
+      "Light Leather ×8",
+      "Coarse Thread ×5"
+    ]
+  },
+  "Embossed Leather Cloak": {
+    "quality": "uncommon",
+    "icon": "inv_helmet_48",
+    "skill_up": "70 / 100",
+    "requires_level": 8,
+    "item_level": 13,
+    "details": [
+      "Binds when equipped",
+      "12 Armor",
+      "+1 Agility"
+    ],
+    "materials": [
+      "Light Leather ×5",
+      "Coarse Thread ×2"
+    ]
+  },
+  "Embossed Leather Gloves": {
+    "quality": "uncommon",
+    "icon": "inv_gauntlets_05",
+    "skill_up": "70 / 100",
+    "requires_level": 8,
+    "item_level": 13,
+    "details": [
+      "Leather Armor",
+      "Binds when equipped",
+      "41 Armor",
+      "+1 Agility",
+      "+1 Stamina"
+    ],
+    "materials": [
+      "Light Leather ×3",
+      "Coarse Thread ×2"
+    ]
+  },
+  "Embossed Leather Pants": {
+    "quality": "uncommon",
+    "icon": "inv_pants_02",
+    "skill_up": "80 / 110",
+    "requires_level": 10,
+    "item_level": 15,
+    "details": [
+      "Leather Armor",
+      "Binds when equipped",
+      "61 Armor",
+      "+2 Stamina",
+      "+3 Spell Power"
+    ],
+    "materials": [
+      "Cured Light Hide ×1",
+      "Light Leather ×6",
+      "Coarse Thread ×2"
+    ]
+  },
+  "Embossed Leather Vest": {
+    "quality": "uncommon",
+    "icon": "inv_chest_leather_09",
+    "skill_up": "65 / 95",
+    "requires_level": 7,
+    "item_level": 12,
+    "details": [
+      "Leather Armor",
+      "Binds when equipped",
+      "62 Armor",
+      "+2 Stamina"
+    ],
+    "materials": [
+      "Light Leather ×8",
+      "Coarse Thread ×4"
+    ]
+  },
+  "Fine Leather Belt": {
+    "quality": "uncommon",
+    "icon": "inv_belt_04",
+    "skill_up": "85 / 115",
+    "requires_level": 11,
+    "item_level": 16,
+    "details": [
+      "Leather Armor",
+      "Binds when equipped",
+      "40 Armor",
+      "+2 Agility",
+      "+2 Stamina"
+    ],
+    "materials": [
+      "Light Leather ×6",
+      "Coarse Thread ×2"
+    ]
+  },
+  "Fine Leather Cloak": {
+    "quality": "uncommon",
+    "icon": "inv_misc_cape_10",
+    "skill_up": "70 / 100",
+    "requires_level": 10,
+    "item_level": 15,
+    "details": [
+      "Binds when equipped",
+      "14 Armor",
+      "+2 Stamina"
+    ],
+    "materials": [
+      "Light Leather ×10",
+      "Fine Thread ×2"
+    ]
+  },
+  "Fine Leather Tunic": {
+    "quality": "uncommon",
+    "icon": "inv_chest_leather_09",
+    "skill_up": "90 / 120",
+    "requires_level": 12,
+    "item_level": 17,
+    "details": [
+      "Leather Armor",
+      "Binds when equipped",
+      "73 Armor",
+      "+4 Agility",
+      "+3 Stamina"
+    ],
+    "materials": [
+      "Cured Light Hide ×3",
+      "Light Leather ×6",
+      "Coarse Thread ×4"
+    ]
+  },
+  "Fletcher's Gloves": {
+    "quality": "uncommon",
+    "icon": "inv_gauntlets_05",
+    "skill_up": "125 / 150",
+    "requires_level": 20,
+    "item_level": 25,
+    "details": [
+      "Leather Armor",
+      "Binds when equipped",
+      "53 Armor",
+      "+14 Critical Strike"
+    ],
+    "materials": [
+      "Medium Leather ×8",
+      "Long Tail Feather ×4",
+      "Fine Thread ×2"
+    ]
+  },
+  "Forceful Medium Armor Kit": {
+    "quality": "uncommon",
+    "icon": "inv_misc_armorkit_15",
+    "skill": 80,
+    "skill_up": "95 / 110",
+    "requires_level": 15,
+    "item_level": 15,
+    "details": [
+      "16 Armor"
+    ],
+    "materials": [
+      "Medium Armor Kit ×1",
+      "Strange Dust ×2",
+      "Elixir of Minor Strength ×2"
+    ]
+  },
+  "Gray Leather Boots": {
+    "quality": "uncommon",
+    "icon": "inv_boots_05",
+    "skill_up": "100 / 125",
+    "requires_level": 15,
+    "item_level": 20,
+    "details": [
+      "Leather Armor",
+      "Binds when equipped",
+      "53 Armor",
+      "+5 Agility"
+    ],
+    "materials": [
+      "Medium Leather ×4",
+      "Fine Thread ×2",
+      "Gray Dye ×1"
+    ]
+  },
+  "Handstitched Leather Belt": {
+    "quality": "uncommon",
+    "icon": "inv_belt_04",
+    "skill_up": "55 / 85",
+    "requires_level": 5,
+    "item_level": 10,
+    "details": [
+      "Leather Armor",
+      "Binds when equipped",
+      "31 Armor",
+      "+1 Strength"
+    ],
+    "materials": [
+      "Light Leather ×6",
+      "Coarse Thread ×1"
+    ]
+  },
+  "Handstitched Leather Boots": {
+    "quality": "common",
+    "icon": "inv_boots_04",
+    "skill_up": "40 / 70",
+    "requires_level": 3,
+    "item_level": 8,
+    "details": [
+      "Leather Armor",
+      "31 Armor"
+    ],
+    "materials": [
+      "Light Leather ×2",
+      "Coarse Thread ×1"
+    ]
+  },
+  "Handstitched Leather Bracers": {
+    "quality": "common",
+    "icon": "inv_bracer_08",
+    "skill_up": "40 / 70",
+    "requires_level": 4,
+    "item_level": 9,
+    "details": [
+      "Leather Armor",
+      "21 Armor"
+    ],
+    "materials": [
+      "Light Leather ×2",
+      "Coarse Thread ×3"
+    ]
+  },
+  "Handstitched Leather Cloak": {
+    "quality": "common",
+    "icon": "inv_helmet_48",
+    "skill_up": "40 / 70",
+    "requires_level": 4,
+    "item_level": 9,
+    "details": [
+      "8 Armor"
+    ],
+    "materials": [
+      "Light Leather ×2",
+      "Coarse Thread ×1"
+    ]
+  },
+  "Handstitched Leather Pants": {
+    "quality": "uncommon",
+    "icon": "inv_pants_wolf",
+    "skill_up": "45 / 75",
+    "requires_level": 5,
+    "item_level": 10,
+    "details": [
+      "Leather Armor",
+      "Binds when equipped",
+      "48 Armor",
+      "+1 Agility"
+    ],
+    "materials": [
+      "Light Leather ×4",
+      "Coarse Thread ×1"
+    ]
+  },
+  "Handstitched Leather Vest": {
+    "quality": "uncommon",
+    "icon": "inv_chest_wolf",
+    "skill_up": "40 / 70",
+    "requires_level": 3,
+    "item_level": 10,
+    "details": [
+      "Leather Armor",
+      "Binds when equipped",
+      "55 Armor",
+      "+1 Agility"
+    ],
+    "materials": [
+      "Light Leather ×3",
+      "Coarse Thread ×1"
+    ]
+  },
+  "Heavy Armor Kit": {
+    "quality": "common",
+    "icon": "inv_misc_armorkit_16",
+    "skill_up": "145 / 165",
+    "requires_level": 20,
+    "item_level": 30,
+    "details": [
+      "24 Armor",
+      "+3 Stamina"
+    ],
+    "materials": [
+      "Heavy Leather ×5",
+      "Fine Thread ×1"
+    ]
+  },
+  "Heavy Leather": {
+    "quality": "common",
+    "icon": "inv_misc_leatherscrap_07",
+    "skill_up": "125 / 135",
+    "item_level": 30,
+    "materials": [
+      "Medium Leather ×5"
+    ]
+  },
+  "Heavy Leather Ammo Pouch": {
+    "quality": "uncommon",
+    "icon": "inv_misc_bag_09",
+    "skill_up": "145 / 165",
+    "requires_level": 30,
+    "item_level": 35,
+    "details": [
+      "14 Slot Bag"
+    ],
+    "materials": [
+      "Heavy Leather ×8",
+      "Fine Thread ×2"
+    ]
+  },
+  "Heavy Quiver": {
+    "quality": "uncommon",
+    "icon": "inv_misc_quiver_02",
+    "skill_up": "145 / 165",
+    "requires_level": 30,
+    "item_level": 35,
+    "details": [
+      "14 Slot Bag"
+    ],
+    "materials": [
+      "Heavy Leather ×8",
+      "Fine Thread ×2"
+    ]
+  },
+  "Hillman's Cloak": {
+    "quality": "uncommon",
+    "icon": "inv_misc_cape_07",
+    "skill_up": "145 / 165",
+    "requires_level": 25,
+    "item_level": 30,
+    "details": [
+      "Binds when equipped",
+      "21 Armor",
+      "+4 Stamina",
+      "+5 Spell Power"
+    ],
+    "materials": [
+      "Heavy Leather ×5",
+      "Fine Thread ×2"
+    ]
+  },
+  "Hillman's Leather Gloves": {
+    "quality": "uncommon",
+    "icon": "inv_gauntlets_05",
+    "skill_up": "145 / 170",
+    "requires_level": 24,
+    "item_level": 29,
+    "details": [
+      "Leather Armor",
+      "Binds when equipped",
+      "57 Armor",
+      "+6 Stamina",
+      "+5 Spell Power"
+    ],
+    "materials": [
+      "Medium Leather ×14",
+      "Fine Thread ×4"
+    ]
+  },
+  "Hillman's Shoulders": {
+    "quality": "uncommon",
+    "icon": "inv_shoulder_08",
+    "skill_up": "130 / 155",
+    "requires_level": 21,
+    "item_level": 26,
+    "details": [
+      "Leather Armor",
+      "Binds when equipped",
+      "65 Armor",
+      "+5 Stamina",
+      "+3 Spirit"
+    ],
+    "materials": [
+      "Cured Medium Hide ×1",
+      "Medium Leather ×4",
+      "Fine Thread ×1"
+    ]
+  },
+  "Light Armor Kit": {
+    "quality": "common",
+    "icon": "inv_misc_armorkit_17",
+    "skill_up": "30 / 60",
+    "item_level": 5,
+    "details": [
+      "8 Armor",
+      "+1 Stamina"
+    ],
+    "materials": [
+      "Light Leather ×1"
+    ]
+  },
+  "Light Leather": {
+    "quality": "common",
+    "icon": "inv_misc_leatherscrap_03",
+    "skill_up": "20 / 40",
+    "item_level": 10,
+    "materials": [
+      "Ruined Leather Scraps ×3"
+    ]
+  },
+  "Light Leather Bracers": {
+    "quality": "uncommon",
+    "icon": "inv_bracer_04",
+    "skill_up": "75 / 105",
+    "requires_level": 9,
+    "item_level": 14,
+    "details": [
+      "Leather Armor",
+      "Binds when equipped",
+      "30 Armor",
+      "+1 Strength",
+      "+1 Agility"
+    ],
+    "materials": [
+      "Light Leather ×6",
+      "Coarse Thread ×4"
+    ]
+  },
+  "Light Leather Pants": {
+    "quality": "uncommon",
+    "icon": "inv_pants_02",
+    "skill_up": "100 / 130",
+    "requires_level": 14,
+    "item_level": 19,
+    "details": [
+      "Leather Armor",
+      "Binds when equipped",
+      "66 Armor",
+      "+5 Agility",
+      "+3 Stamina"
+    ],
+    "materials": [
+      "Light Leather ×10",
+      "Cured Light Hide ×1",
+      "Fine Thread ×1"
+    ]
+  },
+  "Light Leather Quiver": {
+    "quality": "common",
+    "icon": "inv_misc_quiver_01",
+    "skill_up": "55 / 85",
+    "item_level": 5,
+    "details": [
+      "8 Slot Bag"
+    ],
+    "materials": [
+      "Light Leather ×4",
+      "Coarse Thread ×2"
+    ]
+  },
+  "Light Leather Reagent Bag": {
+    "quality": "common",
+    "icon": "inv_misc_bag_19",
+    "skill": 30,
+    "skill_up": "40 / 50",
+    "item_level": 5,
+    "details": [
+      "Binds when equipped"
+    ],
+    "materials": [
+      "Light Leather ×8",
+      "Cured Light Hide ×1",
+      "Coarse Thread ×3"
+    ]
+  },
+  "Medium Armor Kit": {
+    "quality": "common",
+    "icon": "inv_misc_armorkit_15",
+    "skill_up": "90 / 105",
+    "requires_level": 5,
+    "item_level": 15,
+    "details": [
+      "16 Armor",
+      "+2 Stamina"
+    ],
+    "materials": [
+      "Medium Leather ×4",
+      "Coarse Thread ×1"
+    ]
+  },
+  "Medium Leather": {
+    "quality": "common",
+    "icon": "inv_misc_leatherscrap_05",
+    "skill_up": "75 / 85",
+    "item_level": 20,
+    "materials": [
+      "Light Leather ×4"
+    ]
+  },
+  "Moonglow Boots": {
+    "quality": "rare",
+    "skill": 35,
+    "skill_up": "40 / 40",
+    "requires_level": 10,
+    "item_level": 15,
+    "details": [
+      "Binds when picked up",
+      "53 Armor",
+      "+4 Stamina"
+    ],
+    "materials": [
+      "Light Leather ×12",
+      "Cured Light Hide ×2",
+      "Small Lustrous Pearl ×1"
+    ]
+  },
+  "Moonglow Vest": {
+    "quality": "uncommon",
+    "icon": "inv_chest_leather_09",
+    "skill": 65,
+    "skill_up": "90 / 120",
+    "requires_level": 13,
+    "item_level": 18,
+    "details": [
+      "Leather Armor",
+      "Binds when equipped",
+      "74 Armor",
+      "+3 Intellect",
+      "+4 Spell Power"
+    ],
+    "materials": [
+      "Light Leather ×6",
+      "Cured Light Hide ×1",
+      "Coarse Thread ×4",
+      "Small Lustrous Pearl ×1"
+    ]
+  },
+  "Murloc Scale Belt": {
+    "quality": "uncommon",
+    "icon": "inv_belt_02",
+    "skill": 65,
+    "skill_up": "95 / 125",
+    "requires_level": 13,
+    "item_level": 18,
+    "details": [
+      "Leather Armor",
+      "Binds when equipped",
+      "42 Armor",
+      "+2 Strength",
+      "+3 Agility"
+    ],
+    "materials": [
+      "Slimy Murloc Scale ×8",
+      "Light Leather ×6",
+      "Fine Thread ×1"
+    ]
+  },
+  "Murloc Scale Breastplate": {
+    "quality": "uncommon",
+    "icon": "inv_chest_chain_12",
+    "skill": 70,
+    "skill_up": "100 / 130",
+    "requires_level": 14,
+    "item_level": 19,
+    "details": [
+      "Leather Armor",
+      "Binds when equipped",
+      "76 Armor",
+      "+5 Strength",
+      "+3 Agility"
+    ],
+    "materials": [
+      "Slimy Murloc Scale ×12",
+      "Cured Light Hide ×1",
+      "Light Leather ×8",
+      "Fine Thread ×1"
+    ]
+  },
+  "Murloc Scale Shoes": {
+    "quality": "rare",
+    "skill": 35,
+    "skill_up": "40 / 40",
+    "requires_level": 10,
+    "item_level": 15,
+    "details": [
+      "Binds when picked up",
+      "53 Armor",
+      "+4 Strength",
+      "+4 Stamina"
+    ],
+    "materials": [
+      "Light Leather ×12",
+      "Cured Light Hide ×2",
+      "Slimy Murloc Scale ×4"
+    ]
+  },
+  "Mystic Medium Armor Kit": {
+    "quality": "uncommon",
+    "icon": "inv_misc_armorkit_15",
+    "skill": 80,
+    "skill_up": "95 / 110",
+    "requires_level": 15,
+    "item_level": 15,
+    "details": [
+      "16 Armor"
+    ],
+    "materials": [
+      "Medium Armor Kit ×1",
+      "Strange Dust ×2",
+      "Minor Mana Potion ×2"
+    ]
+  },
+  "Nimble Leather Gloves": {
+    "quality": "uncommon",
+    "icon": "inv_gauntlets_05",
+    "skill_up": "120 / 145",
+    "requires_level": 19,
+    "item_level": 24,
+    "details": [
+      "Leather Armor",
+      "Binds when equipped",
+      "52 Armor",
+      "+4 Agility",
+      "+4 Stamina"
+    ],
+    "materials": [
+      "Elixir of Minor Agility ×1",
+      "Medium Leather ×6",
+      "Fine Thread ×1"
+    ]
+  },
+  "Rugged Leather Pants": {
+    "quality": "uncommon",
+    "icon": "inv_pants_02",
+    "skill": 30,
+    "skill_up": "60 / 90",
+    "requires_level": 6,
+    "item_level": 11,
+    "details": [
+      "Leather Armor",
+      "Binds when equipped",
+      "51 Armor",
+      "+1 Stamina"
+    ],
+    "materials": [
+      "Light Leather ×5",
+      "Coarse Thread ×5"
+    ]
+  },
+  "Small Leather Ammo Pouch": {
+    "quality": "common",
+    "icon": "inv_misc_ammo_bullet_01",
+    "skill_up": "55 / 85",
+    "item_level": 5,
+    "details": [
+      "8 Slot Bag"
+    ],
+    "materials": [
+      "Light Leather ×3",
+      "Coarse Thread ×4"
+    ]
+  },
+  "Stormrider's Leather Belt": {
+    "quality": "rare",
+    "skill": 60,
+    "skill_up": "90 / 120",
+    "requires_level": 12,
+    "item_level": 17,
+    "details": [
+      "Binds when picked up",
+      "45 Armor",
+      "+3 Stamina",
+      "+4 Intellect"
+    ],
+    "materials": [
+      "Light Leather ×10",
+      "Cured Light Hide ×2",
+      "Pristine Leather ×2",
+      "Coarse Thread ×1",
+      "Cerulean Dye ×1"
+    ]
+  },
+  "Toughened Leather Armor": {
+    "quality": "common",
+    "icon": "inv_chest_leather_10",
+    "skill_up": "120 / 145",
+    "requires_level": 19,
+    "item_level": 24,
+    "details": [
+      "Leather Armor",
+      "80 Armor"
+    ],
+    "materials": [
+      "Medium Leather ×10",
+      "Cured Light Hide ×2",
+      "Fine Thread ×2"
+    ]
+  },
+  "Toughened Leather Gloves": {
+    "quality": "rare",
+    "icon": "inv_gauntlets_24",
+    "skill_up": "135 / 160",
+    "requires_level": 22,
+    "item_level": 27,
+    "details": [
+      "Leather Armor",
+      "Binds when equipped",
+      "61 Armor",
+      "+6 Strength",
+      "+6 Agility",
+      "+3 Stamina"
+    ],
+    "materials": [
+      "Medium Leather ×4",
+      "Cured Medium Hide ×2",
+      "Elixir of Lesser Defense ×2",
+      "Spider's Silk ×2",
+      "Fine Thread ×2"
+    ]
+  },
+  "White Leather Jerkin": {
+    "quality": "uncommon",
+    "icon": "inv_chest_wolf",
+    "skill": 40,
+    "skill_up": "70 / 100",
+    "requires_level": 8,
+    "item_level": 13,
+    "details": [
+      "Leather Armor",
+      "Binds when equipped",
+      "65 Armor",
+      "+2 Strength",
+      "+2 Spell Power"
+    ],
+    "materials": [
+      "Light Leather ×8",
+      "Coarse Thread ×2",
+      "Bleach ×1"
+    ]
+  },
+  "Wisdom's Leather Gloves": {
+    "quality": "rare",
+    "skill": 75,
+    "skill_up": "100 / 125",
+    "requires_level": 15,
+    "item_level": 20,
+    "details": [
+      "Binds when picked up",
+      "53 Armor",
+      "+3 Stamina",
+      "+4 Intellect"
+    ],
+    "materials": [
+      "Light Leather ×12",
+      "Cured Light Hide ×3",
+      "Pristine Leather ×2",
+      "Fine Thread ×1",
+      "Small Lustrous Pearl ×2"
+    ]
+  }
+}

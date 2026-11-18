@@ -79,7 +79,7 @@ return [
         ['Cured Light Hide', 4231, 110, [783 => 1, 4289 => 1]],
         ["Hillman's Cloak", 3719, 1027, [4234 => 5, 2321 => 2]],
         ['Light Leather Pants', 7282, 599, [2318 => 10, 4231 => 1, 2321 => 1]],
-        ['Light Leather Reagent Bag', 277715, 200, [2318 => 8, 4231 => 1, 2320 => 3]],
+        ['Light Leather Reagent Bag', 277715, 100, [2318 => 8, 4231 => 1, 2320 => 3]],
         ['Medium Armor Kit', 2313, 200, [2319 => 4, 2320 => 1]],
         ['Heavy Quiver', 7371, 500, [4234 => 8, 2321 => 2]],
         ['Heavy Leather Ammo Pouch', 7372, 500, [4234 => 8, 2321 => 2]],

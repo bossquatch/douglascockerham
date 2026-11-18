@@ -64,8 +64,6 @@ progress::-moz-progress-bar { background: var(--green); }
 .chart li { display: grid; grid-template-columns: minmax(110px, 1.4fr) minmax(60px, 2fr) auto; gap: 8px; align-items: center; }
 .chart progress.resale::-webkit-progress-value { background: var(--blue); }
 .chart progress.resale::-moz-progress-bar { background: var(--blue); }
-.recipe-list { columns: 2 190px; padding-inline-start: 22px; }
-.recipe-list li { break-inside: avoid; }
 .filters { display: flex; flex-wrap: wrap; align-items: end; gap: 12px; margin: 0 0 13px; }
 .filters label:has(input[type=checkbox]) { display: flex; align-items: center; }
 .filters input[type=checkbox] { min-height: initial; accent-color: var(--gold); }
@@ -126,3 +124,14 @@ progress::-moz-progress-bar { background: var(--green); }
 .attributes-table tbody th { color: var(--muted); }
 .profession-rank { display: flex; justify-content: space-between; gap: 8px; }
 .profession-rank strong { color: var(--text); }
+
+.recipe-catalog { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 12px; margin-top: 14px; }
+.recipe-card { min-width: 0; padding: 14px; border: 1px solid var(--line); border-radius: 10px; background: #141924; }
+.recipe-card h3 { font-family: inherit; font-size: 1rem; line-height: 1.4; }
+.recipe-card h4 { margin: 12px 0 4px; }
+.recipe-card p { margin-top: 6px; }
+.recipe-labels,.recipe-materials { list-style: none; padding: 0; margin: 8px 0 0; }
+.recipe-labels { display: flex; flex-wrap: wrap; gap: 5px; color: var(--muted); font-size: .8rem; }
+.recipe-labels li { padding: 2px 6px; background: #222838; border-radius: 4px; }
+.recipe-materials li { margin-top: 3px; }
+.recipe-source { margin-top: 12px; font-size: .85rem; }

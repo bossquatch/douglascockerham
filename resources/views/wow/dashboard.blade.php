@@ -233,9 +233,7 @@
         @include('wow.character-summary', ['profileStats' => $stats, 'profileName' => $character ? $character->character.' '.$character->realm : 'My character'])
         <p class="muted">{{ $learned->count() }} learned Leatherworking recipes · {{ $ranked->count() }} with verified craft inputs</p>
         @if($learned->isNotEmpty())
-            <details class="details-panel"><summary>Learned recipes</summary>
-                <ul class="recipe-list">@foreach($learned as $name)<li>{{ $name }}</li>@endforeach</ul>
-            </details>
+            @include('wow.learned-recipes')
         @endif
     </section>
     @include('wow.lookup')
