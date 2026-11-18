@@ -90,16 +90,16 @@
         </div>
     </div>
 
-    <div class="columns">
+    <div class="profit-panels">
         @foreach([
             'Auction House craft profit' => $ranked->where('auction_profit', '>', 0)->sortByDesc('auction_profit')->take(5)->map(fn ($row) => ['name' => $row['name'], 'value' => $row['auction_profit']]),
             'Resale estimates' => $resales->take(5)->map(fn ($row) => ['name' => $row['item'], 'value' => $row['profit'], 'quality' => $row['quality']]),
         ] as $heading => $bars)
-            <section class="panel">
+            <section class="panel profit-panel">
                 <h2>@include('wow.icon', ['icon' => $heading === 'Resale estimates' ? 'auction' : 'craft']) {{ $heading }}</h2>
                 <p class="muted">Estimated profit per item from saved prices</p>
                 @if($bars->isNotEmpty())
-                    <ul class="chart">
+                    <ul class="chart profit-chart">
                         @foreach($bars as $bar)
                             <li><span class="chart-label rarity-{{ $bar['quality'] ?? 'unknown' }}">@include('wow.icon', ['icon' => $heading === 'Resale estimates' ? 'auction' : 'craft']) {{ $bar['name'] }}</span>
                                 <progress class="{{ $heading === 'Resale estimates' ? 'resale' : '' }}" aria-label="{{ $bar['name'] }}: {{ $money($bar['value'], true) }}" value="{{ $bar['value'] }}" max="{{ $bars->max('value') }}"></progress>
@@ -128,7 +128,7 @@
             <tbody>
             @forelse($ranked as $row)
                 <tr data-entry data-profitable="{{ max($row['vendor_profit'] ?? 0, $row['auction_profit'] ?? 0) > 0 ? 'true' : 'false' }}">
-                    <td>@include('wow.icon', ['icon' => 'craft']) <strong>{{ $row['name'] }}</strong><details><summary>Materials</summary>
+                    <td><span class="icon-label">@include('wow.icon', ['icon' => 'craft']) <strong>{{ $row['name'] }}</strong></span><details><summary>Materials</summary>
                         @foreach($row['inputs'] as $input)
                             <div>{{ $input['quantity'] }} × {{ $input['name'] }} · @if($input['price']){{ $input['price']['method'] }} at {{ $money($input['price']['cost']) }} each @else price unavailable @endif</div>
                         @endforeach
@@ -178,7 +178,7 @@
             <thead><tr><th>Item</th><th class="num">Saved buyout</th><th class="num">Resale target</th><th class="num">Estimated profit</th><th class="num">Prior days</th></tr></thead>
             <tbody>
             @forelse($resales as $row)
-                <tr data-entry data-key="{{ $row['key'] }}" data-buyout="{{ $row['buy'] }}"><td>@include('wow.icon', ['icon' => 'auction']) @if($row['item_id'])<a class="rarity-{{ $row['quality'] ?? 'unknown' }}" href="https://www.wowhead.com/forever/item={{ $row['item_id'] }}">{{ $row['item'] }}</a>@else{{ $row['item'] }}@endif
+                <tr data-entry data-key="{{ $row['key'] }}" data-buyout="{{ $row['buy'] }}"><td><span class="icon-label">@include('wow.icon', ['icon' => 'auction']) @if($row['item_id'])<a class="rarity-{{ $row['quality'] ?? 'unknown' }}" href="https://www.wowhead.com/forever/item={{ $row['item_id'] }}">{{ $row['item'] }}</a>@else{{ $row['item'] }}@endif</span>
                     <details><summary>Price history</summary>
                         <small>Saved daily asking prices, oldest first</small>
                         <ul class="chart item-history">
@@ -198,7 +198,7 @@
     <section class="panel" id="materials"><h2>@include('wow.icon', ['icon' => 'materials']) Materials</h2>
     <details><summary>Tracked material prices</summary>
         <div class="scroll"><table><thead><tr><th>Material</th><th class="num">Saved unit buyout</th></tr></thead>
-            <tbody>@foreach($tracked as $id => $name)<tr><td>@include('wow.icon', ['icon' => 'materials']) {{ $name }}</td><td class="num">{{ $money($prices[$id] ?? null) }}</td></tr>@endforeach</tbody>
+            <tbody>@foreach($tracked as $id => $name)<tr><td><span class="icon-label">@include('wow.icon', ['icon' => 'materials']) {{ $name }}</span></td><td class="num">{{ $money($prices[$id] ?? null) }}</td></tr>@endforeach</tbody>
         </table></div>
     </details>
 
@@ -230,7 +230,7 @@
             @endif
             <button type="submit">@include('wow.icon', ['icon' => 'character']) Refresh Darvor</button>
         </form>
-        @include('wow.character-summary', ['profileStats' => $stats, 'profileName' => $character ? $character->character.' '.$character->realm : 'My character'])
+        @include('wow.character-summary', ['profileStats' => $stats, 'canRefreshAttributes' => true, 'profileName' => $character ? $character->character.' '.$character->realm : 'My character'])
         <p class="muted">{{ $learned->count() }} learned Leatherworking recipes · {{ $ranked->count() }} with verified craft inputs</p>
         @if($learned->isNotEmpty())
             @include('wow.learned-recipes')

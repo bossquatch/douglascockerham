@@ -1,6 +1,6 @@
 <section class="details-panel learned-recipes">
     <details>
-        <summary>@include('wow.icon', ['icon' => 'craft']) Learned recipes ({{ $learned->count() }})</summary>
+        <summary><span class="icon-label">@include('wow.icon', ['icon' => 'craft']) Learned recipes ({{ $learned->count() }})</span></summary>
         <div class="filters" data-filter hidden>
             <label>Find a recipe or material <input type="search" placeholder="e.g. Heavy Leather"></label>
             <small role="status"></small>

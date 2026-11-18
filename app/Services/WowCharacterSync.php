@@ -69,6 +69,7 @@ class WowCharacterSync
             'faction' => $this->label($profile['faction'] ?? null),
             'specialization' => $this->label($profile['active_spec'] ?? null),
         ], 'is_scalar');
+        $stats['attribute_base'] = [];
         $attributes = ['strength', 'agility', 'stamina', 'intellect', 'spirit'];
         foreach (['health', 'power', ...$attributes, 'armor', 'attack_power',
             'spell_power', 'spell_penetration', 'spell_crit', 'melee_crit', 'melee_haste', 'ranged_crit', 'dodge', 'parry', 'block'] as $key) {
