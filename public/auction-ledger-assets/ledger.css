@@ -160,7 +160,6 @@ summary .icon-label { display: inline-flex; vertical-align: middle; }
 .recipe-materials li { margin-top: 3px; }
 .recipe-source { margin-top: 12px; font-size: .85rem; }
 
-.attributes-table tr { position: relative; }
 .stat-tooltip-trigger {
     min-height: 0;
     padding: 1px 0;
@@ -174,22 +173,25 @@ summary .icon-label { display: inline-flex; vertical-align: middle; }
     text-underline-offset: 3px;
 }
 .stat-tooltip {
-    position: absolute;
-    z-index: 2;
-    inset-inline: 0;
-    inset-block-start: 100%;
-    visibility: hidden;
-    padding: 9px 11px;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    background: var(--bg);
+    position: fixed;
+    inset: auto;
+    margin: 0;
+    box-sizing: border-box;
+    width: min(19rem, calc(100vw - 24px));
+    max-height: calc(100vh - 24px);
+    overflow: auto;
+    padding: 12px 14px;
+    border: 1px solid #6b583e;
+    border-radius: 10px;
+    background: #202638;
     color: var(--text);
-    box-shadow: 0 4px 14px #0008;
+    box-shadow: 0 8px 24px #0008;
     text-align: start;
-    font-size: .85rem;
-    font-weight: 400;
+    font: 400 .86rem/1.5 system-ui, sans-serif;
 }
-.stat-tooltip-trigger:not([data-dismissed]):is(:focus-visible, [data-open]) + .stat-tooltip { visibility: visible; }
-@media (hover: hover) {
-    .attributes-table th:hover > .stat-tooltip-trigger:not([data-dismissed]) + .stat-tooltip { visibility: visible; }
+.stat-tooltip strong {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--gold, #f6cc80);
+    font-size: .95rem;
 }

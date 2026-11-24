@@ -22,29 +22,76 @@ document.querySelectorAll('[data-filter]').forEach((filter) => {
     update();
 });
 
-const statTooltipTriggers = document.querySelectorAll('.stat-tooltip-trigger');
-statTooltipTriggers.forEach((trigger) => {
-    trigger.addEventListener('click', () => {
-        trigger.removeAttribute('data-dismissed');
-        statTooltipTriggers.forEach((other) => {
-            if (other !== trigger) other.removeAttribute('data-open');
-        });
-        trigger.toggleAttribute('data-open');
-    });
-    trigger.addEventListener('pointerenter', () => trigger.removeAttribute('data-dismissed'));
-    trigger.addEventListener('focus', () => trigger.removeAttribute('data-dismissed'));
-});
+if ('showPopover' in HTMLElement.prototype) {
+    let active;
+    let pinned = false;
+    let closeTimer;
 
-if (statTooltipTriggers.length) {
+    function close() {
+        clearTimeout(closeTimer);
+        active?.nextElementSibling.hidePopover();
+        active = null;
+        pinned = false;
+    }
+
+    function show(trigger) {
+        clearTimeout(closeTimer);
+        if (active === trigger) return;
+        close();
+
+        active = trigger;
+        const tooltip = trigger.nextElementSibling;
+        tooltip.showPopover();
+
+        const anchor = trigger.getBoundingClientRect();
+        const gap = 6;
+        const edge = 12;
+        const above = anchor.top >= tooltip.offsetHeight + gap + edge;
+        const top = above ? anchor.top - tooltip.offsetHeight - gap : anchor.bottom + gap;
+        tooltip.style.top = Math.max(edge, Math.min(top, document.documentElement.clientHeight - tooltip.offsetHeight - edge)) + 'px';
+        tooltip.style.left = Math.max(edge, Math.min(anchor.left, document.documentElement.clientWidth - tooltip.offsetWidth - edge)) + 'px';
+    }
+
+    function scheduleClose(trigger) {
+        if (active !== trigger || pinned) return;
+        clearTimeout(closeTimer);
+        closeTimer = setTimeout(close, 150);
+    }
+
+    document.querySelectorAll('.stat-tooltip-trigger').forEach((trigger) => {
+        const tooltip = trigger.nextElementSibling;
+        trigger.addEventListener('pointerenter', (event) => {
+            if (event.pointerType === 'mouse') show(trigger);
+        });
+        trigger.addEventListener('pointerleave', () => {
+            if (!trigger.matches(':focus-visible')) scheduleClose(trigger);
+        });
+        tooltip.addEventListener('pointerenter', () => clearTimeout(closeTimer));
+        tooltip.addEventListener('pointerleave', () => {
+            if (!trigger.matches(':focus-visible')) scheduleClose(trigger);
+        });
+        trigger.addEventListener('focus', () => {
+            if (trigger.matches(':focus-visible')) show(trigger);
+        });
+        trigger.addEventListener('blur', () => {
+            if (active === trigger) close();
+        });
+        trigger.addEventListener('click', () => {
+            if (active === trigger && pinned) {
+                close();
+                return;
+            }
+            show(trigger);
+            pinned = true;
+        });
+    });
+
     document.addEventListener('click', (event) => {
-        if (event.target.closest('.stat-tooltip-trigger, .stat-tooltip')) return;
-        statTooltipTriggers.forEach((trigger) => trigger.removeAttribute('data-open'));
+        if (active && !event.target.closest('.stat-tooltip-trigger, .stat-tooltip')) close();
     });
     document.addEventListener('keydown', (event) => {
-        if (event.key !== 'Escape') return;
-        statTooltipTriggers.forEach((trigger) => {
-            trigger.removeAttribute('data-open');
-            trigger.setAttribute('data-dismissed', '');
-        });
+        if (event.key === 'Escape' && active) close();
     });
+    window.addEventListener('resize', close);
+    window.addEventListener('scroll', close, { passive: true });
 }

@@ -11,16 +11,16 @@
         'Defense' => ['dodge', 'parry', 'block'],
     ];
     $attributeHelp = [
-        'strength' => 'Increases melee attack power. For druids, it helps physical attacks in Cat and Bear Form.',
-        'agility' => 'Increases dodge and physical critical strike chance. For druids, it also adds attack power in Cat Form.',
-        'stamina' => 'Increases maximum health.',
-        'intellect' => 'Increases maximum mana and spell critical strike chance.',
-        'spirit' => 'Helps you recover mana between casts and health out of combat.',
+        'strength' => 'Adds melee attack power, which helps physical attacks hit harder. For a druid, that matters when fighting in Cat or Bear Form. It does not increase Wrath, Starfire, or Moonfire damage.',
+        'agility' => 'Raises your chance to dodge and land physical critical strikes. Druids also gain attack power from Agility in Cat Form. It can help when you fight in melee, but it does not improve spell critical strike chance.',
+        'stamina' => 'Raises maximum health, giving you more room to survive an extra hit or finish a cast under pressure. It is useful in every form and does not increase damage or the size of heals.',
+        'intellect' => 'Raises maximum mana and contributes to spell critical strike chance. A larger mana pool gives Balance druids more casts before they run dry. Spell Power is the separate stat that directly increases the damage of spells such as Wrath and Starfire.',
+        'spirit' => 'Improves natural mana regeneration and out-of-combat health recovery. Mana regeneration from Spirit normally pauses for five seconds after you spend mana, unless a talent or effect lets part of it continue. It helps most when you can leave a gap between casts.',
     ];
     $attributeColumns = [
-        'Base' => 'The base attribute reported by Battle.net before modifiers.',
-        'Bonus' => 'The net change from modifiers such as gear, enchants, talents, buffs, and debuffs. Calculated as Total minus Base.',
-        'Total' => 'The effective attribute reported by Battle.net for this snapshot.',
+        'Base' => 'The baseline value supplied by Battle.net for this snapshot. A dash means the snapshot has no base value for that attribute.',
+        'Bonus' => 'Total minus Base. This is the net change from modifiers that Battle.net reflected in the snapshot. It can include gear, enchants, talents, and effects. For example, 108 Total minus 66 Base gives +42 Bonus. A negative value means the total is below the base.',
+        'Total' => 'The effective value reported by Battle.net when the snapshot was taken. Use this column to see the resulting attribute. Changes in game appear here after a character refresh once Battle.net reflects them.',
     ];
     $knownKeys = collect($groups)->flatten()->merge(['level', 'race', 'class', 'specialization', 'faction', 'equipment', 'professions', 'attribute_base']);
     $groups['Other stats'] = array_keys(array_diff_key($profileStats, array_fill_keys($knownKeys->all(), true)));
