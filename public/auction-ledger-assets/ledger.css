@@ -159,3 +159,37 @@ summary .icon-label { display: inline-flex; vertical-align: middle; }
 .recipe-labels li { padding: 2px 6px; background: #222838; border-radius: 4px; }
 .recipe-materials li { margin-top: 3px; }
 .recipe-source { margin-top: 12px; font-size: .85rem; }
+
+.attributes-table tr { position: relative; }
+.stat-tooltip-trigger {
+    min-height: 0;
+    padding: 1px 0;
+    border: 0;
+    border-radius: 2px;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: help;
+    text-decoration: underline dotted;
+    text-underline-offset: 3px;
+}
+.stat-tooltip {
+    position: absolute;
+    z-index: 2;
+    inset-inline: 0;
+    inset-block-start: 100%;
+    visibility: hidden;
+    padding: 9px 11px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--bg);
+    color: var(--text);
+    box-shadow: 0 4px 14px #0008;
+    text-align: start;
+    font-size: .85rem;
+    font-weight: 400;
+}
+.stat-tooltip-trigger:not([data-dismissed]):is(:focus-visible, [data-open]) + .stat-tooltip { visibility: visible; }
+@media (hover: hover) {
+    .attributes-table th:hover > .stat-tooltip-trigger:not([data-dismissed]) + .stat-tooltip { visibility: visible; }
+}
