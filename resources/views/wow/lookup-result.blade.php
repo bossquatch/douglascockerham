@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Character lookup · Auction Ledger</title>
     <link rel="stylesheet" href="{{ asset('auction-ledger-assets/ledger.css') }}">
+    <script src="{{ asset('auction-ledger-assets/ledger.js') }}" defer></script>
 </head>
 <body>
 <main>

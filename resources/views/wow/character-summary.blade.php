@@ -10,6 +10,18 @@
         'Offense' => ['attack_power', 'spell_power', 'spell_penetration', 'melee_crit', 'ranged_crit', 'spell_crit', 'melee_haste'],
         'Defense' => ['dodge', 'parry', 'block'],
     ];
+    $attributeHelp = [
+        'strength' => 'Increases melee attack power. For druids, it helps physical attacks in Cat and Bear Form.',
+        'agility' => 'Increases dodge and physical critical strike chance. For druids, it also adds attack power in Cat Form.',
+        'stamina' => 'Increases maximum health.',
+        'intellect' => 'Increases maximum mana and spell critical strike chance.',
+        'spirit' => 'Helps you recover mana between casts and health out of combat.',
+    ];
+    $attributeColumns = [
+        'Base' => 'The base attribute reported by Battle.net before modifiers.',
+        'Bonus' => 'The net change from modifiers such as gear, enchants, talents, buffs, and debuffs. Calculated as Total minus Base.',
+        'Total' => 'The effective attribute reported by Battle.net for this snapshot.',
+    ];
     $knownKeys = collect($groups)->flatten()->merge(['level', 'race', 'class', 'specialization', 'faction', 'equipment', 'professions', 'attribute_base']);
     $groups['Other stats'] = array_keys(array_diff_key($profileStats, array_fill_keys($knownKeys->all(), true)));
     $percent = ['dodge', 'parry', 'block', 'melee_crit', 'ranged_crit', 'spell_crit', 'melee_haste'];
@@ -45,7 +57,14 @@
                 <div class="stat-group"><h3>{{ $title }}</h3>
                     @if($title === 'Attributes')
                         <table class="attributes-table">
-                            <thead><tr><th scope="col">Stat</th><th scope="col">Base</th><th scope="col">Bonus</th><th scope="col">Total</th></tr></thead>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Stat</th>
+                                    @foreach($attributeColumns as $label => $description)
+                                        <th scope="col">@include('wow.stat-tooltip', ['label' => $label, 'description' => $description])</th>
+                                    @endforeach
+                                </tr>
+                            </thead>
                             <tbody>
                                 @foreach($values as $key => $total)
                                     @php
@@ -53,7 +72,7 @@
                                         $bonus = is_numeric($base) && is_numeric($total) ? $total - $base : null;
                                     @endphp
                                     <tr>
-                                        <th scope="row">{{ ucfirst($key) }}</th>
+                                        <th scope="row">@include('wow.stat-tooltip', ['label' => ucfirst($key), 'description' => $attributeHelp[$key]])</th>
                                         <td>{{ $base === null ? '—' : $display($base, $key) }}</td>
                                         <td class="{{ $bonus > 0 ? 'gain' : ($bonus < 0 ? 'loss' : '') }}">{{ $bonus === null ? '—' : ($bonus > 0 ? '+' : '').$display($bonus, $key) }}</td>
                                         <td>{{ $display($total, $key) }}</td>

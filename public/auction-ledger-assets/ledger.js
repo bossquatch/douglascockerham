@@ -21,3 +21,30 @@ document.querySelectorAll('[data-filter]').forEach((filter) => {
     filter.addEventListener('input', update);
     update();
 });
+
+const statTooltipTriggers = document.querySelectorAll('.stat-tooltip-trigger');
+statTooltipTriggers.forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+        trigger.removeAttribute('data-dismissed');
+        statTooltipTriggers.forEach((other) => {
+            if (other !== trigger) other.removeAttribute('data-open');
+        });
+        trigger.toggleAttribute('data-open');
+    });
+    trigger.addEventListener('pointerenter', () => trigger.removeAttribute('data-dismissed'));
+    trigger.addEventListener('focus', () => trigger.removeAttribute('data-dismissed'));
+});
+
+if (statTooltipTriggers.length) {
+    document.addEventListener('click', (event) => {
+        if (event.target.closest('.stat-tooltip-trigger, .stat-tooltip')) return;
+        statTooltipTriggers.forEach((trigger) => trigger.removeAttribute('data-open'));
+    });
+    document.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape') return;
+        statTooltipTriggers.forEach((trigger) => {
+            trigger.removeAttribute('data-open');
+            trigger.setAttribute('data-dismissed', '');
+        });
+    });
+}
