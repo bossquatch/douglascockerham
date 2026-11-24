@@ -36,6 +36,12 @@ Route::middleware(['auth'])->group(function () {
         ->middleware('throttle:2,1')->name('wow.character.refresh');
     Route::get('/wow/character', \App\Http\Controllers\WowCharacterLookupController::class)
         ->middleware('throttle:8,1')->name('wow.lookup');
+    Route::post('/wow/battle-net/connect', [\App\Http\Controllers\WowBattleNetRosterController::class, 'connect'])
+        ->middleware('throttle:8,1')->block()->name('wow.roster.connect');
+    Route::get('/wow/battle-net/callback', [\App\Http\Controllers\WowBattleNetRosterController::class, 'callback'])
+        ->middleware('throttle:8,1')->block(30, 10)->name('wow.roster.callback');
+    Route::post('/wow/battle-net/disconnect', [\App\Http\Controllers\WowBattleNetRosterController::class, 'disconnect'])
+        ->block()->name('wow.roster.disconnect');
     Route::redirect('/region7/instructors/admin', '/em/training/admin');
     Route::redirect('dashboard', '/em/training/admin')->name('dashboard');
     Route::redirect('inventory', '/em/training/admin')->name('inventory');

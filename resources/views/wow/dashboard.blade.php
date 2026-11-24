@@ -73,6 +73,7 @@
     <nav aria-label="Dashboard sections">
         <a href="#crafts">@include('wow.icon', ['icon' => 'craft']) Craft for profit</a><a href="#resale">@include('wow.icon', ['icon' => 'auction']) Buy &amp; resell</a>
         <a href="#materials">@include('wow.icon', ['icon' => 'materials']) Materials</a><a href="#character">@include('wow.icon', ['icon' => 'character']) My character</a>
+        <a href="#my-characters">@include('wow.icon', ['icon' => 'character']) My Characters</a>
         <a href="#lookup">@include('wow.icon', ['icon' => 'search']) Character lookup</a>
     </nav>
     <div class="cards">
@@ -236,6 +237,7 @@
             @include('wow.learned-recipes')
         @endif
     </section>
+    @include('wow.roster')
     @include('wow.lookup')
     @if($snapshots->isNotEmpty())
         <section class="panel">
