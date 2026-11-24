@@ -25,8 +25,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>WoW Forever · Auction Ledger</title>
-    <link rel="stylesheet" href="{{ asset('auction-ledger-assets/ledger.css') }}">
-    <script src="{{ asset('auction-ledger-assets/ledger.js') }}" defer></script>
+    <link rel="stylesheet" href="{{ asset('auction-ledger-assets/ledger.css') }}?v={{ filemtime(public_path('auction-ledger-assets/ledger.css')) }}">
+    <script src="{{ asset('auction-ledger-assets/ledger.js') }}?v={{ filemtime(public_path('auction-ledger-assets/ledger.js')) }}" defer></script>
 </head>
 <body>
 <main>
