@@ -95,3 +95,38 @@ if ('showPopover' in HTMLElement.prototype) {
     window.addEventListener('resize', close);
     window.addEventListener('scroll', close, { passive: true });
 }
+
+document.querySelectorAll('[data-recipe-filters]').forEach((filter) => {
+    const groups = [...filter.closest('section').querySelectorAll('[data-recipe-group]')];
+    const search = filter.querySelector('input[type=search]');
+    const status = filter.querySelector('select');
+    const result = filter.querySelector('[role=status]');
+    const entries = groups.map((group) => ({
+        group,
+        cards: [...group.querySelectorAll('[data-recipe-status]')].map((card) => ({
+            card,
+            text: card.textContent.toLowerCase(),
+        })),
+    }));
+
+    filter.hidden = false;
+    filter.addEventListener('input', () => {
+        const query = search.value.trim().toLowerCase();
+        const filtering = Boolean(query || status.value);
+        let matches = 0;
+
+        entries.forEach(({ group, cards }) => {
+            let count = 0;
+            cards.forEach(({ card, text }) => {
+                const match = text.includes(query) && (!status.value || card.dataset.recipeStatus === status.value);
+                card.hidden = !match;
+                if (match) count += 1;
+            });
+            group.hidden = filtering && count === 0;
+            if (filtering && count > 0) group.open = true;
+            matches += count;
+        });
+
+        result.textContent = filtering ? `${matches} matching recipes` : '';
+    });
+});
