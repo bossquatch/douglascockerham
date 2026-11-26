@@ -195,3 +195,14 @@ summary .icon-label { display: inline-flex; vertical-align: middle; }
     color: var(--gold, #f6cc80);
     font-size: .95rem;
 }
+
+.recipe-checklist-table { min-width: 760px; }
+.recipe-checklist-table caption { caption-side: top; text-align: left; padding: 8px 0; }
+.recipe-checklist-table th,
+.recipe-checklist-table td { vertical-align: top; padding: 8px 10px; }
+.recipe-checklist-table tbody tr:nth-child(even) { background: #141924; }
+.recipe-checklist-table tbody th { width: 22%; font-weight: 650; }
+.recipe-checklist-table td:nth-child(2) { white-space: nowrap; }
+.recipe-checklist-table td:nth-child(3) { width: 34%; }
+.recipe-checklist-table small { display: block; margin-top: 3px; font-weight: 400; color: var(--muted); }
+.recipe-material { display: block; }
