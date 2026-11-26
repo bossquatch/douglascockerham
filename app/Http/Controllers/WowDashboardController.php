@@ -88,6 +88,7 @@ class WowDashboardController extends Controller
         $stats = [];
         $characterCapturedAt = null;
         $learned = collect();
+        $knownRecipes = collect();
         if ($character) {
             $characterSnapshot = DB::table('wow_character_snapshots as snapshots')
                 ->join('wow_imports as imports', 'snapshots.import_id', '=', 'imports.id')
@@ -95,8 +96,10 @@ class WowDashboardController extends Controller
                 ->first(['snapshots.stats', 'imports.captured_at']);
             $stats = json_decode($characterSnapshot->stats ?? '{}', true) ?? [];
             $characterCapturedAt = $characterSnapshot?->captured_at;
-            $learned = DB::table('wow_learned_recipes')->where('snapshot_id', $character->id)
-                ->where('profession', 'Leatherworking')->orderBy('name')->pluck('name');
+            $knownRecipes = DB::table('wow_learned_recipes')->where('snapshot_id', $character->id)
+                ->orderBy('name')->get(['profession', 'name'])->groupBy('profession')
+                ->map(fn ($recipes) => $recipes->pluck('name'));
+            $learned = $knownRecipes->get('Leatherworking', collect());
         }
 
         $snapshots = DB::table('wow_auction_prices as prices')->join('wow_imports as imports', 'prices.import_id', '=', 'imports.id')
@@ -249,7 +252,7 @@ class WowDashboardController extends Controller
 
         return response()->view('wow.dashboard', compact(
             'markets', 'market', 'characters', 'character', 'stats', 'characterCapturedAt', 'learned', 'recipeCatalog', 'snapshots', 'snapshot',
-            'tracked', 'prices', 'ranked', 'materials', 'resales', 'cut', 'budgetGold', 'maxBuyout', 'invalidBudget'
+            'tracked', 'prices', 'ranked', 'materials', 'resales', 'cut', 'budgetGold', 'maxBuyout', 'invalidBudget', 'knownRecipes'
         ))->header('Cache-Control', 'private, no-store');
     }
 }
